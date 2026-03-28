@@ -12,10 +12,12 @@ export default function VoiceEnroll({ farmerId, onComplete }) {
   const timerRef = useRef(null)
 
   const MESSAGES = {
-    en: { title: "Voice Setup", desc: "Read this aloud so I can match your speaking style:", sample: "My name is a farmer. I grow tomatoes and maize on my land. The weather has been good this season.", recording: "Recording your voice...", analyzing: "Analyzing your accent...", done: "Voice profile saved!", skip: "Skip" },
-    hi: { title: "आवाज सेटअप", desc: "यह जोर से पढ़ें ताकि मैं आपकी बोलने की शैली से मिला सकूं:", sample: "मेरा नाम एक किसान है। मैं अपनी जमीन पर टमाटर और मक्का उगाता हूं। इस मौसम में मौसम अच्छा रहा है।", recording: "आपकी आवाज रिकॉर्ड हो रही है...", analyzing: "आपकी बोली का विश्लेषण...", done: "आवाज प्रोफाइल सहेजा गया!", skip: "छोड़ें" },
-    sw: { title: "Usanidi wa Sauti", desc: "Soma hii kwa sauti ili niweze kulinganisha na mtindo wako:", sample: "Jina langu ni mkulima. Ninakuza nyanya na mahindi shambani mwangu. Hali ya hewa imekuwa nzuri msimu huu.", recording: "Inarekodi sauti yako...", analyzing: "Inachunguza lafudhi yako...", done: "Wasifu wa sauti umehifadhiwa!", skip: "Ruka" },
-    fr: { title: "Configuration vocale", desc: "Lisez ceci à voix haute:", sample: "Je suis un agriculteur. Je cultive des tomates et du maïs sur ma terre. Le temps a été bon cette saison.", recording: "Enregistrement...", analyzing: "Analyse de votre accent...", done: "Profil vocal enregistré!", skip: "Passer" },
+    en: { title: "Voice Clone Setup", desc: "Read this aloud so I can clone your voice. All future responses will sound like YOU:", sample: "My name is a farmer. I grow tomatoes and maize on my land. The weather has been good this season and I am happy with my crops.", recording: "Recording your voice...", analyzing: "Cloning your voice...", done: "Voice cloned! I'll speak like you now.", skip: "Skip" },
+    gu: { title: "અવાજ ક્લોન સેટઅપ", desc: "આ જોરથી વાંચો જેથી હું તમારો અવાજ કોપી કરી શકું:", sample: "મારું નામ ખેડૂત છે. હું મારી જમીન પર ટામેટા અને મકાઈ ઉગાડું છું. આ સીઝનમાં હવામાન સારું રહ્યું છે અને મારો પાક સારો છે.", recording: "તમારો અવાજ રેકોર્ડ થઈ રહ્યો છે...", analyzing: "તમારો અવાજ ક્લોન થઈ રહ્યો છે...", done: "અવાજ ક્લોન થઈ ગયો! હવે હું તમારા જેવું બોલીશ.", skip: "છોડો" },
+    hi: { title: "आवाज क्लोन सेटअप", desc: "यह जोर से पढ़ें ताकि मैं आपकी आवाज कॉपी कर सकूं:", sample: "मेरा नाम एक किसान है। मैं अपनी जमीन पर टमाटर और मक्का उगाता हूं। इस मौसम में मौसम अच्छा रहा है और फसल बढ़िया है।", recording: "आपकी आवाज रिकॉर्ड हो रही है...", analyzing: "आपकी आवाज क्लोन हो रही है...", done: "आवाज क्लोन हो गई! अब मैं आपकी आवाज में बोलूंगा।", skip: "छोड़ें" },
+    sw: { title: "Nakili ya Sauti", desc: "Soma hii kwa sauti ili niweze kunakili sauti yako:", sample: "Jina langu ni mkulima. Ninakuza nyanya na mahindi shambani mwangu. Hali ya hewa imekuwa nzuri msimu huu na mazao yangu ni mazuri.", recording: "Inarekodi sauti yako...", analyzing: "Inanakili sauti yako...", done: "Sauti imenakiliwa! Nitaongea kama wewe sasa.", skip: "Ruka" },
+    bn: { title: "ভয়েস ক্লোন সেটআপ", desc: "এটা জোরে পড়ুন যাতে আমি আপনার গলা কপি করতে পারি:", sample: "আমার নাম একজন কৃষক। আমি আমার জমিতে টমেটো আর ভুট্টা চাষ করি। এই মৌসুমে আবহাওয়া ভালো ছিল এবং ফসল ভালো হয়েছে।", recording: "আপনার গলা রেকর্ড হচ্ছে...", analyzing: "আপনার গলা ক্লোন হচ্ছে...", done: "ভয়েস ক্লোন হয়ে গেছে! এখন আপনার গলায় কথা বলব।", skip: "বাদ দিন" },
+    fr: { title: "Clonage vocal", desc: "Lisez ceci à voix haute pour que je puisse cloner votre voix:", sample: "Je suis un agriculteur. Je cultive des tomates et du maïs sur ma terre. Le temps a été bon cette saison et mes récoltes sont bonnes.", recording: "Enregistrement...", analyzing: "Clonage de votre voix...", done: "Voix clonée! Je parlerai comme vous maintenant.", skip: "Passer" },
   }
   const msg = MESSAGES[lang] || MESSAGES.en
 
@@ -37,12 +39,13 @@ export default function VoiceEnroll({ farmerId, onComplete }) {
         formData.append('audio', blob, 'enroll.webm')
 
         try {
-          const res = await fetch(`/api/voice/enroll?farmer_id=${farmerId}`, { method: 'POST', body: formData })
+          // Register for voice cloning (ChatterboxTTS) AND voice profiling
+          const res = await fetch(`/api/voice/clone/register?farmer_id=${farmerId}`, { method: 'POST', body: formData })
           const data = await res.json()
-          if (data.status === 'enrolled') {
-            setProfile(data.profile)
+          if (data.status === 'registered') {
+            setProfile(data.voice_profile)
             setStage('done')
-            setTimeout(() => onComplete?.(data.profile), 2000)
+            setTimeout(() => onComplete?.(data.voice_profile), 2000)
           } else {
             setStage('ready')
           }

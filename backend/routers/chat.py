@@ -23,6 +23,7 @@ from backend.services.harper_memory import (
 from backend.services.weather_engine import get_weather_context_for_ai  # now async
 from backend.services.piper_tts import synthesize as piper_synthesize
 from backend.services.elevenlabs_tts import synthesize as elevenlabs_synthesize
+from backend.services.chatterbox_tts import synthesize as chatterbox_synthesize, get_voice_sample_path
 from backend.services.voice_profile import analyze_audio, get_voice_profile, save_voice_profile
 from backend.database import get_db
 import base64
@@ -191,24 +192,41 @@ async def _process_message(
         summary = f"Discussed: {message_text[:100]}. Advised: {clean_reply[:100]}"
         await store_conversation_summary(farmer_id, conversation_id, summary)
 
-    # Step 9: Generate TTS — ElevenLabs (premium) → Piper (offline) → browser fallback
+    # Step 9: Generate TTS — 3-tier voice pipeline
+    # Tier 1: ElevenLabs (online, best quality, multilingual)
+    # Tier 2: ChatterboxTTS (offline, CLONES farmer's actual voice)
+    # Tier 3: Piper (offline, fast, accent-matched)
     audio_b64 = None
     audio_format = "mp3"
+    tts_engine = "none"
     try:
-        # Try ElevenLabs first (best quality, multilingual, conversational)
+        # Tier 1: ElevenLabs (when online)
         audio_bytes = await elevenlabs_synthesize(clean_reply, language)
         if audio_bytes:
             audio_b64 = base64.b64encode(audio_bytes).decode()
             audio_format = "mp3"
-            logger.info(f"TTS: ElevenLabs ({len(audio_bytes)} bytes)")
+            tts_engine = "elevenlabs"
         else:
-            # Fallback to local Piper (offline, accent-matched)
-            profile = await get_voice_profile(farmer_id)
-            audio_bytes = await piper_synthesize(clean_reply, language, voice_profile=profile)
-            if audio_bytes:
-                audio_b64 = base64.b64encode(audio_bytes).decode()
-                audio_format = "wav"
-                logger.info(f"TTS: Piper fallback ({len(audio_bytes)} bytes)")
+            # Tier 2: ChatterboxTTS (offline voice clone — speaks in farmer's OWN voice)
+            has_voice_sample = get_voice_sample_path(farmer_id) is not None
+            if has_voice_sample:
+                audio_bytes = await chatterbox_synthesize(clean_reply, farmer_id)
+                if audio_bytes:
+                    audio_b64 = base64.b64encode(audio_bytes).decode()
+                    audio_format = "wav"
+                    tts_engine = "chatterbox"
+
+            # Tier 3: Piper (fast offline fallback)
+            if not audio_b64:
+                profile = await get_voice_profile(farmer_id)
+                audio_bytes = await piper_synthesize(clean_reply, language, voice_profile=profile)
+                if audio_bytes:
+                    audio_b64 = base64.b64encode(audio_bytes).decode()
+                    audio_format = "wav"
+                    tts_engine = "piper"
+
+        if tts_engine != "none":
+            logger.info(f"TTS: {tts_engine} ({len(audio_bytes)} bytes)")
     except Exception as e:
         logger.debug(f"TTS failed (will use browser fallback): {e}")
 

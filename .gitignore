@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.env
+__pycache__/
+*.pyc
+*.db
+.vite/
+venv/
+.DS_Store
+.claude/
+
+# Voice models (downloaded by setup.sh — too large for git)
+backend/models/piper_voices/*.onnx
+backend/models/piper_voices/*.onnx.json
+
+# Cache
+backend/data/weather_cache.json
+backend/data/cache/
+
+# Training output
+backend/models/training/training_data.json

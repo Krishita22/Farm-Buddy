@@ -1,0 +1,52 @@
+{
+  "en": {
+    "voice": "en_US-lessac-medium",
+    "description": "English (US)",
+    "speech_code": "en-US"
+  },
+  "sw": {
+    "voice": "sw_CD-lanfrica-medium",
+    "description": "Kiswahili",
+    "speech_code": "sw-KE"
+  },
+  "hi": {
+    "voice": "hi_IN-rohan-medium",
+    "description": "Hindi",
+    "speech_code": "hi-IN"
+  },
+  "bn": {
+    "voice": null,
+    "description": "Bengali (browser TTS fallback)",
+    "speech_code": "bn-BD"
+  },
+  "fr": {
+    "voice": "fr_FR-siwis-medium",
+    "description": "French",
+    "speech_code": "fr-FR"
+  },
+  "es": {
+    "voice": "es_ES-sharvard-medium",
+    "description": "Spanish",
+    "speech_code": "es-ES"
+  },
+  "pt": {
+    "voice": "pt_BR-faber-medium",
+    "description": "Portuguese (Brazil)",
+    "speech_code": "pt-BR"
+  },
+  "yo": {
+    "voice": null,
+    "description": "Yoruba (browser TTS fallback)",
+    "speech_code": "yo-NG"
+  },
+  "gu": {
+    "voice": "hi_IN-rohan-medium",
+    "description": "Gujarati (uses Hindi voice model — mutually intelligible)",
+    "speech_code": "gu-IN"
+  },
+  "ar": {
+    "voice": null,
+    "description": "Arabic (browser TTS fallback)",
+    "speech_code": "ar-SA"
+  }
+}

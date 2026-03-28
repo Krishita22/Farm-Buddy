@@ -1,0 +1,98 @@
+{
+  "regions": {
+    "kenya_machakos": {
+      "name": "Machakos County, Kenya",
+      "elevation_m": 1600,
+      "monthly_normals": {
+        "january": {"avg_temp_high_c": 27.5, "avg_temp_low_c": 14.2, "avg_rainfall_mm": 58, "rainfall_probability": 0.35, "avg_humidity_pct": 55, "avg_wind_kph": 14, "farming_note": "Dry season ending. Prepare land for long rains."},
+        "february": {"avg_temp_high_c": 28.3, "avg_temp_low_c": 14.5, "avg_rainfall_mm": 45, "rainfall_probability": 0.30, "avg_humidity_pct": 52, "avg_wind_kph": 15, "farming_note": "Hottest month. Final land prep before March rains."},
+        "march": {"avg_temp_high_c": 27.8, "avg_temp_low_c": 15.1, "avg_rainfall_mm": 120, "rainfall_probability": 0.55, "avg_humidity_pct": 65, "avg_wind_kph": 11, "farming_note": "Long rains begin! Plant maize, beans, vegetables."},
+        "april": {"avg_temp_high_c": 25.6, "avg_temp_low_c": 15.4, "avg_rainfall_mm": 210, "rainfall_probability": 0.75, "avg_humidity_pct": 78, "avg_wind_kph": 9, "farming_note": "Peak rainfall. Watch for waterlogging."},
+        "may": {"avg_temp_high_c": 24.8, "avg_temp_low_c": 14.8, "avg_rainfall_mm": 155, "rainfall_probability": 0.65, "avg_humidity_pct": 75, "avg_wind_kph": 10, "farming_note": "Rains taper. Watch for fall armyworm."},
+        "june": {"avg_temp_high_c": 24.1, "avg_temp_low_c": 13.2, "avg_rainfall_mm": 35, "rainfall_probability": 0.20, "avg_humidity_pct": 60, "avg_wind_kph": 13, "farming_note": "Cool dry season. Harvest long-rains maize."},
+        "july": {"avg_temp_high_c": 23.2, "avg_temp_low_c": 12.4, "avg_rainfall_mm": 20, "rainfall_probability": 0.15, "avg_humidity_pct": 58, "avg_wind_kph": 14, "farming_note": "Coldest month. Good for bean harvest."},
+        "august": {"avg_temp_high_c": 23.8, "avg_temp_low_c": 12.8, "avg_rainfall_mm": 22, "rainfall_probability": 0.15, "avg_humidity_pct": 57, "avg_wind_kph": 15, "farming_note": "Dry and windy. Apply manure."},
+        "september": {"avg_temp_high_c": 25.8, "avg_temp_low_c": 13.5, "avg_rainfall_mm": 28, "rainfall_probability": 0.20, "avg_humidity_pct": 55, "avg_wind_kph": 14, "farming_note": "Start nursery beds for short rains."},
+        "october": {"avg_temp_high_c": 26.5, "avg_temp_low_c": 14.8, "avg_rainfall_mm": 85, "rainfall_probability": 0.45, "avg_humidity_pct": 65, "avg_wind_kph": 11, "farming_note": "Short rains begin! Plant beans, peas."},
+        "november": {"avg_temp_high_c": 25.2, "avg_temp_low_c": 15.0, "avg_rainfall_mm": 165, "rainfall_probability": 0.65, "avg_humidity_pct": 75, "avg_wind_kph": 10, "farming_note": "Peak short rains. Watch for late blight."},
+        "december": {"avg_temp_high_c": 26.0, "avg_temp_low_c": 14.5, "avg_rainfall_mm": 110, "rainfall_probability": 0.50, "avg_humidity_pct": 68, "avg_wind_kph": 11, "farming_note": "Short rains ending. Harvest beans."}
+      }
+    },
+
+    "india_gujarat": {
+      "name": "Gujarat, India",
+      "elevation_m": 50,
+      "monthly_normals": {
+        "january": {"avg_temp_high_c": 29.0, "avg_temp_low_c": 12.5, "avg_rainfall_mm": 2, "rainfall_probability": 0.05, "avg_humidity_pct": 35, "avg_wind_kph": 10, "farming_note": "Rabi harvest season. Wheat, cumin ready. Market prices usually good."},
+        "february": {"avg_temp_high_c": 31.5, "avg_temp_low_c": 14.8, "avg_rainfall_mm": 2, "rainfall_probability": 0.05, "avg_humidity_pct": 30, "avg_wind_kph": 12, "farming_note": "Mustard harvest. Start preparing summer crop land."},
+        "march": {"avg_temp_high_c": 36.0, "avg_temp_low_c": 19.5, "avg_rainfall_mm": 3, "rainfall_probability": 0.05, "avg_humidity_pct": 28, "avg_wind_kph": 14, "farming_note": "Temperature rising fast. Summer vegetables like watermelon, okra."},
+        "april": {"avg_temp_high_c": 39.5, "avg_temp_low_c": 23.5, "avg_rainfall_mm": 5, "rainfall_probability": 0.08, "avg_humidity_pct": 30, "avg_wind_kph": 16, "farming_note": "Peak heat. Irrigate frequently. Mango flowering season."},
+        "may": {"avg_temp_high_c": 41.0, "avg_temp_low_c": 26.0, "avg_rainfall_mm": 10, "rainfall_probability": 0.10, "avg_humidity_pct": 40, "avg_wind_kph": 18, "farming_note": "Hottest month. Prepare for monsoon. Buy kharif seeds."},
+        "june": {"avg_temp_high_c": 37.0, "avg_temp_low_c": 26.5, "avg_rainfall_mm": 100, "rainfall_probability": 0.45, "avg_humidity_pct": 65, "avg_wind_kph": 20, "farming_note": "Monsoon starts! Plant cotton, groundnut, bajra, castor."},
+        "july": {"avg_temp_high_c": 33.5, "avg_temp_low_c": 25.5, "avg_rainfall_mm": 250, "rainfall_probability": 0.75, "avg_humidity_pct": 80, "avg_wind_kph": 15, "farming_note": "Peak monsoon. Watch for waterlogging. Bollworm alert for cotton."},
+        "august": {"avg_temp_high_c": 32.5, "avg_temp_low_c": 24.8, "avg_rainfall_mm": 200, "rainfall_probability": 0.70, "avg_humidity_pct": 82, "avg_wind_kph": 13, "farming_note": "Heavy rains continue. Weeding critical for groundnut."},
+        "september": {"avg_temp_high_c": 33.5, "avg_temp_low_c": 24.0, "avg_rainfall_mm": 120, "rainfall_probability": 0.45, "avg_humidity_pct": 72, "avg_wind_kph": 10, "farming_note": "Monsoon retreating. Cotton picking begins. Watch for pink bollworm."},
+        "october": {"avg_temp_high_c": 35.5, "avg_temp_low_c": 21.5, "avg_rainfall_mm": 25, "rainfall_probability": 0.15, "avg_humidity_pct": 50, "avg_wind_kph": 8, "farming_note": "Kharif harvest. Start rabi sowing — wheat, chickpea, mustard."},
+        "november": {"avg_temp_high_c": 33.0, "avg_temp_low_c": 17.0, "avg_rainfall_mm": 8, "rainfall_probability": 0.08, "avg_humidity_pct": 40, "avg_wind_kph": 8, "farming_note": "Rabi planting. Cumin sowing in Kutch. Cool nights good for wheat."},
+        "december": {"avg_temp_high_c": 30.0, "avg_temp_low_c": 13.0, "avg_rainfall_mm": 3, "rainfall_probability": 0.05, "avg_humidity_pct": 38, "avg_wind_kph": 9, "farming_note": "Coolest month. Wheat, cumin, mustard growing well. Frost risk in North Gujarat."}
+      }
+    },
+
+    "india_up": {
+      "name": "Uttar Pradesh, India",
+      "elevation_m": 120,
+      "monthly_normals": {
+        "january": {"avg_temp_high_c": 21.0, "avg_temp_low_c": 7.0, "avg_rainfall_mm": 20, "rainfall_probability": 0.15, "avg_humidity_pct": 65, "avg_wind_kph": 6, "farming_note": "Wheat growing. Protect potato from frost. Western disturbance may bring rain."},
+        "february": {"avg_temp_high_c": 24.5, "avg_temp_low_c": 9.5, "avg_rainfall_mm": 18, "rainfall_probability": 0.12, "avg_humidity_pct": 55, "avg_wind_kph": 8, "farming_note": "Mustard flowering. Wheat irrigation critical."},
+        "march": {"avg_temp_high_c": 31.0, "avg_temp_low_c": 15.0, "avg_rainfall_mm": 12, "rainfall_probability": 0.10, "avg_humidity_pct": 40, "avg_wind_kph": 10, "farming_note": "Wheat harvest. Sugarcane planting. Temperature rising."},
+        "april": {"avg_temp_high_c": 38.0, "avg_temp_low_c": 21.5, "avg_rainfall_mm": 8, "rainfall_probability": 0.08, "avg_humidity_pct": 30, "avg_wind_kph": 14, "farming_note": "Hot season. Wheat threshing. Zaid crops — watermelon, cucumber."},
+        "may": {"avg_temp_high_c": 42.0, "avg_temp_low_c": 26.0, "avg_rainfall_mm": 15, "rainfall_probability": 0.12, "avg_humidity_pct": 32, "avg_wind_kph": 16, "farming_note": "Extreme heat. Pre-monsoon thunderstorms possible. Prepare kharif seeds."},
+        "june": {"avg_temp_high_c": 40.0, "avg_temp_low_c": 28.0, "avg_rainfall_mm": 90, "rainfall_probability": 0.50, "avg_humidity_pct": 55, "avg_wind_kph": 14, "farming_note": "Monsoon arrives! Plant rice nurseries. Sugarcane earthing up."},
+        "july": {"avg_temp_high_c": 35.0, "avg_temp_low_c": 27.0, "avg_rainfall_mm": 280, "rainfall_probability": 0.80, "avg_humidity_pct": 82, "avg_wind_kph": 10, "farming_note": "Peak monsoon. Rice transplanting. Flood risk in eastern UP."},
+        "august": {"avg_temp_high_c": 34.0, "avg_temp_low_c": 26.0, "avg_rainfall_mm": 250, "rainfall_probability": 0.78, "avg_humidity_pct": 84, "avg_wind_kph": 9, "farming_note": "Rice growing. Maize tasselling. Watch for stem borer."},
+        "september": {"avg_temp_high_c": 34.5, "avg_temp_low_c": 24.5, "avg_rainfall_mm": 180, "rainfall_probability": 0.60, "avg_humidity_pct": 76, "avg_wind_kph": 8, "farming_note": "Monsoon retreating. Sugarcane growing. Prepare rabi fields."},
+        "october": {"avg_temp_high_c": 33.5, "avg_temp_low_c": 19.5, "avg_rainfall_mm": 30, "rainfall_probability": 0.15, "avg_humidity_pct": 55, "avg_wind_kph": 6, "farming_note": "Rice harvest. Wheat sowing begins. Potato planting."},
+        "november": {"avg_temp_high_c": 29.0, "avg_temp_low_c": 12.0, "avg_rainfall_mm": 5, "rainfall_probability": 0.05, "avg_humidity_pct": 52, "avg_wind_kph": 5, "farming_note": "Wheat and mustard sowing. Cool weather, good growing conditions."},
+        "december": {"avg_temp_high_c": 23.5, "avg_temp_low_c": 7.5, "avg_rainfall_mm": 8, "rainfall_probability": 0.08, "avg_humidity_pct": 62, "avg_wind_kph": 5, "farming_note": "Cold wave risk. Potato harvest. Protect wheat from frost."}
+      }
+    },
+
+    "bangladesh_dhaka": {
+      "name": "Dhaka Division, Bangladesh",
+      "elevation_m": 8,
+      "monthly_normals": {
+        "january": {"avg_temp_high_c": 25.5, "avg_temp_low_c": 12.5, "avg_rainfall_mm": 8, "rainfall_probability": 0.08, "avg_humidity_pct": 65, "avg_wind_kph": 5, "farming_note": "Boro rice transplanting. Rabi vegetables growing. Cold nights."},
+        "february": {"avg_temp_high_c": 28.5, "avg_temp_low_c": 15.0, "avg_rainfall_mm": 25, "rainfall_probability": 0.12, "avg_humidity_pct": 55, "avg_wind_kph": 7, "farming_note": "Mustard harvest. Boro rice growing. Wheat heading."},
+        "march": {"avg_temp_high_c": 32.5, "avg_temp_low_c": 20.0, "avg_rainfall_mm": 60, "rainfall_probability": 0.25, "avg_humidity_pct": 55, "avg_wind_kph": 10, "farming_note": "Nor'wester storms. Mango flowering. Wheat harvest."},
+        "april": {"avg_temp_high_c": 34.0, "avg_temp_low_c": 23.5, "avg_rainfall_mm": 150, "rainfall_probability": 0.50, "avg_humidity_pct": 68, "avg_wind_kph": 12, "farming_note": "Pre-monsoon. Aus rice planting. Jute sowing. Boro harvest."},
+        "may": {"avg_temp_high_c": 33.5, "avg_temp_low_c": 24.5, "avg_rainfall_mm": 260, "rainfall_probability": 0.65, "avg_humidity_pct": 76, "avg_wind_kph": 14, "farming_note": "Heavy pre-monsoon rain. Jute growing. Aus rice transplanting."},
+        "june": {"avg_temp_high_c": 32.5, "avg_temp_low_c": 25.5, "avg_rainfall_mm": 340, "rainfall_probability": 0.80, "avg_humidity_pct": 84, "avg_wind_kph": 12, "farming_note": "Full monsoon. Aman rice nursery. Flood risk. Jute growing fast."},
+        "july": {"avg_temp_high_c": 32.0, "avg_temp_low_c": 26.0, "avg_rainfall_mm": 370, "rainfall_probability": 0.85, "avg_humidity_pct": 86, "avg_wind_kph": 10, "farming_note": "Peak monsoon. Aman rice transplanting. Major flood risk."},
+        "august": {"avg_temp_high_c": 32.0, "avg_temp_low_c": 26.0, "avg_rainfall_mm": 320, "rainfall_probability": 0.82, "avg_humidity_pct": 85, "avg_wind_kph": 9, "farming_note": "Monsoon continues. Jute harvest. Aus rice harvest."},
+        "september": {"avg_temp_high_c": 32.0, "avg_temp_low_c": 25.5, "avg_rainfall_mm": 250, "rainfall_probability": 0.70, "avg_humidity_pct": 82, "avg_wind_kph": 7, "farming_note": "Monsoon retreating. Aman rice growing. Late vegetables."},
+        "october": {"avg_temp_high_c": 31.5, "avg_temp_low_c": 23.0, "avg_rainfall_mm": 170, "rainfall_probability": 0.45, "avg_humidity_pct": 76, "avg_wind_kph": 5, "farming_note": "Rabi season starts. Plant potato, mustard, lentil. Aman growing."},
+        "november": {"avg_temp_high_c": 29.5, "avg_temp_low_c": 18.0, "avg_rainfall_mm": 35, "rainfall_probability": 0.12, "avg_humidity_pct": 66, "avg_wind_kph": 4, "farming_note": "Aman rice harvest. Rabi crops growing. Cool dry weather."},
+        "december": {"avg_temp_high_c": 26.0, "avg_temp_low_c": 13.5, "avg_rainfall_mm": 10, "rainfall_probability": 0.05, "avg_humidity_pct": 68, "avg_wind_kph": 4, "farming_note": "Coolest month. Boro rice nursery. Potato harvest begins."}
+      }
+    },
+
+    "nigeria_oyo": {
+      "name": "Oyo State, Nigeria",
+      "elevation_m": 300,
+      "monthly_normals": {
+        "january": {"avg_temp_high_c": 33.0, "avg_temp_low_c": 21.0, "avg_rainfall_mm": 8, "rainfall_probability": 0.08, "avg_humidity_pct": 45, "avg_wind_kph": 10, "farming_note": "Dry season. Land preparation. Bush clearing."},
+        "february": {"avg_temp_high_c": 34.5, "avg_temp_low_c": 22.5, "avg_rainfall_mm": 20, "rainfall_probability": 0.12, "avg_humidity_pct": 50, "avg_wind_kph": 10, "farming_note": "Dry season ending. Prepare yam mounds and cassava cuttings."},
+        "march": {"avg_temp_high_c": 34.0, "avg_temp_low_c": 23.0, "avg_rainfall_mm": 65, "rainfall_probability": 0.35, "avg_humidity_pct": 62, "avg_wind_kph": 9, "farming_note": "Early rains begin. Plant maize, yam, cassava."},
+        "april": {"avg_temp_high_c": 33.0, "avg_temp_low_c": 23.0, "avg_rainfall_mm": 120, "rainfall_probability": 0.55, "avg_humidity_pct": 72, "avg_wind_kph": 8, "farming_note": "Rains established. Cocoa maintenance. Maize growing."},
+        "may": {"avg_temp_high_c": 32.0, "avg_temp_low_c": 23.0, "avg_rainfall_mm": 150, "rainfall_probability": 0.65, "avg_humidity_pct": 78, "avg_wind_kph": 8, "farming_note": "Good rains. Weeding critical. Plant cowpea, pepper, tomato."},
+        "june": {"avg_temp_high_c": 30.5, "avg_temp_low_c": 22.5, "avg_rainfall_mm": 180, "rainfall_probability": 0.72, "avg_humidity_pct": 82, "avg_wind_kph": 8, "farming_note": "Peak early rains. First maize harvest possible."},
+        "july": {"avg_temp_high_c": 29.0, "avg_temp_low_c": 22.0, "avg_rainfall_mm": 145, "rainfall_probability": 0.60, "avg_humidity_pct": 83, "avg_wind_kph": 7, "farming_note": "August break coming. Harvest early maize. Cassava weeding."},
+        "august": {"avg_temp_high_c": 28.5, "avg_temp_low_c": 22.0, "avg_rainfall_mm": 100, "rainfall_probability": 0.50, "avg_humidity_pct": 82, "avg_wind_kph": 7, "farming_note": "August break (dry spell). Plant late season maize, cowpea."},
+        "september": {"avg_temp_high_c": 30.0, "avg_temp_low_c": 22.0, "avg_rainfall_mm": 175, "rainfall_probability": 0.68, "avg_humidity_pct": 80, "avg_wind_kph": 7, "farming_note": "Late rains return. Cocoa pod development. Yam harvest starts."},
+        "october": {"avg_temp_high_c": 31.5, "avg_temp_low_c": 22.5, "avg_rainfall_mm": 140, "rainfall_probability": 0.50, "avg_humidity_pct": 75, "avg_wind_kph": 7, "farming_note": "Late rains ending. Cassava harvest. Cocoa harvest begins."},
+        "november": {"avg_temp_high_c": 32.5, "avg_temp_low_c": 22.0, "avg_rainfall_mm": 30, "rainfall_probability": 0.15, "avg_humidity_pct": 62, "avg_wind_kph": 8, "farming_note": "Dry season starts. Yam storage. Cocoa drying."},
+        "december": {"avg_temp_high_c": 32.5, "avg_temp_low_c": 21.0, "avg_rainfall_mm": 10, "rainfall_probability": 0.05, "avg_humidity_pct": 48, "avg_wind_kph": 10, "farming_note": "Harmattan season. Dry and dusty. Process and sell stored crops."}
+      }
+    }
+  }
+}

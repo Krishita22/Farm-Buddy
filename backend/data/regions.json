@@ -1,0 +1,176 @@
+{
+  "regions": {
+    "kenya_machakos": {
+      "name": "Machakos County",
+      "country": "Kenya",
+      "country_code": "KE",
+      "center_lat": -1.52,
+      "center_lng": 37.26,
+      "climate": "Semi-arid to sub-humid",
+      "rainfall_mm_annual": 800,
+      "currency": "KES",
+      "main_crops": ["maize", "beans", "tomato", "onion", "mango", "cabbage"],
+      "languages": ["sw", "en"],
+      "growing_seasons": {
+        "long_rains": {"start": "March", "end": "May"},
+        "short_rains": {"start": "October", "end": "December"}
+      },
+      "districts": [
+        {"name": "Machakos Town", "lat": -1.52, "lng": 37.26},
+        {"name": "Kangundo", "lat": -1.35, "lng": 37.30},
+        {"name": "Mwala", "lat": -1.55, "lng": 37.45},
+        {"name": "Yatta", "lat": -1.30, "lng": 37.50},
+        {"name": "Masii", "lat": -1.62, "lng": 37.35}
+      ]
+    },
+
+    "india_gujarat": {
+      "name": "Gujarat",
+      "country": "India",
+      "country_code": "IN",
+      "center_lat": 22.31,
+      "center_lng": 72.13,
+      "climate": "Semi-arid to arid",
+      "rainfall_mm_annual": 800,
+      "currency": "INR",
+      "main_crops": ["cotton", "groundnut", "wheat", "bajra", "castor", "cumin", "mustard", "onion", "tomato", "mango"],
+      "languages": ["gu", "hi"],
+      "growing_seasons": {
+        "kharif": {"start": "June", "end": "October", "description": "Monsoon season — cotton, groundnut, bajra, castor"},
+        "rabi": {"start": "November", "end": "March", "description": "Winter season — wheat, mustard, cumin, chickpea"},
+        "summer": {"start": "March", "end": "June", "description": "Summer — watermelon, muskmelon, vegetables"}
+      },
+      "districts": [
+        {"name": "Ahmedabad", "lat": 23.02, "lng": 72.57},
+        {"name": "Anand", "lat": 22.56, "lng": 72.93},
+        {"name": "Junagadh", "lat": 21.52, "lng": 70.46},
+        {"name": "Rajkot", "lat": 22.30, "lng": 70.78},
+        {"name": "Surat", "lat": 21.17, "lng": 72.83},
+        {"name": "Kutch", "lat": 23.73, "lng": 69.86},
+        {"name": "Mehsana", "lat": 23.59, "lng": 72.38},
+        {"name": "Sabarkantha", "lat": 23.63, "lng": 73.05}
+      ]
+    },
+
+    "india_up": {
+      "name": "Uttar Pradesh",
+      "country": "India",
+      "country_code": "IN",
+      "center_lat": 26.85,
+      "center_lng": 80.91,
+      "climate": "Subtropical humid",
+      "rainfall_mm_annual": 1000,
+      "currency": "INR",
+      "main_crops": ["wheat", "rice", "sugarcane", "potato", "mustard", "maize", "tomato", "onion"],
+      "languages": ["hi"],
+      "growing_seasons": {
+        "kharif": {"start": "June", "end": "October"},
+        "rabi": {"start": "November", "end": "March"},
+        "zaid": {"start": "March", "end": "June"}
+      },
+      "districts": [
+        {"name": "Lucknow", "lat": 26.85, "lng": 80.95},
+        {"name": "Varanasi", "lat": 25.32, "lng": 82.99},
+        {"name": "Agra", "lat": 27.18, "lng": 78.02},
+        {"name": "Meerut", "lat": 28.98, "lng": 77.71},
+        {"name": "Gorakhpur", "lat": 26.76, "lng": 83.37}
+      ]
+    },
+
+    "india_maharashtra": {
+      "name": "Maharashtra",
+      "country": "India",
+      "country_code": "IN",
+      "center_lat": 19.08,
+      "center_lng": 75.71,
+      "climate": "Tropical wet-dry",
+      "rainfall_mm_annual": 1200,
+      "currency": "INR",
+      "main_crops": ["soybean", "cotton", "sugarcane", "onion", "grape", "pomegranate", "rice", "wheat", "tomato"],
+      "languages": ["hi", "mr"],
+      "growing_seasons": {
+        "kharif": {"start": "June", "end": "October"},
+        "rabi": {"start": "November", "end": "March"}
+      },
+      "districts": [
+        {"name": "Pune", "lat": 18.52, "lng": 73.86},
+        {"name": "Nashik", "lat": 19.99, "lng": 73.78},
+        {"name": "Nagpur", "lat": 21.15, "lng": 79.09},
+        {"name": "Kolhapur", "lat": 16.70, "lng": 74.24},
+        {"name": "Solapur", "lat": 17.68, "lng": 75.91}
+      ]
+    },
+
+    "bangladesh_dhaka": {
+      "name": "Dhaka Division",
+      "country": "Bangladesh",
+      "country_code": "BD",
+      "center_lat": 23.81,
+      "center_lng": 90.41,
+      "climate": "Tropical monsoon",
+      "rainfall_mm_annual": 2000,
+      "currency": "BDT",
+      "main_crops": ["rice", "jute", "wheat", "potato", "vegetables", "mustard", "lentil"],
+      "languages": ["bn"],
+      "growing_seasons": {
+        "aus": {"start": "April", "end": "August", "description": "Pre-monsoon rice"},
+        "aman": {"start": "July", "end": "December", "description": "Monsoon rice (main crop)"},
+        "boro": {"start": "December", "end": "May", "description": "Dry-season irrigated rice"},
+        "rabi": {"start": "October", "end": "March", "description": "Winter vegetables, wheat, mustard"}
+      },
+      "districts": [
+        {"name": "Dhaka", "lat": 23.81, "lng": 90.41},
+        {"name": "Mymensingh", "lat": 24.75, "lng": 90.41},
+        {"name": "Tangail", "lat": 24.25, "lng": 89.92},
+        {"name": "Faridpur", "lat": 23.60, "lng": 89.84},
+        {"name": "Manikganj", "lat": 23.86, "lng": 90.00}
+      ]
+    },
+
+    "nigeria_oyo": {
+      "name": "Oyo State",
+      "country": "Nigeria",
+      "country_code": "NG",
+      "center_lat": 7.85,
+      "center_lng": 3.93,
+      "climate": "Tropical savanna",
+      "rainfall_mm_annual": 1300,
+      "currency": "NGN",
+      "main_crops": ["cassava", "yam", "maize", "cocoa", "plantain", "cowpea", "tomato", "pepper"],
+      "languages": ["yo", "en"],
+      "growing_seasons": {
+        "early_rains": {"start": "March", "end": "July"},
+        "late_rains": {"start": "August", "end": "November"},
+        "dry_season": {"start": "December", "end": "February"}
+      },
+      "districts": [
+        {"name": "Ibadan", "lat": 7.38, "lng": 3.94},
+        {"name": "Ogbomoso", "lat": 8.13, "lng": 4.25},
+        {"name": "Oyo", "lat": 7.84, "lng": 3.93},
+        {"name": "Iseyin", "lat": 7.97, "lng": 3.60}
+      ]
+    },
+
+    "senegal_thies": {
+      "name": "Thiès Region",
+      "country": "Senegal",
+      "country_code": "SN",
+      "center_lat": 14.79,
+      "center_lng": -16.93,
+      "climate": "Sahelian semi-arid",
+      "rainfall_mm_annual": 500,
+      "currency": "XOF",
+      "main_crops": ["groundnut", "millet", "sorghum", "cowpea", "watermelon", "onion", "tomato"],
+      "languages": ["fr"],
+      "growing_seasons": {
+        "rainy": {"start": "July", "end": "October"},
+        "dry": {"start": "November", "end": "June"}
+      },
+      "districts": [
+        {"name": "Thiès", "lat": 14.79, "lng": -16.93},
+        {"name": "Mbour", "lat": 14.42, "lng": -16.97},
+        {"name": "Tivaouane", "lat": 14.95, "lng": -16.82}
+      ]
+    }
+  }
+}

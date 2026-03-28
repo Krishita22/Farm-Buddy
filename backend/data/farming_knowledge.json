@@ -1,0 +1,60 @@
+{
+  "diseases": {
+    "fall_armyworm": {
+      "symptoms": "Small holes in leaves, sawdust-like frass, caterpillars inside whorl",
+      "crops": ["maize", "sorghum", "rice"],
+      "treatment": "Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active.",
+      "prevention": "Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+    },
+    "late_blight": {
+      "symptoms": "Water-soaked lesions on leaves turning brown/black, white mold on undersides in humid weather, fruit rot",
+      "crops": ["tomato", "potato"],
+      "treatment": "Apply mancozeb or copper-based fungicide every 7 days. Remove and burn affected leaves. Ensure good air circulation.",
+      "prevention": "Use resistant varieties, avoid overhead irrigation, stake plants, apply preventive copper spray"
+    },
+    "bacterial_wilt": {
+      "symptoms": "Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut",
+      "crops": ["tomato", "potato", "beans", "pepper"],
+      "treatment": "No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons.",
+      "prevention": "Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+    },
+    "northern_leaf_blight": {
+      "symptoms": "Long elliptical gray-green to tan lesions on leaves, starting from lower leaves",
+      "crops": ["maize"],
+      "treatment": "Apply mancozeb or azoxystrobin fungicide. Remove heavily infected lower leaves.",
+      "prevention": "Plant resistant hybrids, rotate crops, plow under crop residue"
+    },
+    "rust": {
+      "symptoms": "Small orange-brown pustules on leaves and stems, powdery spores when touched",
+      "crops": ["wheat", "beans"],
+      "treatment": "Apply propiconazole or tebuconazole fungicide at first sign. Repeat after 14 days if needed.",
+      "prevention": "Plant resistant varieties, avoid dense planting, remove volunteer plants"
+    },
+    "powdery_mildew": {
+      "symptoms": "White powdery coating on leaves, stunted growth, leaf curling",
+      "crops": ["cabbage", "spinach", "onion", "squash"],
+      "treatment": "Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective.",
+      "prevention": "Good spacing, avoid overhead watering, plant in full sun"
+    },
+    "aphid_infestation": {
+      "symptoms": "Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold",
+      "crops": ["cabbage", "beans", "tomato", "pepper"],
+      "treatment": "Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid.",
+      "prevention": "Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+    }
+  },
+  "soil_management": {
+    "clay": "Improve drainage with organic matter. Add gypsum to break up heavy clay. Avoid working when wet. Good for rice and wheat.",
+    "loam": "Ideal soil. Maintain with regular compost. Good for most crops. Apply mulch to retain moisture.",
+    "sandy": "Add compost and manure to improve water retention. Irrigate frequently in small amounts. Good for root crops like carrots and onions.",
+    "laterite": "Often low in nutrients. Add lime to correct pH. Heavy compost needed. Good for cashew and mango trees.",
+    "black_cotton": "Very fertile but cracks when dry. Add mulch. Excellent for cotton, sorghum, and sunflower."
+  },
+  "general_tips": {
+    "composting": "Mix green materials (fresh leaves, kitchen scraps) with brown materials (dry leaves, straw) in 1:3 ratio. Turn every 2 weeks. Ready in 2-3 months.",
+    "water_management": "Water early morning or late evening to reduce evaporation. Drip irrigation saves 50% water compared to flood irrigation.",
+    "pest_scouting": "Check fields twice weekly. Look under leaves and inside plant whorls. Early detection saves 80% of treatment cost.",
+    "seed_selection": "Use certified seeds from registered suppliers. Save seeds only from healthy, high-yielding plants. Treat seeds with fungicide before planting.",
+    "market_timing": "Prices peak when supply is low — typically just before harvest season. Consider staggered planting for continuous supply."
+  }
+}

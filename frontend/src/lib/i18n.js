@@ -1,11 +1,27 @@
 const translations = {
   en: {
     // App
-    appName: "FarmAgent",
+    appName: "Farm Buddy",
     appTagline: "Your Personal Farming AI",
     offline: "Offline",
     online: "Online",
     liveData: "Live Data",
+
+    // Onboarding
+    obChooseLang: "Choose Your Language",
+    obLangDesc: "I'll speak to you in this language",
+    obChooseRegion: "Where's Your Farm?",
+    obRegionDesc: "I'll give you local weather, prices, and advice",
+    obCreateAccount: "Create Account",
+    obWelcomeBack: "Welcome Back",
+    obSignup: "Sign Up",
+    obLogin: "Log In",
+    obName: "Your name",
+    obUsername: "Username",
+    obPassword: "Password",
+    obNext: "Next",
+    obBack: "Back",
+    obOfflineNote: "Works offline · No data leaves your device",
 
     // Nav
     navChat: "Chat",
@@ -83,10 +99,11 @@ const translations = {
   },
 
   sw: {
-    appName: "FarmAgent",
+    appName: "Farm Buddy",
     appTagline: "Mshauri Wako wa Kilimo",
     offline: "Nje ya mtandao",
     online: "Mtandaoni",
+    obChooseLang: "Chagua Lugha Yako", obLangDesc: "Nitaongea nawe kwa lugha hii", obChooseRegion: "Shamba Lako Liko Wapi?", obRegionDesc: "Nitakupa hali ya hewa na bei za soko", obCreateAccount: "Fungua Akaunti", obWelcomeBack: "Karibu Tena", obSignup: "Jisajili", obLogin: "Ingia", obName: "Jina lako", obUsername: "Jina la mtumiaji", obPassword: "Nenosiri", obNext: "Endelea", obBack: "Rudi", obOfflineNote: "Inafanya kazi bila mtandao",
     liveData: "Data Hai",
     navChat: "Mazungumzo",
     navDashboard: "Dashibodi",
@@ -151,9 +168,10 @@ const translations = {
   },
 
   hi: {
-    appName: "FarmAgent",
+    appName: "Farm Buddy",
     appTagline: "आपका निजी कृषि AI सलाहकार",
     offline: "ऑफलाइन",
+    obChooseLang: "अपनी भाषा चुनें", obLangDesc: "मैं इसी भाषा में बात करूंगा", obChooseRegion: "आपका खेत कहां है?", obRegionDesc: "मैं स्थानीय मौसम और भाव बताऊंगा", obCreateAccount: "खाता बनाएं", obWelcomeBack: "वापस आपका स्वागत", obSignup: "नया खाता", obLogin: "लॉग इन", obName: "आपका नाम", obUsername: "यूजरनेम", obPassword: "पासवर्ड", obNext: "आगे", obBack: "पीछे", obOfflineNote: "बिना इंटरनेट काम करता है",
     online: "ऑनलाइन",
     liveData: "लाइव डेटा",
     navChat: "चैट",
@@ -219,10 +237,11 @@ const translations = {
   },
 
   fr: {
-    appName: "FarmAgent",
+    appName: "Farm Buddy",
     appTagline: "Votre conseiller agricole IA",
     offline: "Hors ligne",
     online: "En ligne",
+    obChooseLang: "Choisissez votre langue", obLangDesc: "Je vous parlerai dans cette langue", obChooseRegion: "Où est votre ferme?", obRegionDesc: "Météo locale, prix et conseils", obCreateAccount: "Créer un compte", obWelcomeBack: "Content de vous revoir", obSignup: "S'inscrire", obLogin: "Connexion", obName: "Votre nom", obUsername: "Nom d'utilisateur", obPassword: "Mot de passe", obNext: "Suivant", obBack: "Retour", obOfflineNote: "Fonctionne sans internet",
     liveData: "Données en direct",
     navChat: "Discussion",
     navDashboard: "Tableau de bord",
@@ -292,6 +311,7 @@ const translations = {
     offline: "অফলাইন",
     online: "অনলাইন",
     liveData: "লাইভ ডেটা",
+    obChooseLang: "আপনার ভাষা বাছুন", obLangDesc: "আমি এই ভাষায় কথা বলব", obChooseRegion: "আপনার খামার কোথায়?", obRegionDesc: "স্থানীয় আবহাওয়া ও দাম জানাব", obCreateAccount: "অ্যাকাউন্ট তৈরি করুন", obWelcomeBack: "আবার স্বাগতম", obSignup: "সাইন আপ", obLogin: "লগ ইন", obName: "আপনার নাম", obUsername: "ইউজারনেম", obPassword: "পাসওয়ার্ড", obNext: "পরবর্তী", obBack: "পেছনে", obOfflineNote: "ইন্টারনেট ছাড়া কাজ করে",
     navChat: "চ্যাট",
     navDashboard: "ড্যাশবোর্ড",
     navWeather: "আবহাওয়া",
@@ -491,10 +511,11 @@ const translations = {
   },
 
   gu: {
-    appName: "FarmAgent",
+    appName: "Farm Buddy",
     appTagline: "તમારો અંગત ખેતી AI સલાહકાર",
     offline: "ઓફલાઇન",
     online: "ઓનલાઇન",
+    obChooseLang: "તમારી ભાષા પસંદ કરો", obLangDesc: "હું આ ભાષામાં વાત કરીશ", obChooseRegion: "તમારું ખેતર ક્યાં છે?", obRegionDesc: "સ્થાનિક હવામાન અને ભાવ જાણીશ", obCreateAccount: "ખાતું બનાવો", obWelcomeBack: "પાછા આવ્યા? સ્વાગત છે", obSignup: "નવું ખાતું", obLogin: "લૉગ ઇન", obName: "તમારું નામ", obUsername: "યુઝરનેમ", obPassword: "પાસવર્ડ", obNext: "આગળ", obBack: "પાછળ", obOfflineNote: "ઇન્ટરનેટ વગર ચાલે છે",
     liveData: "લાઇવ ડેટા",
     navChat: "ચેટ",
     navDashboard: "ડેશબોર્ડ",

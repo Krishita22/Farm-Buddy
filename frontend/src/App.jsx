@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { useLanguage } from './lib/LanguageContext'
+import { useUser } from './lib/UserContext'
+import Onboarding from './pages/Onboarding'
 import FarmerChat from './pages/FarmerChat'
 import Dashboard from './pages/Dashboard'
 import Marketplace from './pages/Marketplace'
 import Services from './pages/Services'
-import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, ChevronDown, Download } from 'lucide-react'
+import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, ChevronDown, Download, LogOut } from 'lucide-react'
 
 function LanguagePicker() {
   const { lang, setLanguage, languages } = useLanguage()
@@ -107,13 +109,51 @@ function Nav() {
         <div className="flex items-center gap-2">
           <InstallButton />
           <LanguagePicker />
+          <UserMenu />
         </div>
       </div>
     </nav>
   )
 }
 
+function UserMenu() {
+  const { user, logout, region } = useUser()
+  const [open, setOpen] = useState(false)
+
+  if (!user) return null
+  return (
+    <div className="relative">
+      <button onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm">
+        <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">
+          {user.name?.[0]?.toUpperCase()}
+        </span>
+        <span className="hidden sm:inline text-white/80">{user.name}</span>
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 top-10 bg-white rounded-xl shadow-2xl border z-50 w-52 py-2">
+            <div className="px-3 py-2 border-b border-gray-100">
+              <p className="font-medium text-gray-900 text-sm">{user.name}</p>
+              <p className="text-xs text-gray-400">{region.flag} {region.name}</p>
+            </div>
+            <button onClick={() => { logout(); setOpen(false) }}
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+              <LogOut size={14} /> Log out
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 export default function App() {
+  const { isLoggedIn } = useUser()
+
+  // Show onboarding if not logged in
+  if (!isLoggedIn) return <Onboarding />
   return (
     <BrowserRouter>
       <div className="min-h-screen min-h-dvh flex flex-col bg-gray-50">

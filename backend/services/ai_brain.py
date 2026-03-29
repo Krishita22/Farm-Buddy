@@ -214,6 +214,24 @@ Example style: "يا أخي، ده نقص نيتروجين. حط يوريا ١٠
 Use "يا أخي", colloquial Arabic. Maximum 2-3 sentences.
 Text: {text}
 Arabic:""",
+
+    "fr": """Rewrite this as a Senegalese farmer would say it in French. ONLY output French, nothing else.
+Example style: "Frère, c'est un manque d'azote. Mets de l'urée, 10 kilos par hectare."
+Use "Frère", simple informal French. Maximum 2-3 sentences.
+Text: {text}
+French:""",
+
+    "es": """Rewrite this as a rural Latin American farmer would say it in Spanish. ONLY output Spanish, nothing else.
+Example style: "Hermano, eso es falta de nitrógeno. Échale urea, 10 kilos por hectárea."
+Use "Hermano"/"Compadre", simple rural Spanish. Maximum 2-3 sentences.
+Text: {text}
+Spanish:""",
+
+    "pt": """Rewrite this as a Brazilian small farmer would say it in Portuguese. ONLY output Portuguese, nothing else.
+Example style: "Irmão, isso é falta de nitrogênio. Coloca ureia, 10 quilos por hectare."
+Use "Irmão"/"Mano", simple informal Portuguese. Maximum 2-3 sentences.
+Text: {text}
+Portuguese:""",
 }
 
 LANGUAGE_NAMES = {
@@ -243,19 +261,20 @@ async def get_ai_response(
 
     lang_name = LANGUAGE_NAMES.get(language, "English")
 
-    # For non-Latin script languages, use two-step: think in English, then translate
-    # This produces MUCH better quality than asking the model to think in Gujarati/Bengali/etc.
-    needs_translation = language in ("gu", "bn", "hi", "ar", "yo", "sw")
+    # ALL non-English languages use two-step: think in English, then translate
+    # This produces consistently better quality across all languages
+    needs_translation = language != "en"
 
     if needs_translation:
-        # Step 1: Get response in English with conversational tone instruction
-        system = SYSTEM_PROMPT.format(
-            knowledge=knowledge_str,
-            farmer_context=farmer_context,
-            harper_memories=harper_memories,
-            weather_context=weather_context,
-            language="English",  # Think in English first
-        )
+        # Step 1: Get a SHORT English response, then translate
+        system = f"""You are a farming advisor. Give SHORT practical advice. 2-3 sentences MAXIMUM.
+Be specific to this farmer's situation. No greetings, no filler, just advice.
+
+FARMER: {farmer_context}
+WEATHER: {weather_context}
+KNOWLEDGE: {knowledge_str[:2000]}
+
+RULES: Maximum 2-3 sentences. Be direct. Give specific product names and quantities."""
 
         messages = [{"role": "system", "content": system}]
         if conversation_history:
@@ -271,7 +290,7 @@ async def get_ai_response(
                 model=OLLAMA_MODEL,
                 messages=messages,
                 temperature=0.7,
-                max_tokens=300,
+                max_tokens=150,  # Force short responses
             )
             english_reply = response.choices[0].message.content
 
@@ -298,14 +317,32 @@ async def get_ai_response(
         except Exception as e:
             return f"Sorry, I had trouble responding. Error: {str(e)}"
     else:
-        # Latin-script languages (en, fr, es, pt): direct response works well
-        system = SYSTEM_PROMPT.format(
-            knowledge=knowledge_str,
-            farmer_context=farmer_context,
-            harper_memories=harper_memories,
-            weather_context=weather_context,
-            language=lang_name,
-        )
+        # English only — clean prompt without non-English examples
+        system = f"""You are a local farming helper. NOT an AI assistant. You are the farmer's neighbor who knows agriculture.
+
+RULES:
+- Talk like a friendly neighbor, not a company or chatbot.
+- 1-3 sentences MAX. Short, direct, actionable.
+- NEVER say "I'd be happy to help" or "Great question!" or "As an AI".
+- Reference their specific farm data.
+- Give local product names and prices.
+- If weather is relevant, mention it naturally.
+
+FARMER DATA:
+{farmer_context}
+
+{harper_memories}
+
+WEATHER:
+{weather_context}
+
+KNOWLEDGE:
+{knowledge_str[:2000]}
+
+METADATA (append silently if detected):
+- <!--DISEASE_REPORT:{{"crop":"name","disease":"name","severity":"mild|moderate|severe"}}-->
+- <!--CROP_UPDATE:{{"crop":"name","action":"planted|harvested|failed","notes":"details"}}-->
+- <!--MEMORY:{{"type":"fact|preference|event","content":"what to remember"}}-->"""
 
         messages = [{"role": "system", "content": system}]
         if conversation_history:

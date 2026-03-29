@@ -14,7 +14,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database import init_db
-from backend.routers import chat, farmers, dashboard, market, voice, weather, marketplace, services, sync
+from backend.routers import chat, farmers, dashboard, market, voice, weather, marketplace, services, sync, auth
 from backend.services.harper_memory import init_harper_schema
 import logging
 
@@ -63,6 +63,7 @@ app.include_router(weather.router)
 app.include_router(marketplace.router)
 app.include_router(services.router)
 app.include_router(sync.router)
+app.include_router(auth.router)
 
 
 @app.get("/api/health")

@@ -3,6 +3,7 @@ import { useChat } from '../hooks/useChat'
 import { useVoiceRecorder } from '../hooks/useVoiceRecorder'
 import { useAudioPlayer } from '../hooks/useAudioPlayer'
 import { useLanguage } from '../lib/LanguageContext'
+import { useUser } from '../lib/UserContext'
 import { api } from '../lib/api'
 import MessageBubble from '../components/chat/MessageBubble'
 import FarmerProfile from '../components/chat/FarmerProfile'
@@ -12,7 +13,8 @@ import { Mic, MicOff, Send, ChevronDown, User, Brain, Loader2, WifiOff, Globe, S
 
 export default function FarmerChat() {
   const { lang, t, languages } = useLanguage()
-  const [farmerId, setFarmerId] = useState(1)
+  const { user, region } = useUser()
+  const [farmerId, setFarmerId] = useState(() => user?.farmer_id || 1)
   const [inputText, setInputText] = useState('')
   const [showEnroll, setShowEnroll] = useState(false)
   const [hasVoiceProfile, setHasVoiceProfile] = useState(false)
@@ -39,12 +41,16 @@ export default function FarmerChat() {
     }
   }, [farmerId])
 
+  // Clear messages when farmer OR language changes
+  useEffect(() => {
+    clearMessages()
+  }, [farmerId, lang, clearMessages])
+
   useEffect(() => {
     if (farmerId) {
       api.getFarmer(farmerId).then(setFarmer).catch(() => {})
-      clearMessages()
     }
-  }, [farmerId, clearMessages])
+  }, [farmerId])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })

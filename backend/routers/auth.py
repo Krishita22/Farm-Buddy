@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.database import get_db
+from backend.services.email_service import send_verification_email, send_reset_email
 import hashlib
 import random
 import string
@@ -70,13 +71,15 @@ async def signup(req: SignupRequest):
             "created": datetime.now().isoformat(),
         }
 
-        # For hackathon demo: auto-verify (skip email sending)
-        # In production: send code via email/SMS
+        # Try to send email
+        email_sent = send_verification_email(req.email, code, req.name)
+
         return {
             "status": "verify",
-            "message": f"Verification code: {code}",
+            "message": f"Verification code sent to {req.email}" if email_sent else f"Verification code: {code}",
             "email": req.email,
-            "code": code,  # Remove in production — only for demo
+            "email_sent": email_sent,
+            "code": code if not email_sent else None,  # Only show code if email not sent
         }
     finally:
         await db.close()
@@ -190,10 +193,13 @@ async def forgot_password(req: ResetRequest):
         code = generate_code()
         _reset_codes[req.email] = {"code": code, "created": datetime.now().isoformat()}
 
+        email_sent = send_reset_email(req.email, code)
+
         return {
             "status": "reset_code_sent",
-            "message": f"Reset code: {code}",
-            "code": code,  # Remove in production
+            "message": f"Reset code sent to {req.email}" if email_sent else f"Reset code: {code}",
+            "email_sent": email_sent,
+            "code": code if not email_sent else None,
         }
     finally:
         await db.close()

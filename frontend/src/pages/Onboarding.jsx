@@ -31,8 +31,13 @@ export default function Onboarding() {
     const data = await post('/api/auth/signup', { email, password, name, phone, language: lang, region })
     setLoading(false)
     if (data.status === 'verify') {
-      setVerifyCode(data.code) // Auto-fill for demo
-      setInfo(`Verification code: ${data.code}`)
+      // Auto-fill code if email wasn't sent (demo mode)
+      if (data.code) {
+        setCode(data.code)
+        setInfo(data.message)
+      } else {
+        setInfo(`Check your email (${email}) for the verification code`)
+      }
       setStep(4)
     } else if (data.status === 'error') {
       setError(data.message)
@@ -71,8 +76,12 @@ export default function Onboarding() {
     const data = await post('/api/auth/forgot-password', { email })
     setLoading(false)
     if (data.status === 'reset_code_sent') {
-      setVerifyCode(data.code)
-      setInfo(`Reset code: ${data.code}`)
+      if (data.code) {
+        setCode(data.code)
+        setInfo(data.message)
+      } else {
+        setInfo(`Check your email (${email}) for the reset code`)
+      }
       setStep(6)
     } else {
       setError(data.message)

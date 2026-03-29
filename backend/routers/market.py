@@ -1,7 +1,29 @@
+import json
+import os
 from fastapi import APIRouter, Query
 from backend.services.market_prices import get_prices, check_price_fairness
 
 router = APIRouter(prefix="/api/market", tags=["market"])
+
+REGIONAL_PRICES_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "regional_prices.json")
+
+
+@router.get("/regional-prices")
+async def regional_prices(region: str = Query(...)):
+    """Get crop prices for a specific region with correct currency."""
+    try:
+        with open(REGIONAL_PRICES_PATH) as f:
+            data = json.load(f)
+        region_data = data.get(region, {})
+        if not region_data:
+            return {"prices": [], "currency": "", "unit": ""}
+        return {
+            "prices": region_data.get("prices", []),
+            "currency": region_data.get("currency", ""),
+            "unit": region_data.get("unit", "kg"),
+        }
+    except Exception:
+        return {"prices": [], "currency": "", "unit": ""}
 
 
 @router.get("/prices")

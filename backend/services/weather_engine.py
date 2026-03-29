@@ -369,7 +369,125 @@ def _accuweather_icon_to_condition(icon: int) -> str:
 
 
 # =============================================================================
-# TERTIARY: Open-Meteo API (free fallback, no key needed)
+# TERTIARY: OpenWeather API (free tier, needs key)
+# =============================================================================
+
+OPENWEATHER_URL = "https://api.openweathermap.org/data/2.5"
+
+
+async def _fetch_openweather_forecast(lat: float, lng: float, days: int) -> list | None:
+    """Fetch forecast from OpenWeather API."""
+    from backend.config import OPENWEATHER_API_KEY
+    if not OPENWEATHER_API_KEY:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{OPENWEATHER_URL}/forecast",
+                params={"lat": lat, "lon": lng, "appid": OPENWEATHER_API_KEY, "units": "metric", "cnt": min(days * 8, 40)},
+            )
+            if resp.status_code != 200:
+                logger.warning(f"OpenWeather error {resp.status_code}")
+                return None
+
+            data = resp.json()
+            # Group 3-hour forecasts by day
+            day_data = {}
+            for item in data.get("list", []):
+                date = item["dt_txt"][:10]
+                if date not in day_data:
+                    day_data[date] = {"temps": [], "humidity": [], "wind": [], "rain": 0, "conditions": []}
+                d = day_data[date]
+                d["temps"].append(item["main"]["temp"])
+                d["humidity"].append(item["main"]["humidity"])
+                d["wind"].append(item["wind"]["speed"] * 3.6)  # m/s to km/h
+                d["rain"] += item.get("rain", {}).get("3h", 0)
+                d["conditions"].append(item["weather"][0]["id"])
+
+            forecasts = []
+            for date_str, d in list(day_data.items())[:days]:
+                date = datetime.strptime(date_str, "%Y-%m-%d")
+                main_code = max(set(d["conditions"]), key=d["conditions"].count)
+                forecasts.append({
+                    "date": date_str,
+                    "day_name": date.strftime("%A"),
+                    "temp_high_c": round(max(d["temps"]), 1),
+                    "temp_low_c": round(min(d["temps"]), 1),
+                    "humidity_pct": round(sum(d["humidity"]) / len(d["humidity"]), 1),
+                    "wind_kph": round(max(d["wind"]), 1),
+                    "rainfall_mm": round(d["rain"], 1),
+                    "rainfall_probability": 0.8 if d["rain"] > 1 else 0.3 if d["rain"] > 0 else 0,
+                    "condition": _openweather_code_to_condition(main_code),
+                    "uv_index": 6,
+                    "source": "openweather",
+                })
+
+            if forecasts:
+                _save_cache({"forecasts": forecasts, "lat": lat, "lng": lng})
+                logger.info(f"Weather from OpenWeather for ({lat},{lng}): {len(forecasts)} days")
+            return forecasts if forecasts else None
+
+    except Exception as e:
+        logger.info(f"OpenWeather unavailable ({e})")
+        return None
+
+
+async def _fetch_openweather_current(lat: float, lng: float) -> dict | None:
+    """Fetch current weather from OpenWeather."""
+    from backend.config import OPENWEATHER_API_KEY
+    if not OPENWEATHER_API_KEY:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{OPENWEATHER_URL}/weather",
+                params={"lat": lat, "lon": lng, "appid": OPENWEATHER_API_KEY, "units": "metric"},
+            )
+            if resp.status_code != 200:
+                return None
+            d = resp.json()
+            return {
+                "current_temp_c": round(d["main"]["temp"], 1),
+                "feels_like_c": round(d["main"]["feels_like"], 1),
+                "humidity_pct": round(d["main"]["humidity"], 1),
+                "wind_kph": round(d["wind"]["speed"] * 3.6, 1),
+                "rainfall_mm": round(d.get("rain", {}).get("1h", 0), 1),
+                "cloud_cover_pct": d.get("clouds", {}).get("all", 50),
+                "condition": _openweather_code_to_condition(d["weather"][0]["id"]),
+                "uv_index": 6,
+                "time": datetime.now().strftime("%H:%M"),
+                "source": "openweather",
+            }
+    except Exception as e:
+        logger.debug(f"OpenWeather current failed: {e}")
+        return None
+
+
+def _openweather_code_to_condition(code: int) -> str:
+    """Convert OpenWeather condition code to our condition string."""
+    if code == 800:
+        return "sunny"
+    elif code in (801, 802):
+        return "partly_cloudy"
+    elif code in (803, 804):
+        return "overcast"
+    elif code in (701, 711, 721, 731, 741):
+        return "fog"
+    elif code in (300, 301, 310, 500):
+        return "light_rain"
+    elif code in (501, 502, 311, 312, 313, 321):
+        return "rain"
+    elif code in (503, 504, 520, 521, 522, 531):
+        return "heavy_rain"
+    elif code in (200, 201, 202, 210, 211, 212, 221, 230, 231, 232):
+        return "thunderstorm"
+    elif code in (600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622):
+        return "snow"
+    return "partly_cloudy"
+
+
+# =============================================================================
+# QUATERNARY: Open-Meteo API (free fallback, no key needed)
 # =============================================================================
 
 async def _fetch_open_meteo_forecast(lat: float, lng: float, days: int) -> list | None:
@@ -618,17 +736,22 @@ async def get_forecast(lat: float = -1.52, lng: float = 37.26, days: int = 7) ->
     if result:
         return result
 
-    # Tier 3: Open-Meteo (free, no key)
+    # Tier 3: OpenWeather (free tier)
+    result = await _fetch_openweather_forecast(lat, lng, days)
+    if result:
+        return result
+
+    # Tier 4: Open-Meteo (free, no key)
     result = await _fetch_open_meteo_forecast(lat, lng, days)
     if result:
         return result
 
-    # Tier 4: Offline historical
+    # Tier 5: Offline historical
     return _get_offline_forecast(lat, lng, days)
 
 
 async def get_current_conditions(lat: float = -1.52, lng: float = 37.26) -> dict:
-    """Get current weather. Tries Tomorrow.io → AccuWeather → Open-Meteo → offline."""
+    """Get current weather. Tries Tomorrow.io → AccuWeather → OpenWeather → Open-Meteo → offline."""
     # Tier 1: Tomorrow.io
     result = await _fetch_tomorrow_current(lat, lng)
     if result:
@@ -639,12 +762,17 @@ async def get_current_conditions(lat: float = -1.52, lng: float = 37.26) -> dict
     if result:
         return result
 
-    # Tier 3: Open-Meteo
+    # Tier 3: OpenWeather
+    result = await _fetch_openweather_current(lat, lng)
+    if result:
+        return result
+
+    # Tier 4: Open-Meteo
     result = await _fetch_open_meteo_current(lat, lng)
     if result:
         return result
 
-    # Tier 4: Offline
+    # Tier 5: Offline
     return _get_offline_current(lat, lng)
 
 

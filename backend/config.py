@@ -37,6 +37,7 @@ ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
 # ===== Weather — Tomorrow.io (primary) + AccuWeather (secondary) + Open-Meteo (fallback) + offline =====
 TOMORROW_API_KEY = os.getenv("TOMORROW_API_KEY", "")
 ACCUWEATHER_API_KEY = os.getenv("ACCUWEATHER_API_KEY", "")
+OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
 
 # ===== Weather — Open-Meteo (free, no key) + offline fallback =====
 # Open-Meteo: 100% free, no signup, no API key, 10k req/day

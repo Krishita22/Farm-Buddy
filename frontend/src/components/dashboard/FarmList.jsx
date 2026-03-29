@@ -46,7 +46,7 @@ export default function FarmList({ farms }) {
                   <p className="font-medium text-gray-800 text-xs">{farm.name}</p>
                   <p className="text-gray-300 text-xs">{farm.village}</p>
                 </td>
-                <td className="px-4 py-2 text-xs text-gray-500">{farm.active_crops || '—'}</td>
+                <td className="px-4 py-2 text-xs text-gray-500">{farm.active_crops || '-'}</td>
                 <td className="px-4 py-2 text-right">
                   {farm.recent_issues > 0 ? (
                     <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-red-50 text-red-600 rounded-full text-xs font-medium">

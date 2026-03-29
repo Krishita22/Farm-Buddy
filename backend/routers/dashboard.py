@@ -1,8 +1,41 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 from backend.services.outbreak_detector import detect_outbreaks, get_dashboard_stats
 from backend.database import get_db
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
+
+
+class OutbreakReport(BaseModel):
+    crop_name: str
+    disease_name: str
+    severity: str = "moderate"
+    latitude: float = None
+    longitude: float = None
+
+
+@router.post("/report-outbreak")
+async def report_outbreak(report: OutbreakReport):
+    """Report a disease outbreak from the dashboard."""
+    db = await get_db()
+    try:
+        await db.execute(
+            """INSERT INTO disease_reports (farmer_id, crop_name, disease_name, severity, latitude, longitude, confirmed)
+               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (None, report.crop_name, report.disease_name, report.severity,
+             report.latitude, report.longitude, 1),
+        )
+        # Also create an alert so it shows in Recent Alerts
+        await db.execute(
+            "INSERT INTO alerts (farmer_id, alert_type, content, language) VALUES (?, ?, ?, ?)",
+            (None, "outbreak",
+             f"{report.disease_name} reported on {report.crop_name} ({report.severity})",
+             "en"),
+        )
+        await db.commit()
+        return {"status": "ok", "message": "Outbreak reported"}
+    finally:
+        await db.close()
 
 
 @router.get("/stats")

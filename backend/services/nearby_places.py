@@ -36,19 +36,18 @@ def _haversine_km(lat1, lng1, lat2, lng2):
     return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
 
 
-async def fetch_nearby_places(lat: float, lng: float, radius_m: int = 25000) -> list:
-    """Fetch real nearby agricultural places from OpenStreetMap.
+async def fetch_nearby_places(lat: float, lng: float, radius_m: int = 50000) -> list:
+    """Fetch real nearby places from OpenStreetMap — 50km radius to cover rural areas.
     Returns list of places with name, type, lat, lng, distance_km."""
 
-    # Build Overpass query — broad enough to find results in rural areas
+    # Broad query — includes shops, markets, fuel, banks, hospitals that farmers need
     query = f"""
     [out:json][timeout:15];
     (
-      node["shop"~"agrarian|farm|garden_centre|hardware|doityourself"](around:{radius_m},{lat},{lng});
-      node["amenity"~"marketplace|veterinary|fuel"](around:{radius_m},{lat},{lng});
-      node["shop"="general"]["name"~"agri|krishi|kisan|farm|khad|seed|bij|fertili",i](around:{radius_m},{lat},{lng});
-      way["shop"~"agrarian|farm|garden_centre|hardware"](around:{radius_m},{lat},{lng});
-      way["amenity"="marketplace"](around:{radius_m},{lat},{lng});
+      node["shop"](around:{radius_m},{lat},{lng});
+      node["amenity"~"marketplace|veterinary|fuel|bank|hospital|pharmacy"](around:{radius_m},{lat},{lng});
+      way["shop"](around:{radius_m},{lat},{lng});
+      way["amenity"~"marketplace|fuel"](around:{radius_m},{lat},{lng});
     );
     out center tags;
     """
@@ -80,7 +79,7 @@ async def fetch_nearby_places(lat: float, lng: float, radius_m: int = 25000) -> 
                 shop = tags.get("shop", "")
                 amenity = tags.get("amenity", "")
                 name_lower = name.lower()
-                if shop in ("agrarian", "farm", "garden_centre") or any(w in name_lower for w in ("agri", "krishi", "kisan", "farm supply", "khad", "seed", "bij")):
+                if shop in ("agrarian", "farm", "garden_centre") or any(w in name_lower for w in ("agri", "krishi", "kisan", "farm supply", "khad", "seed", "bij", "fertili")):
                     place_type = "farm_supply"
                 elif amenity == "marketplace":
                     place_type = "market"
@@ -90,6 +89,12 @@ async def fetch_nearby_places(lat: float, lng: float, radius_m: int = 25000) -> 
                     place_type = "hardware"
                 elif amenity == "fuel":
                     place_type = "fuel"
+                elif amenity == "bank":
+                    place_type = "bank"
+                elif amenity in ("hospital", "pharmacy"):
+                    place_type = "hospital"
+                elif shop == "general":
+                    place_type = "general_store"
                 else:
                     place_type = shop or amenity or "other"
 

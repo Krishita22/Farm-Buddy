@@ -47,6 +47,7 @@ export const api = {
   getAlerts: () => request('/dashboard/alerts'),
 
   // Market
+  getRegionalPrices: (regionCode) => request(`/market/regional-prices?region=${regionCode}`),
   getPrices: (crop, region) => {
     const params = new URLSearchParams()
     if (crop) params.set('crop', crop)

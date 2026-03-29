@@ -128,11 +128,16 @@ async def get_dashboard_stats():
         )
         top_diseases = [dict(d) for d in top_diseases]
 
+        crops_count = await db.execute_fetchall(
+            "SELECT COUNT(*) as c FROM crops WHERE status = 'growing'"
+        )
+        crops_count = dict(crops_count[0])["c"]
+
         return {
             "total_farms": total_farms,
             "active_disease_reports": active_reports,
             "alerts_sent_this_week": alerts_sent,
-            "conversations_today": conversations_today,
+            "crops_count": crops_count,
             "disease_timeline": timeline,
             "top_diseases": top_diseases,
         }

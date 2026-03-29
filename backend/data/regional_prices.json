@@ -1,0 +1,123 @@
+{
+  "_source": "Compiled from FAO, World Bank, local market surveys 2024-2026",
+  "india_gujarat": {
+    "currency": "INR", "unit": "kg",
+    "prices": [
+      {"crop": "Wheat", "price": 24.1, "market": "Ahmedabad APMC"},
+      {"crop": "Rice", "price": 38.0, "market": "Surat Mandi"},
+      {"crop": "Onion", "price": 18.5, "market": "Rajkot APMC"},
+      {"crop": "Tomato", "price": 22.0, "market": "Ahmedabad APMC"},
+      {"crop": "Cotton", "price": 65.0, "market": "Rajkot Mandi"},
+      {"crop": "Groundnut", "price": 55.0, "market": "Junagadh APMC"},
+      {"crop": "Cumin", "price": 280.0, "market": "Unjha Mandi"},
+      {"crop": "Potato", "price": 12.0, "market": "Ahmedabad APMC"},
+      {"crop": "Bajra", "price": 22.0, "market": "Rajkot APMC"},
+      {"crop": "Castor", "price": 58.0, "market": "Deesa APMC"}
+    ]
+  },
+  "india_up": {
+    "currency": "INR", "unit": "kg",
+    "prices": [
+      {"crop": "Wheat", "price": 22.0, "market": "Lucknow Mandi"},
+      {"crop": "Rice (Basmati)", "price": 35.0, "market": "Varanasi APMC"},
+      {"crop": "Sugarcane", "price": 3.5, "market": "Lucknow"},
+      {"crop": "Potato", "price": 10.0, "market": "Agra APMC"},
+      {"crop": "Tomato", "price": 20.0, "market": "Lucknow Mandi"},
+      {"crop": "Onion", "price": 15.0, "market": "Agra APMC"},
+      {"crop": "Mustard", "price": 48.0, "market": "Varanasi APMC"},
+      {"crop": "Maize", "price": 18.0, "market": "Lucknow Mandi"}
+    ]
+  },
+  "india_maharashtra": {
+    "currency": "INR", "unit": "kg",
+    "prices": [
+      {"crop": "Soybean", "price": 45.0, "market": "Latur APMC"},
+      {"crop": "Cotton", "price": 62.0, "market": "Nagpur Mandi"},
+      {"crop": "Onion", "price": 16.0, "market": "Nashik APMC"},
+      {"crop": "Sugarcane", "price": 3.2, "market": "Kolhapur"},
+      {"crop": "Tomato", "price": 25.0, "market": "Pune APMC"},
+      {"crop": "Wheat", "price": 24.0, "market": "Pune APMC"},
+      {"crop": "Grapes", "price": 80.0, "market": "Nashik APMC"}
+    ]
+  },
+  "kenya_machakos": {
+    "currency": "KES", "unit": "kg",
+    "prices": [
+      {"crop": "Maize", "price": 45.0, "market": "Machakos Market"},
+      {"crop": "Beans", "price": 120.0, "market": "Nairobi Market"},
+      {"crop": "Tomato", "price": 80.0, "market": "Machakos Market"},
+      {"crop": "Onion", "price": 60.0, "market": "Nairobi Market"},
+      {"crop": "Cabbage", "price": 30.0, "market": "Machakos Market"},
+      {"crop": "Mango", "price": 70.0, "market": "Mombasa Market"},
+      {"crop": "Potato", "price": 55.0, "market": "Nairobi Market"},
+      {"crop": "Sorghum", "price": 40.0, "market": "Machakos Market"}
+    ]
+  },
+  "bangladesh_dhaka": {
+    "currency": "BDT", "unit": "kg",
+    "prices": [
+      {"crop": "Rice (Aman)", "price": 55.0, "market": "Kawran Bazar"},
+      {"crop": "Jute", "price": 35.0, "market": "Mymensingh Market"},
+      {"crop": "Wheat", "price": 40.0, "market": "Kawran Bazar"},
+      {"crop": "Potato", "price": 25.0, "market": "Kawran Bazar"},
+      {"crop": "Onion", "price": 45.0, "market": "Kawran Bazar"},
+      {"crop": "Tomato", "price": 36.0, "market": "Kawran Bazar"},
+      {"crop": "Lentil", "price": 95.0, "market": "Kawran Bazar"},
+      {"crop": "Mustard", "price": 80.0, "market": "Mymensingh Market"}
+    ]
+  },
+  "nigeria_oyo": {
+    "currency": "NGN", "unit": "kg",
+    "prices": [
+      {"crop": "Cassava", "price": 250.0, "market": "Bodija Market"},
+      {"crop": "Yam", "price": 400.0, "market": "Bodija Market"},
+      {"crop": "Maize", "price": 350.0, "market": "Ogbomoso Market"},
+      {"crop": "Cocoa", "price": 2500.0, "market": "Bodija Market"},
+      {"crop": "Tomato", "price": 500.0, "market": "Bodija Market"},
+      {"crop": "Pepper", "price": 800.0, "market": "Bodija Market"},
+      {"crop": "Cowpea", "price": 600.0, "market": "Ogbomoso Market"},
+      {"crop": "Plantain", "price": 300.0, "market": "Ibadan Market"}
+    ]
+  },
+  "senegal_thies": {
+    "currency": "XOF", "unit": "kg",
+    "prices": [
+      {"crop": "Groundnut", "price": 300.0, "market": "Thiès Market"},
+      {"crop": "Millet", "price": 250.0, "market": "Thiès Market"},
+      {"crop": "Rice", "price": 350.0, "market": "Thiès Market"},
+      {"crop": "Tomato", "price": 500.0, "market": "Thiès Market"},
+      {"crop": "Onion", "price": 400.0, "market": "Thiès Market"},
+      {"crop": "Sorghum", "price": 200.0, "market": "Thiès Market"}
+    ]
+  },
+  "spain_andalusia": {
+    "currency": "EUR", "unit": "kg",
+    "prices": [
+      {"crop": "Olive Oil", "price": 8.5, "market": "Sevilla Market"},
+      {"crop": "Tomato", "price": 1.8, "market": "Sevilla Market"},
+      {"crop": "Orange", "price": 0.9, "market": "Córdoba Market"},
+      {"crop": "Wheat", "price": 0.28, "market": "Sevilla Market"},
+      {"crop": "Grape", "price": 1.2, "market": "Jerez Market"}
+    ]
+  },
+  "brazil_minas": {
+    "currency": "BRL", "unit": "kg",
+    "prices": [
+      {"crop": "Coffee", "price": 32.0, "market": "Varginha Market"},
+      {"crop": "Soybean", "price": 5.8, "market": "Uberlândia Market"},
+      {"crop": "Maize", "price": 3.2, "market": "Uberlândia Market"},
+      {"crop": "Sugarcane", "price": 0.8, "market": "Ribeirão Market"},
+      {"crop": "Bean", "price": 7.5, "market": "BH Market"}
+    ]
+  },
+  "saudi_riyadh": {
+    "currency": "SAR", "unit": "kg",
+    "prices": [
+      {"crop": "Dates", "price": 15.0, "market": "Riyadh Central"},
+      {"crop": "Wheat", "price": 2.5, "market": "Riyadh Central"},
+      {"crop": "Tomato", "price": 4.0, "market": "Riyadh Central"},
+      {"crop": "Cucumber", "price": 3.0, "market": "Riyadh Central"},
+      {"crop": "Watermelon", "price": 2.0, "market": "Riyadh Central"}
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "india_gujarat": [
+    {"name": "Patel Tractor Service", "type": "tractor", "desc": "JD 5310, Mahindra 575 for hire", "district": "Anand", "price": "₹800-1200/hr", "phone": "+919876543210", "lat": 22.56, "lng": 72.93, "rating": 4.5},
+    {"name": "Gujarat Agri Repairs", "type": "repair", "desc": "Pump, sprayer, tractor repair", "district": "Nadiad", "price": "₹200-2000", "phone": "+919876543211", "lat": 22.69, "lng": 72.86, "rating": 4.2},
+    {"name": "Shree Irrigation", "type": "irrigation", "desc": "Drip, sprinkler, borewell drilling", "district": "Anand", "price": "₹15000-50000", "phone": "+919876543212", "lat": 22.55, "lng": 72.95, "rating": 4.7},
+    {"name": "Kisaan Labour Group", "type": "labor", "desc": "10-50 workers, seasonal farm labor", "district": "Petlad", "price": "₹300-400/day", "phone": "+919876543213", "lat": 22.47, "lng": 72.80, "rating": 4.0},
+    {"name": "Dharti Harvesting", "type": "harvesting", "desc": "Combine harvester, groundnut thresher", "district": "Mehsana", "price": "₹2000-3000/acre", "phone": "+919876543214", "lat": 23.59, "lng": 72.38, "rating": 4.3},
+    {"name": "Krushi Soil Lab", "type": "soil_testing", "desc": "Complete soil analysis in 3 days", "district": "Anand", "price": "₹500/sample", "phone": "+919876543215", "lat": 22.56, "lng": 72.93, "rating": 4.8},
+    {"name": "Shiv Fertilizer Store", "type": "fertilizer_supply", "desc": "DAP, Urea, NPK at govt rates", "district": "Anand", "price": "Govt rate", "phone": "+919876543216", "lat": 22.58, "lng": 72.96, "rating": 4.4},
+    {"name": "Jay Seed Center", "type": "seed_supply", "desc": "Certified BT cotton, groundnut, bajra seeds", "district": "Rajkot", "price": "Various", "phone": "+919876543217", "lat": 22.30, "lng": 70.80, "rating": 4.6}
+  ],
+  "india_up": [
+    {"name": "Kisan Tractor Sewa", "type": "tractor", "desc": "Sonalika, Mahindra tractors", "district": "Lucknow", "price": "₹600-1000/hr", "phone": "+919999888877", "lat": 26.85, "lng": 80.95, "rating": 4.0},
+    {"name": "UP Krishi Kendra", "type": "fertilizer_supply", "desc": "DAP, Urea, NPK at govt rates", "district": "Lucknow", "price": "Govt rate", "phone": "+919999888878", "lat": 26.84, "lng": 80.93, "rating": 4.3},
+    {"name": "Ganga Irrigation Works", "type": "irrigation", "desc": "Submersible pump, sprinkler setup", "district": "Kanpur", "price": "₹10000-40000", "phone": "+919999888879", "lat": 26.45, "lng": 80.35, "rating": 4.1},
+    {"name": "Awadh Labour Contractor", "type": "labor", "desc": "Rice transplanting, wheat harvesting crews", "district": "Lucknow", "price": "₹350-500/day", "phone": "+919999888880", "lat": 26.80, "lng": 80.90, "rating": 3.9},
+    {"name": "Sharma Agri Spraying", "type": "spraying", "desc": "Drone and manual spraying for wheat, rice", "district": "Varanasi", "price": "₹500-1500/acre", "phone": "+919999888881", "lat": 25.32, "lng": 83.01, "rating": 4.4},
+    {"name": "Prayag Soil Testing", "type": "soil_testing", "desc": "Govt certified soil health card", "district": "Prayagraj", "price": "₹100/sample", "phone": "+919999888882", "lat": 25.43, "lng": 81.85, "rating": 4.6}
+  ],
+  "india_maharashtra": [
+    {"name": "Sahyadri Tractor Hire", "type": "tractor", "desc": "John Deere, Swaraj available", "district": "Pune", "price": "₹900-1400/hr", "phone": "+919876000001", "lat": 18.52, "lng": 73.86, "rating": 4.3},
+    {"name": "Nashik Agri Store", "type": "seed_supply", "desc": "Onion seeds, soybean, cotton seeds", "district": "Nashik", "price": "Various", "phone": "+919876000002", "lat": 20.00, "lng": 73.79, "rating": 4.5},
+    {"name": "Vidarbha Spray Service", "type": "spraying", "desc": "Cotton, soybean drone spraying", "district": "Nagpur", "price": "₹800-1500/acre", "phone": "+919876000003", "lat": 21.15, "lng": 79.09, "rating": 4.2},
+    {"name": "Kolhapur Sugar Transport", "type": "transport", "desc": "Sugarcane transport to mills", "district": "Kolhapur", "price": "₹500-800/trip", "phone": "+919876000004", "lat": 16.70, "lng": 74.24, "rating": 4.0},
+    {"name": "Pune Soil Lab", "type": "soil_testing", "desc": "NPK, micronutrient analysis", "district": "Pune", "price": "₹300/sample", "phone": "+919876000005", "lat": 18.53, "lng": 73.85, "rating": 4.7}
+  ],
+  "kenya_machakos": [
+    {"name": "Machakos Tractor Hire", "type": "tractor", "desc": "MF 290 for ploughing and harrowing", "district": "Machakos", "price": "KES 3000-5000/acre", "phone": "+254712345678", "lat": -1.52, "lng": 37.26, "rating": 4.1},
+    {"name": "AgroVet Supplies", "type": "seed_supply", "desc": "Certified seeds, fertilizers, pesticides", "district": "Machakos", "price": "Various", "phone": "+254712345679", "lat": -1.51, "lng": 37.27, "rating": 4.4},
+    {"name": "Mwala Water Solutions", "type": "irrigation", "desc": "Borehole drilling, solar pump install", "district": "Mwala", "price": "KES 50000-200000", "phone": "+254712345680", "lat": -1.55, "lng": 37.45, "rating": 4.6},
+    {"name": "Kangundo Sprayers", "type": "spraying", "desc": "Knapsack and motorized spraying", "district": "Kangundo", "price": "KES 1000-3000/acre", "phone": "+254712345681", "lat": -1.28, "lng": 37.15, "rating": 4.0},
+    {"name": "Machakos Soil Lab", "type": "soil_testing", "desc": "Complete soil nutrient analysis", "district": "Machakos", "price": "KES 2000/sample", "phone": "+254712345682", "lat": -1.52, "lng": 37.27, "rating": 4.5}
+  ],
+  "bangladesh_dhaka": [
+    {"name": "Dhaka Farm Machinery", "type": "tractor", "desc": "Power tiller and tractor rental", "district": "Dhaka", "price": "BDT 1500-3000/day", "phone": "+8801712345678", "lat": 23.81, "lng": 90.41, "rating": 3.9},
+    {"name": "Krishok Bondhu Seeds", "type": "seed_supply", "desc": "BRRI rice, wheat, jute seeds", "district": "Mymensingh", "price": "Various", "phone": "+8801712345679", "lat": 24.75, "lng": 90.41, "rating": 4.2},
+    {"name": "Dhaka Fertilizer Depot", "type": "fertilizer_supply", "desc": "Urea, TSP, MOP at subsidized rates", "district": "Dhaka", "price": "Govt rate", "phone": "+8801712345680", "lat": 23.80, "lng": 90.40, "rating": 4.0},
+    {"name": "Tangail Labour Service", "type": "labor", "desc": "Rice transplanting and harvesting", "district": "Tangail", "price": "BDT 500-700/day", "phone": "+8801712345681", "lat": 24.25, "lng": 89.92, "rating": 4.1}
+  ],
+  "nigeria_oyo": [
+    {"name": "Ibadan Agro Services", "type": "tractor", "desc": "Tractor ploughing and ridging", "district": "Ibadan", "price": "NGN 15000-25000/acre", "phone": "+2348012345678", "lat": 7.38, "lng": 3.94, "rating": 4.0},
+    {"name": "Oyo Spraying Team", "type": "spraying", "desc": "Drone and knapsack spraying for cocoa, maize", "district": "Ibadan", "price": "NGN 5000-10000/acre", "phone": "+2348012345679", "lat": 7.39, "lng": 3.95, "rating": 4.5},
+    {"name": "Bodija Agri Market", "type": "seed_supply", "desc": "Cassava stems, yam sets, maize seeds", "district": "Ibadan", "price": "Various", "phone": "+2348012345680", "lat": 7.41, "lng": 3.92, "rating": 4.3},
+    {"name": "Ogbomoso Fertilizer", "type": "fertilizer_supply", "desc": "NPK, Urea, organic manure", "district": "Ogbomoso", "price": "NGN 12000-18000/bag", "phone": "+2348012345681", "lat": 8.13, "lng": 4.25, "rating": 4.1}
+  ],
+  "senegal_thies": [
+    {"name": "Thiès Tractor Location", "type": "tractor", "desc": "Tracteur pour labour et semis", "district": "Thiès", "price": "15000 XOF/jour", "phone": "+221771234567", "lat": 14.79, "lng": -16.93, "rating": 4.0},
+    {"name": "Agri-Semences Thiès", "type": "seed_supply", "desc": "Semences d'arachide, mil, sorgho", "district": "Thiès", "price": "Various", "phone": "+221771234568", "lat": 14.80, "lng": -16.92, "rating": 4.3},
+    {"name": "Thiès Irrigation SARL", "type": "irrigation", "desc": "Goutte à goutte, pompes solaires", "district": "Thiès", "price": "50000-200000 XOF", "phone": "+221771234569", "lat": 14.78, "lng": -16.94, "rating": 4.2}
+  ],
+  "spain_andalusia": [
+    {"name": "Andalucía Tractores", "type": "tractor", "desc": "Alquiler de tractores y cosechadoras", "district": "Sevilla", "price": "€60-100/hr", "phone": "+34612345678", "lat": 37.39, "lng": -5.99, "rating": 4.4},
+    {"name": "Agro Semillas Sevilla", "type": "seed_supply", "desc": "Olivo, trigo, girasol, hortalizas", "district": "Sevilla", "price": "Various", "phone": "+34612345679", "lat": 37.38, "lng": -5.98, "rating": 4.6},
+    {"name": "Riego del Sur", "type": "irrigation", "desc": "Sistemas de riego por goteo", "district": "Córdoba", "price": "€500-3000", "phone": "+34612345680", "lat": 37.88, "lng": -4.78, "rating": 4.5}
+  ],
+  "brazil_minas": [
+    {"name": "Minas Tratores", "type": "tractor", "desc": "Aluguel de tratores e colheitadeiras", "district": "Uberlândia", "price": "R$150-300/hr", "phone": "+5534912345678", "lat": -18.92, "lng": -48.28, "rating": 4.3},
+    {"name": "Café Sementes MG", "type": "seed_supply", "desc": "Mudas de café, soja, milho", "district": "Varginha", "price": "Various", "phone": "+5535912345679", "lat": -21.55, "lng": -45.43, "rating": 4.5},
+    {"name": "Solo Análise Lab", "type": "soil_testing", "desc": "Análise completa NPK e micronutrientes", "district": "BH", "price": "R$80/amostra", "phone": "+5531912345680", "lat": -19.92, "lng": -43.94, "rating": 4.7}
+  ],
+  "saudi_riyadh": [
+    {"name": "Riyadh Farm Equipment", "type": "tractor", "desc": "Tractor and harvester rental", "district": "Riyadh", "price": "SAR 500-1000/day", "phone": "+966512345678", "lat": 24.71, "lng": 46.67, "rating": 4.2},
+    {"name": "Al-Ziraa Seeds", "type": "seed_supply", "desc": "Date palms, wheat, vegetable seeds", "district": "Riyadh", "price": "Various", "phone": "+966512345679", "lat": 24.70, "lng": 46.68, "rating": 4.4},
+    {"name": "Saudi Irrigation Co", "type": "irrigation", "desc": "Pivot and drip irrigation systems", "district": "Riyadh", "price": "SAR 5000-50000", "phone": "+966512345680", "lat": 24.72, "lng": 46.66, "rating": 4.6}
+  ]
+}

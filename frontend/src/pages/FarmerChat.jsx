@@ -4,43 +4,26 @@ import { useVoiceRecorder } from '../hooks/useVoiceRecorder'
 import { useAudioPlayer } from '../hooks/useAudioPlayer'
 import { useLanguage } from '../lib/LanguageContext'
 import { useUser } from '../lib/UserContext'
-import { useWeather } from '../lib/WeatherContext'
 import MessageBubble from '../components/chat/MessageBubble'
-import MemoryPanel from '../components/chat/MemoryPanel'
-import { useOnlineStatus } from '../hooks/useOnlineStatus'
-import { Mic, MicOff, Send, Brain, Loader2, Wifi, WifiOff, Globe, Sparkles, CloudSun } from 'lucide-react'
+import { Mic, Send, Loader2 } from 'lucide-react'
 
 export default function FarmerChat() {
   const { lang, t, languages } = useLanguage()
-  const { user, region } = useUser()
-  const { current: weather } = useWeather()
-  const isOnline = useOnlineStatus()
+  const { user } = useUser()
   const farmerId = user?.farmer_id || 1
   const [inputText, setInputText] = useState('')
-  const [showMemory, setShowMemory] = useState(false)
   const messagesEndRef = useRef(null)
 
   const langConfig = languages.find(l => l.code === lang) || languages[0]
   const { messages, isLoading, sendMessage, clearMessages } = useChat(farmerId, lang)
   const { isRecording, isTranscribing, transcript, startRecording, stopRecording, setTranscript } = useVoiceRecorder(lang)
-  const { isPlaying, playAudio, speakText } = useAudioPlayer()
+  const { isPlaying, playAudio, speakText, stop: stopAudio } = useAudioPlayer()
 
-  // Weather now comes from shared WeatherContext — same temp everywhere
-  useEffect(() => { /* placeholder for region dep */
-  }, [region])
-
-  // Clear messages when language changes
+  // Stop audio when leaving chat
+  useEffect(() => { return () => stopAudio() }, [stopAudio])
   useEffect(() => { clearMessages() }, [lang, clearMessages])
-
-  // Auto-scroll
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
-
-  // Voice transcript → input
-  useEffect(() => {
-    if (transcript && !transcript.startsWith('[')) setInputText(transcript)
-  }, [transcript])
+  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages])
+  useEffect(() => { if (transcript && !transcript.startsWith('[')) setInputText(transcript) }, [transcript])
 
   const handleSend = async () => {
     const text = inputText.trim()
@@ -58,7 +41,8 @@ export default function FarmerChat() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() }
   }
 
-  // Auto-send after transcription
+  const toggleRecording = () => isRecording ? stopRecording() : startRecording()
+
   useEffect(() => {
     if (!isTranscribing && transcript && !isRecording && inputText === transcript) {
       const timer = setTimeout(() => { if (inputText.trim()) handleSend() }, 800)
@@ -67,88 +51,64 @@ export default function FarmerChat() {
   }, [isTranscribing, transcript, isRecording])
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-56px)]">
-      {/* Header — YOUR profile, not demo farmers */}
-      <div className="bg-white/80 backdrop-blur-lg border-b border-gray-200/60 px-4 py-2.5 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-farm-500 to-farm-700 flex items-center justify-center text-white text-sm font-bold shadow-sm">
-            {user?.name?.[0]?.toUpperCase() || '?'}
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 text-sm">{user?.name || 'Farmer'}</p>
-            <p className="text-xs text-gray-400">{region?.i18n?.[lang] || region?.name}</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-1.5">
-          {/* Weather quick view */}
-          {weather && (
-            <div className="flex items-center gap-1 text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded-full">
-              <CloudSun size={12} />
-              {weather.current_temp_c}°C
-            </div>
-          )}
-          <button onClick={() => setShowMemory(!showMemory)}
-            className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full transition-all ${showMemory ? 'bg-purple-100 text-purple-700' : 'text-gray-400 hover:bg-gray-100'}`}>
-            <Brain size={12} />
-          </button>
-          <div className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full ${isOnline ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-            {isOnline ? <Wifi size={10} /> : <WifiOff size={10} />}
-            {isOnline ? t('online') : t('offline')}
-          </div>
-        </div>
-      </div>
-
-      {/* Memory panel */}
-      {showMemory && <MemoryPanel farmerId={farmerId} />}
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+    <div className="page-crop-bg flex flex-col h-[calc(100dvh-80px)] overflow-hidden">
+      {/* Messages area */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-3">
         {messages.length === 0 && (
-          <div className="text-center mt-12 sm:mt-16 px-4">
-            <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-farm-400 to-farm-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <span className="text-4xl">🌾</span>
-            </div>
-            <h2 className="text-xl font-bold text-gray-800 mb-1">{t('chatWelcome')}</h2>
-            <p className="text-sm text-gray-500 max-w-sm mx-auto mb-4">{t('chatWelcomeDesc')}</p>
-            <div className="flex flex-wrap justify-center gap-3 mb-4">
-              {[
-                { icon: isOnline ? <Wifi size={12} /> : <WifiOff size={12} />, label: isOnline ? t('liveData') : t('chatOfflineBadge') },
-                { icon: <Brain size={12} />, label: t('chatMemoryBadge') },
-                { icon: <Globe size={12} />, label: t('chatLanguageBadge') },
-                { icon: <Sparkles size={12} />, label: t('chatAccentBadge') },
-              ].map(b => (
-                <span key={b.label} className="flex items-center gap-1 text-xs bg-farm-50 text-farm-700 px-2.5 py-1 rounded-full border border-farm-200">
-                  {b.icon} {b.label}
-                </span>
-              ))}
-            </div>
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="w-full max-w-2xl flex flex-col items-center justify-center gap-6 slide-up px-4">
+              {/* Mic button */}
+              <button type="button" onClick={toggleRecording} disabled={isTranscribing}
+                className={`group relative w-32 h-32 sm:w-36 sm:h-36 rounded-[2.2rem] flex items-center justify-center transition-all duration-700 ease-out ${
+                  isRecording
+                    ? 'bg-gradient-to-br from-farm-500 to-farm-700 text-white listening-mic shadow-[0_16px_50px_rgba(22,101,52,0.35)]'
+                    : isTranscribing
+                      ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-[0_16px_40px_rgba(217,119,6,0.3)]'
+                      : 'bg-gradient-to-br from-farm-700 to-farm-900 text-white hover:scale-105 shadow-[0_16px_50px_rgba(22,101,52,0.25)]'
+                }`}>
+                {isRecording && (
+                  <>
+                    <span className="absolute inset-[-8px] rounded-[2.6rem] border border-farm-500/30 listening-ring" />
+                    <span className="absolute inset-[-18px] rounded-[3rem] border border-farm-400/15 listening-ring listening-ring-delay" />
+                  </>
+                )}
+                {isTranscribing ? <Loader2 size={56} className="relative z-10 animate-spin" />
+                  : <Mic size={56} strokeWidth={1.8} className="relative z-10 drop-shadow-md" />}
+              </button>
 
-            {/* Weather card inline */}
-            {weather && (
-              <div className="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-3 mb-4 max-w-sm mx-auto border border-blue-100">
-                <div className="flex items-center justify-between">
-                  <div className="text-left">
-                    <p className="text-xs text-gray-400">{region?.i18n?.[lang] || region?.name}</p>
-                    <p className="text-2xl font-bold text-gray-900">{weather.current_temp_c}°C</p>
-                    <p className="text-xs text-gray-500">{t('weather_' + weather.condition) !== 'weather_' + weather.condition ? t('weather_' + weather.condition) : weather.condition?.replace(/_/g, ' ')}</p>
-                  </div>
-                  <div className="text-right text-xs text-gray-400 space-y-0.5">
-                    <p>💧 {weather.humidity_pct}%</p>
-                    <p>💨 {weather.wind_kph} km/h</p>
-                    <p className={`text-xs font-medium ${isOnline ? 'text-green-600' : 'text-gray-400'}`}>{weather.source === 'tomorrow.io' || weather.source === 'accuweather' || weather.source === 'open-meteo' ? t('liveData') : t('offline')}</p>
-                  </div>
+              {/* Title */}
+              {(
+                <div className="text-center">
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">{t('chatWelcome')}</h2>
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto">Ask about crops, diseases, soil, weather, or prices.<br />Tap the mic to speak in your language.</p>
                 </div>
-              </div>
-            )}
+              )}
 
-            <div className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
-              {(t('chatSuggestions') || []).map(q => (
-                <button key={q} onClick={() => setInputText(q)}
-                  className="text-xs sm:text-sm px-3 py-2 bg-white border border-gray-200 rounded-2xl text-gray-700 hover:bg-farm-50 hover:border-farm-300 transition-all shadow-sm">
-                  {q}
-                </button>
-              ))}
+              {/* Suggestions */}
+              {(
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-xl">
+                  {(t('chatSuggestions') || []).slice(0, 4).map(q => (
+                    <button key={q} onClick={() => setInputText(q)}
+                      className="text-sm sm:text-base px-6 py-4 bg-farm-700/90 backdrop-blur-sm border border-farm-800/50 rounded-2xl text-white hover:bg-farm-800 hover:-translate-y-1 hover:shadow-lg btn-press transition-all duration-200 shadow-md text-center leading-snug">
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Input */}
+              {(
+                <div className="flex items-center gap-2.5 w-full">
+                  <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown}
+                    placeholder={isTranscribing ? t('chatTranscribing') : t('chatPlaceholder')}
+                    className="flex-1 px-6 py-4 border border-gray-200/60 rounded-2xl focus:ring-2 focus:ring-farm-500 focus:border-transparent focus:outline-none text-base bg-white/80 backdrop-blur-sm shadow-sm"
+                    disabled={isLoading || isTranscribing} />
+                  <button onClick={handleSend} disabled={!inputText.trim() || isLoading}
+                    className="w-13 h-13 p-3.5 rounded-2xl bg-farm-600 text-white flex items-center justify-center hover:bg-farm-700 disabled:opacity-30 btn-press transition-all shrink-0 shadow-sm">
+                    <Send size={22} />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -163,11 +123,11 @@ export default function FarmerChat() {
         ))}
 
         {isLoading && (
-          <div className="flex items-start gap-2">
+          <div className="flex items-end gap-2 msg-left">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-farm-500 to-farm-700 flex items-center justify-center text-white text-xs font-bold shrink-0 shadow-sm">🌾</div>
-            <div className="bg-white rounded-2xl rounded-tl-md px-4 py-3 shadow-sm border border-gray-100">
+            <div className="glass-card !bg-white/95 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
               <div className="flex items-center gap-2 text-sm text-gray-400">
-                <Loader2 size={14} className="animate-spin" />
+                <span className="typing-dots"><span /><span /><span /></span>
                 {t('chatThinking')}
               </div>
             </div>
@@ -176,29 +136,21 @@ export default function FarmerChat() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="bg-white/80 backdrop-blur-lg border-t border-gray-200/60 px-3 py-2.5 safe-bottom">
-        <div className="flex items-center gap-2 max-w-2xl mx-auto">
-          <button onClick={() => isRecording ? stopRecording() : startRecording()} disabled={isTranscribing}
-            className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all shrink-0 shadow-sm ${
-              isRecording ? 'bg-red-500 text-white mic-recording shadow-red-200'
-              : isTranscribing ? 'bg-amber-100 text-amber-600'
-              : 'bg-farm-600 text-white hover:bg-farm-700'
-            }`}>
-            {isTranscribing ? <Loader2 size={20} className="animate-spin" />
-             : isRecording ? <MicOff size={20} /> : <Mic size={20} />}
-          </button>
-          <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown}
-            placeholder={isRecording ? t('chatRecording') : isTranscribing ? t('chatTranscribing') : t('chatPlaceholder')}
-            className="flex-1 px-4 py-2.5 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-farm-500 focus:border-transparent focus:outline-none text-sm bg-gray-50"
-            disabled={isLoading || isTranscribing} />
-          <button onClick={handleSend} disabled={!inputText.trim() || isLoading}
-            className="w-11 h-11 rounded-2xl bg-farm-600 text-white flex items-center justify-center hover:bg-farm-700 disabled:opacity-30 transition-all shrink-0 shadow-sm">
-            <Send size={18} />
-          </button>
+      {/* Input — only shows when there are messages (welcome has its own inline input) */}
+      {messages.length > 0 && (
+        <div className="px-4 sm:px-6 py-3 mb-4">
+          <div className="flex items-center gap-2 max-w-xl mx-auto">
+            <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown}
+              placeholder={isRecording ? t('chatRecording') : isTranscribing ? t('chatTranscribing') : t('chatPlaceholder')}
+              className="flex-1 px-5 py-3 border border-gray-200/60 rounded-2xl focus:ring-2 focus:ring-farm-500 focus:border-transparent focus:outline-none text-sm bg-white/80 backdrop-blur-sm shadow-sm"
+              disabled={isLoading || isTranscribing} />
+            <button onClick={handleSend} disabled={!inputText.trim() || isLoading}
+              className="w-11 h-11 rounded-2xl bg-farm-600 text-white flex items-center justify-center hover:bg-farm-700 disabled:opacity-30 btn-press transition-all shrink-0 shadow-sm">
+              <Send size={18} />
+            </button>
+          </div>
         </div>
-      </div>
-
+      )}
     </div>
   )
 }

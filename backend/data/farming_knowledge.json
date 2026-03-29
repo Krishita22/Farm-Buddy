@@ -2,59 +2,190 @@
   "diseases": {
     "fall_armyworm": {
       "symptoms": "Small holes in leaves, sawdust-like frass, caterpillars inside whorl",
-      "crops": ["maize", "sorghum", "rice"],
-      "treatment": "Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active.",
-      "prevention": "Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+      "crops": ["maize", "sorghum", "rice", "bajra"],
+      "treatment": "Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate 5% SG at 0.4g/litre. Scout fields early morning when larvae are active.",
+      "prevention": "Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass. Pheromone traps at 5/acre.",
+      "organic_option": "Spray neem seed kernel extract (NSKE) 5%, or Beauveria bassiana at 2g/litre. Sand + lime in whorl.",
+      "cost_estimate": "₹200-500/acre for neem, ₹800-1200/acre for chemical"
     },
     "late_blight": {
       "symptoms": "Water-soaked lesions on leaves turning brown/black, white mold on undersides in humid weather, fruit rot",
       "crops": ["tomato", "potato"],
-      "treatment": "Apply mancozeb or copper-based fungicide every 7 days. Remove and burn affected leaves. Ensure good air circulation.",
-      "prevention": "Use resistant varieties, avoid overhead irrigation, stake plants, apply preventive copper spray"
+      "treatment": "Apply mancozeb 75% WP at 2.5g/litre or copper oxychloride every 7 days. Remove and burn affected leaves. Ensure good air circulation.",
+      "prevention": "Use resistant varieties (Arka Rakshak for tomato), avoid overhead irrigation, stake plants, apply preventive copper spray before rains",
+      "organic_option": "Bordeaux mixture (1%), Trichoderma viride soil drench",
+      "cost_estimate": "₹300-600/acre"
     },
     "bacterial_wilt": {
-      "symptoms": "Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut",
-      "crops": ["tomato", "potato", "beans", "pepper"],
-      "treatment": "No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons.",
-      "prevention": "Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+      "symptoms": "Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut and dipped in water",
+      "crops": ["tomato", "potato", "beans", "pepper", "brinjal"],
+      "treatment": "No chemical cure. Remove and burn infected plants immediately. Solarize soil with clear plastic for 6 weeks. Do not replant same crop for 3+ seasons.",
+      "prevention": "Use certified disease-free seeds, rotate with non-solanaceous crops (maize, onion), improve drainage, use resistant varieties, grafting on resistant rootstock",
+      "organic_option": "Pseudomonas fluorescens soil drench, Trichoderma + neem cake soil amendment",
+      "cost_estimate": "Prevention only — ₹500/acre for bio-agents"
     },
     "northern_leaf_blight": {
-      "symptoms": "Long elliptical gray-green to tan lesions on leaves, starting from lower leaves",
+      "symptoms": "Long elliptical gray-green to tan lesions on leaves, starting from lower leaves, can kill entire leaf",
       "crops": ["maize"],
-      "treatment": "Apply mancozeb or azoxystrobin fungicide. Remove heavily infected lower leaves.",
-      "prevention": "Plant resistant hybrids, rotate crops, plow under crop residue"
+      "treatment": "Apply mancozeb or azoxystrobin fungicide at first sign. Remove heavily infected lower leaves.",
+      "prevention": "Plant resistant hybrids, rotate crops, plow under crop residue after harvest",
+      "organic_option": "Trichoderma spray, proper spacing for air flow",
+      "cost_estimate": "₹400-800/acre"
     },
     "rust": {
-      "symptoms": "Small orange-brown pustules on leaves and stems, powdery spores when touched",
-      "crops": ["wheat", "beans"],
-      "treatment": "Apply propiconazole or tebuconazole fungicide at first sign. Repeat after 14 days if needed.",
-      "prevention": "Plant resistant varieties, avoid dense planting, remove volunteer plants"
+      "symptoms": "Small orange-brown pustules on leaves and stems, powdery spores when touched, leaf drying",
+      "crops": ["wheat", "beans", "groundnut", "soybean"],
+      "treatment": "Apply propiconazole 25% EC at 1ml/litre or tebuconazole at first sign. Repeat after 14 days if needed.",
+      "prevention": "Plant resistant varieties, avoid dense planting, remove volunteer plants, early sowing",
+      "organic_option": "Sulfur dust, milk spray (1:9 ratio)",
+      "cost_estimate": "₹500-900/acre"
     },
     "powdery_mildew": {
-      "symptoms": "White powdery coating on leaves, stunted growth, leaf curling",
-      "crops": ["cabbage", "spinach", "onion", "squash"],
-      "treatment": "Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective.",
-      "prevention": "Good spacing, avoid overhead watering, plant in full sun"
+      "symptoms": "White powdery coating on leaves, stunted growth, leaf curling and drying",
+      "crops": ["cabbage", "spinach", "onion", "squash", "cumin", "peas"],
+      "treatment": "Apply sulfur-based fungicide (wettable sulfur 3g/litre) or hexaconazole. Neem oil also effective.",
+      "prevention": "Good spacing (don't crowd plants), avoid overhead watering, plant in full sun, resistant varieties",
+      "organic_option": "Neem oil 2ml/litre, baking soda spray (5g/litre + soap)",
+      "cost_estimate": "₹200-400/acre"
     },
     "aphid_infestation": {
-      "symptoms": "Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold",
-      "crops": ["cabbage", "beans", "tomato", "pepper"],
-      "treatment": "Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid.",
-      "prevention": "Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+      "symptoms": "Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold, virus transmission",
+      "crops": ["cabbage", "beans", "tomato", "pepper", "mustard", "wheat", "cotton"],
+      "treatment": "Spray with neem oil 2ml/litre or imidacloprid 0.3ml/litre for severe cases. Introduce ladybugs (25-50 per plant).",
+      "prevention": "Companion planting with marigolds, garlic, or coriander. Remove weeds. Use reflective mulch. Yellow sticky traps.",
+      "organic_option": "Neem oil, soap spray (5ml liquid soap per litre), garlic-chilli extract",
+      "cost_estimate": "₹150-300/acre for neem, ₹600-900 for chemical"
+    },
+    "pink_bollworm": {
+      "symptoms": "Rosette flowers (petals stuck together), green bolls with holes, larvae inside bolls eating lint and seeds",
+      "crops": ["cotton"],
+      "treatment": "Pheromone traps at 5/acre for monitoring. Spray profenophos or cypermethrin if >10% boll damage.",
+      "prevention": "Timely sowing (before June 15), destroy crop residue, use Bt cotton varieties, avoid late-season irrigation",
+      "organic_option": "Mass trapping with pheromone traps (25/acre), neem seed kernel extract, Trichogramma releases",
+      "cost_estimate": "₹800-1500/acre"
+    },
+    "stem_borer": {
+      "symptoms": "Dead hearts in young plants, whiteheads in older plants, bore holes in stems, frass visible",
+      "crops": ["rice", "maize", "sugarcane", "sorghum"],
+      "treatment": "Apply carbofuran granules in leaf whorl, or spray chlorantraniliprole. Remove dead hearts.",
+      "prevention": "Early planting, avoid excess nitrogen, light traps (1/acre), remove stubble after harvest",
+      "organic_option": "Trichogramma egg parasitoid release (8 cards/acre), neem cake in field",
+      "cost_estimate": "₹400-700/acre"
+    },
+    "downy_mildew": {
+      "symptoms": "Yellow patches on upper leaf surface, gray-purple fuzzy growth underneath, stunted growth",
+      "crops": ["bajra", "onion", "cabbage", "spinach", "grapes"],
+      "treatment": "Metalaxyl + mancozeb (Ridomil Gold) at 2g/litre. Apply before disease spreads.",
+      "prevention": "Seed treatment with metalaxyl, proper drainage, avoid waterlogging, resistant varieties",
+      "organic_option": "Bordeaux mixture 0.5%, good drainage and spacing",
+      "cost_estimate": "₹600-1000/acre"
+    },
+    "wilt_fusarium": {
+      "symptoms": "Yellowing of lower leaves on one side first, brown vascular bundles when stem is cut, gradual wilting and death",
+      "crops": ["tomato", "cotton", "cumin", "banana", "castor"],
+      "treatment": "No chemical cure once infected. Remove plants. Soil treatment with Trichoderma + neem cake before next planting.",
+      "prevention": "Resistant varieties, soil solarization, crop rotation with cereals (3 years), seed treatment with carbendazim",
+      "organic_option": "Trichoderma viride 4g/kg seed treatment, Pseudomonas fluorescens soil drench",
+      "cost_estimate": "₹500/acre for bio-agents"
+    },
+    "whitefly": {
+      "symptoms": "Tiny white flying insects on leaf undersides, sticky honeydew, sooty mold, leaf curl virus transmission",
+      "crops": ["cotton", "tomato", "brinjal", "cassava", "chilli"],
+      "treatment": "Yellow sticky traps for monitoring. Spray neem oil or spiromesifen for heavy infestation.",
+      "prevention": "Remove weeds (alternate hosts), yellow sticky traps (12/acre), avoid planting near infected fields",
+      "organic_option": "Neem oil 3ml/litre, sticky traps, Encarsia formosa parasitoid",
+      "cost_estimate": "₹300-800/acre"
+    },
+    "red_rot": {
+      "symptoms": "Red discoloration inside sugarcane stalk, white patches in red area, stale alcohol smell, drying of top leaves",
+      "crops": ["sugarcane"],
+      "treatment": "No cure. Remove infected stools. Treat seed setts with carbendazim before planting.",
+      "prevention": "Use disease-free seed material, resistant varieties (Co-86032), hot water treatment of setts at 50°C for 2 hours",
+      "organic_option": "Trichoderma treatment of setts, avoid waterlogging",
+      "cost_estimate": "₹300-500/acre for prevention"
     }
   },
   "soil_management": {
-    "clay": "Improve drainage with organic matter. Add gypsum to break up heavy clay. Avoid working when wet. Good for rice and wheat.",
-    "loam": "Ideal soil. Maintain with regular compost. Good for most crops. Apply mulch to retain moisture.",
-    "sandy": "Add compost and manure to improve water retention. Irrigate frequently in small amounts. Good for root crops like carrots and onions.",
-    "laterite": "Often low in nutrients. Add lime to correct pH. Heavy compost needed. Good for cashew and mango trees.",
-    "black_cotton": "Very fertile but cracks when dry. Add mulch. Excellent for cotton, sorghum, and sunflower."
+    "clay": {
+      "description": "Heavy soil, holds water, cracks when dry. Rich in minerals.",
+      "improve": "Add organic matter (compost, FYM) 2-3 tonnes/acre. Add gypsum 500kg/acre to break up. Avoid working when wet.",
+      "good_for": ["rice", "wheat", "sugarcane"],
+      "ph_range": "6.0-7.5",
+      "fertilizer_tip": "Nutrients release slowly — apply less but longer-lasting forms. Split nitrogen doses."
+    },
+    "loam": {
+      "description": "Ideal balanced soil. Good water retention and drainage.",
+      "improve": "Maintain with regular compost 1-2 tonnes/acre per season. Mulch to retain moisture.",
+      "good_for": ["tomato", "onion", "maize", "wheat", "most vegetables"],
+      "ph_range": "6.0-7.0",
+      "fertilizer_tip": "Responds well to balanced NPK. Add micronutrients (zinc, boron) as needed."
+    },
+    "sandy": {
+      "description": "Light soil, drains fast, low nutrients. Warms quickly.",
+      "improve": "Add compost and manure heavily — 3-4 tonnes/acre. Use drip irrigation. Mulch thickly to retain moisture.",
+      "good_for": ["groundnut", "bajra", "carrots", "watermelon", "castor"],
+      "ph_range": "5.5-7.0",
+      "fertilizer_tip": "Nutrients leach fast — apply in small, frequent doses. Slow-release fertilizers preferred."
+    },
+    "laterite": {
+      "description": "Red/orange soil, acidic, low in nutrients, common in tropical areas.",
+      "improve": "Add lime 200-400kg/acre to correct pH. Heavy compost + FYM. Green manuring with dhaincha/sunhemp.",
+      "good_for": ["cashew", "mango", "coconut", "rubber", "cassava"],
+      "ph_range": "4.5-6.0",
+      "fertilizer_tip": "Very low phosphorus — apply single super phosphate generously. Add zinc and boron."
+    },
+    "black_cotton": {
+      "description": "Very fertile, deep black. Swells when wet, cracks when dry. Called 'regur' soil.",
+      "improve": "Add mulch to prevent cracking. Raised beds for drainage. Add FYM 2 tonnes/acre. Don't over-irrigate.",
+      "good_for": ["cotton", "sorghum", "sunflower", "soybean", "wheat", "sugarcane"],
+      "ph_range": "7.0-8.5",
+      "fertilizer_tip": "Rich in calcium and magnesium. Often low in nitrogen and phosphorus. Add zinc sulfate."
+    },
+    "sandy_loam": {
+      "description": "Light textured but with some clay content. Good drainage with moderate retention.",
+      "improve": "Regular organic matter addition. Mulching essential in summer.",
+      "good_for": ["groundnut", "potato", "onion", "cumin", "mustard"],
+      "ph_range": "6.0-7.5",
+      "fertilizer_tip": "Split nitrogen doses. Good response to foliar feeding."
+    }
   },
   "general_tips": {
-    "composting": "Mix green materials (fresh leaves, kitchen scraps) with brown materials (dry leaves, straw) in 1:3 ratio. Turn every 2 weeks. Ready in 2-3 months.",
-    "water_management": "Water early morning or late evening to reduce evaporation. Drip irrigation saves 50% water compared to flood irrigation.",
-    "pest_scouting": "Check fields twice weekly. Look under leaves and inside plant whorls. Early detection saves 80% of treatment cost.",
-    "seed_selection": "Use certified seeds from registered suppliers. Save seeds only from healthy, high-yielding plants. Treat seeds with fungicide before planting.",
-    "market_timing": "Prices peak when supply is low — typically just before harvest season. Consider staggered planting for continuous supply."
+    "composting": "Mix green materials (fresh leaves, kitchen scraps) with brown materials (dry leaves, straw) in 1:3 ratio. Turn every 2 weeks. Ready in 2-3 months. Add cow dung to speed up.",
+    "water_management": "Water early morning or late evening to reduce evaporation. Drip irrigation saves 50% water compared to flood irrigation. Mulching reduces water need by 30%.",
+    "pest_scouting": "Check fields twice weekly. Look under leaves and inside plant whorls. Early detection saves 80% of treatment cost. Use yellow/blue sticky traps.",
+    "seed_selection": "Use certified seeds from registered suppliers. Save seeds only from healthy, high-yielding plants. Treat seeds with Trichoderma + carbendazim before planting.",
+    "market_timing": "Prices peak when supply is low — typically just before harvest season. Consider staggered planting for continuous supply and better prices.",
+    "organic_farming": "Use FYM (farmyard manure) 5-8 tonnes/acre as base. Vermicompost 2 tonnes/acre. Panchagavya spray every 15 days. Jeevamrit for soil health.",
+    "intercropping": "Maize + beans is a classic combo (beans fix nitrogen for maize). Cotton + groundnut works in Gujarat. Sugarcane + onion in Maharashtra.",
+    "crop_rotation": "Never plant same family back-to-back. Rotate: cereal → legume → vegetable. This breaks pest/disease cycles and maintains soil fertility.",
+    "soil_testing": "Test soil every 2 years. Costs ₹50-200 at government labs. Tells you exact NPK levels and micronutrient deficiencies. Saves money on unnecessary fertilizer.",
+    "government_schemes": {
+      "india": {
+        "PM-KISAN": "₹6000/year direct to farmer bank account. Register at pmkisan.gov.in",
+        "Soil_Health_Card": "Free soil testing. Apply at nearest agriculture office.",
+        "PMFBY": "Crop insurance at 1.5-5% premium. Covers flood, drought, pest damage.",
+        "KCC": "Kisan Credit Card — low interest loans up to ₹3 lakh at 4% for farming.",
+        "eNAM": "Sell crops online across mandis. Register at enam.gov.in"
+      },
+      "kenya": {
+        "NAAIAP": "National Accelerated Agricultural Input Access Programme — subsidized fertilizer",
+        "NCPB": "National Cereals and Produce Board — guaranteed minimum prices for maize, wheat",
+        "Kilimo_Salama": "Crop insurance via mobile money (M-Pesa)"
+      },
+      "bangladesh": {
+        "Krishi_Card": "Agricultural input subsidy card for fertilizer, seeds",
+        "Agriculture_Rehabilitation": "Loans for disaster-affected farmers"
+      }
+    },
+    "storage_tips": "Dry grains to 12-13% moisture before storage. Use hermetic bags (PICS, GrainPro) to prevent weevils without chemicals. Store in cool, dry, elevated place away from walls.",
+    "harvest_timing": "Harvest grains at physiological maturity (black layer for maize). Harvest vegetables early morning for better shelf life. Don't harvest wet crops — increases mold risk.",
+    "fertilizer_guide": {
+      "NPK_basics": "N (nitrogen) = leaf growth. P (phosphorus) = root/flower. K (potassium) = fruit/disease resistance.",
+      "DAP": "18-46-0. Good at planting for root establishment. 50kg/acre typical.",
+      "Urea": "46-0-0. Cheapest nitrogen source. Apply in splits, not all at once. 25-50kg/acre per dose.",
+      "MOP": "0-0-60. Potassium for flowering/fruiting crops. 25kg/acre.",
+      "SSP": "0-16-0 + 11% Sulfur. Good for oilseeds (groundnut, mustard). 100kg/acre.",
+      "micronutrients": "Zinc sulfate (ZnSO4) 10kg/acre for paddy/maize. Borax 5kg/acre for oilseeds."
+    }
   }
 }

@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
 import { useLanguage } from '../../lib/LanguageContext'
-import { useUser } from '../../lib/UserContext'
-import { api } from '../../lib/api'
+import { useWeather } from '../../lib/WeatherContext'
 import { CloudRain, Sun, Cloud, CloudDrizzle, CloudLightning, CloudFog, Snowflake, Droplets, Wind, Wifi, WifiOff } from 'lucide-react'
 
 const ICONS = { sunny: Sun, partly_cloudy: Cloud, overcast: Cloud, fog: CloudFog, light_rain: CloudDrizzle, rain: CloudRain, heavy_rain: CloudLightning, thunderstorm: CloudLightning, snow: Snowflake }
@@ -9,16 +7,7 @@ const COLORS = { sunny: 'text-yellow-500', partly_cloudy: 'text-gray-400', overc
 
 export default function WeatherWidget() {
   const { t } = useLanguage()
-  const { region } = useUser()
-  const [forecast, setForecast] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    api.getWeatherForecast(7, region?.lat, region?.lng)
-      .then(setForecast)
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [region])
+  const { forecast, loading } = useWeather()
 
   if (loading) return <div className="bg-white rounded-2xl border border-gray-200 p-4 animate-pulse h-40" />
   const today = forecast[0]
@@ -36,7 +25,7 @@ export default function WeatherWidget() {
             : 'bg-gray-50 text-gray-500 border border-gray-200'
           }`}>
             {isLive ? <Wifi size={10} /> : <WifiOff size={10} />}
-            {isLive ? `${t('weatherLive')}` : source === 'cache' ? t('weatherCached') : t('weatherHistorical')}
+            {isLive ? t('weatherLive') : source === 'cache' ? t('weatherCached') : t('weatherHistorical')}
           </span>
         )}
       </div>

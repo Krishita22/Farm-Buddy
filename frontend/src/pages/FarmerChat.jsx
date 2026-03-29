@@ -4,22 +4,20 @@ import { useVoiceRecorder } from '../hooks/useVoiceRecorder'
 import { useAudioPlayer } from '../hooks/useAudioPlayer'
 import { useLanguage } from '../lib/LanguageContext'
 import { useUser } from '../lib/UserContext'
+import { useWeather } from '../lib/WeatherContext'
 import MessageBubble from '../components/chat/MessageBubble'
 import MemoryPanel from '../components/chat/MemoryPanel'
-import VoiceEnroll from '../components/chat/VoiceEnroll'
 import { useOnlineStatus } from '../hooks/useOnlineStatus'
-import { Mic, MicOff, Send, Brain, Loader2, Wifi, WifiOff, Globe, Sparkles, AudioWaveform, CloudSun } from 'lucide-react'
+import { Mic, MicOff, Send, Brain, Loader2, Wifi, WifiOff, Globe, Sparkles, CloudSun } from 'lucide-react'
 
 export default function FarmerChat() {
   const { lang, t, languages } = useLanguage()
   const { user, region } = useUser()
+  const { current: weather } = useWeather()
   const isOnline = useOnlineStatus()
   const farmerId = user?.farmer_id || 1
   const [inputText, setInputText] = useState('')
-  const [showEnroll, setShowEnroll] = useState(false)
-  const [hasVoiceProfile, setHasVoiceProfile] = useState(false)
   const [showMemory, setShowMemory] = useState(false)
-  const [weather, setWeather] = useState(null)
   const messagesEndRef = useRef(null)
 
   const langConfig = languages.find(l => l.code === lang) || languages[0]
@@ -27,22 +25,9 @@ export default function FarmerChat() {
   const { isRecording, isTranscribing, transcript, startRecording, stopRecording, setTranscript } = useVoiceRecorder(lang)
   const { isPlaying, playAudio, speakText } = useAudioPlayer()
 
-  // Load weather for user's region
-  useEffect(() => {
-    if (region) {
-      fetch(`/api/weather/current?lat=${region.lat}&lng=${region.lng}`)
-        .then(r => r.json()).then(setWeather).catch(() => {})
-    }
+  // Weather now comes from shared WeatherContext — same temp everywhere
+  useEffect(() => { /* placeholder for region dep */
   }, [region])
-
-  // Check voice profile
-  useEffect(() => {
-    if (farmerId) {
-      fetch(`/api/voice/profile/${farmerId}`).then(r => r.json())
-        .then(p => setHasVoiceProfile(p?.analyzed === true))
-        .catch(() => setHasVoiceProfile(false))
-    }
-  }, [farmerId])
 
   // Clear messages when language changes
   useEffect(() => { clearMessages() }, [lang, clearMessages])
@@ -103,11 +88,6 @@ export default function FarmerChat() {
               {weather.current_temp_c}°C
             </div>
           )}
-          <button onClick={() => setShowEnroll(true)}
-            className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full transition-all ${hasVoiceProfile ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600 border border-amber-200'}`}>
-            <AudioWaveform size={12} />
-            <span className="hidden sm:inline">{hasVoiceProfile ? 'Voice' : 'Setup'}</span>
-          </button>
           <button onClick={() => setShowMemory(!showMemory)}
             className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full transition-all ${showMemory ? 'bg-purple-100 text-purple-700' : 'text-gray-400 hover:bg-gray-100'}`}>
             <Brain size={12} />
@@ -219,11 +199,6 @@ export default function FarmerChat() {
         </div>
       </div>
 
-      {/* Voice clone enrollment */}
-      {showEnroll && (
-        <VoiceEnroll farmerId={farmerId}
-          onComplete={(profile) => { setShowEnroll(false); if (profile) setHasVoiceProfile(true) }} />
-      )}
     </div>
   )
 }

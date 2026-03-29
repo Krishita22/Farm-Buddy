@@ -83,6 +83,10 @@ export const api = {
   getLivePrices: (state) => request(`/realtime/prices${state ? `?state=${state}` : ''}`),
   getLiveAlerts: (region) => request(`/realtime/alerts?region=${region || 'india'}`),
 
+  // Real nearby places (OpenStreetMap — cached for offline)
+  getNearbyPlaces: (lat, lng, radius = 25) => request(`/services/nearby?lat=${lat}&lng=${lng}&radius_km=${radius}`),
+  getWaterSources: (lat, lng, radius = 15) => request(`/services/water-sources?lat=${lat}&lng=${lng}&radius_km=${radius}`),
+
   // Health (shows offline service status)
   getHealth: () => request('/health'),
 }

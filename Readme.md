@@ -114,12 +114,12 @@ git clone https://github.com/Krishita22/Farm-Buddy.git
    ```
 
 ## Video demo link:
-https://drive.google.com/file/d/1QxWm9fj8d9CXI8w2oAKOUheaWX50PjBv/view?usp=sharing
+[https://drive.google.com/file/d/1QxWm9fj8d9CXI8w2oAKOUheaWX50PjBv/view?usp=sharing](https://youtu.be/TnDjN7uxOnY)
 
 ## Snap chat links:
-https://lens.snap.com/experience/2e10ef31-7f5e-4066-a4a6-d9dba0c5b6c6
-https://lens.snap.com/experience/5741fb66-a437-4457-9f6a-53c62bdca4bb
-https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015 (https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015-)
+1) https://lens.snap.com/experience/2e10ef31-7f5e-4066-a4a6-d9dba0c5b6c6
+2) https://lens.snap.com/experience/5741fb66-a437-4457-9f6a-53c62bdca4bb
+3) https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015 (https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015-)
 
 ## 📜 License
 

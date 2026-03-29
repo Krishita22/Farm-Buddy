@@ -122,7 +122,7 @@ export default function Profile() {
             <select value={selectedLang} onChange={e => setSelectedLang(e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 focus:ring-2 focus:ring-farm-500 focus:outline-none">
               {languages.map(l => (
-                <option key={l.code} value={l.code}>{l.flag} {l.nativeName} ({l.name})</option>
+                <option key={l.code} value={l.code}>{l.nativeName} ({l.name})</option>
               ))}
             </select>
           </div>
@@ -131,7 +131,7 @@ export default function Profile() {
             <select value={selectedRegion} onChange={e => setSelectedRegion(e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 focus:ring-2 focus:ring-farm-500 focus:outline-none">
               {regions.map(r => (
-                <option key={r.code} value={r.code}>{r.flag} {r.name}</option>
+                <option key={r.code} value={r.code}>{r.name}</option>
               ))}
             </select>
           </div>

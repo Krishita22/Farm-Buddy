@@ -64,6 +64,10 @@ export const api = {
   getCurrentWeather: () => request('/weather/current'),
   getPlantingAdvisory: (crop) => request(`/weather/planting-advisory?crop=${crop}`),
 
+  // Real-time data (live from government APIs)
+  getLivePrices: (state) => request(`/realtime/prices${state ? `?state=${state}` : ''}`),
+  getLiveAlerts: (region) => request(`/realtime/alerts?region=${region || 'india'}`),
+
   // Health (shows offline service status)
   getHealth: () => request('/health'),
 }

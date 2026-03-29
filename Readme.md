@@ -65,7 +65,7 @@ Farm-Buddy is an advanced, AI-powered agricultural assistant designed to help sm
    ```
 
 ##Video demo link:
-
+https://drive.google.com/file/d/1QxWm9fj8d9CXI8w2oAKOUheaWX50PjBv/view?usp=sharing
 
 ## 📜 License
 

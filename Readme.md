@@ -1,6 +1,7 @@
 # 🌱 Farm-Buddy
 
 Farm-Buddy is an advanced, AI-powered agricultural assistant designed to help smallholder farmers make informed decisions about their crops. It provides localized advice, weather integration, offline maps for sourcing supplies, and voice-activated assistance in native dialects.
+We are doing this project for Harper Personal - AI agent track , Asus Societal impact track , Actual food , 
 
 ## ✨ Features
 
@@ -64,8 +65,13 @@ Farm-Buddy is an advanced, AI-powered agricultural assistant designed to help sm
    npm run dev
    ```
 
-##Video demo link:
+## Video demo link:
 https://drive.google.com/file/d/1QxWm9fj8d9CXI8w2oAKOUheaWX50PjBv/view?usp=sharing
+
+## Snap chat links:
+https://lens.snap.com/experience/2e10ef31-7f5e-4066-a4a6-d9dba0c5b6c6
+https://lens.snap.com/experience/5741fb66-a437-4457-9f6a-53c62bdca4bb
+https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015 (https://lens.snap.com/experience/5d14ecba-5992-477a-a587-365ba4a33015-)
 
 ## 📜 License
 

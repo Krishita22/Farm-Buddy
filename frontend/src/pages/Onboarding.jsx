@@ -6,6 +6,15 @@ import { Globe, MapPin, User, ArrowRight, Eye, EyeOff } from 'lucide-react'
 export default function Onboarding() {
   const { lang, setLanguage, t, languages } = useLanguage()
   const { login, regions } = useUser()
+  const LANG_TO_REGION = {
+    gu: 'india_gujarat',
+    hi: 'india_up',
+    sw: 'kenya_machakos',
+    bn: 'bangladesh_dhaka',
+    yo: 'nigeria_oyo',
+    fr: 'senegal_thies',
+  }
+
   const [step, setStep] = useState(1)
   const [region, setRegion] = useState('india_gujarat')
   const [mode, setMode] = useState('signup')
@@ -17,27 +26,38 @@ export default function Onboarding() {
   const [loading, setLoading] = useState(false)
 
   const handleAuth = async () => {
-    if (!username.trim() || !password.trim()) { setError('Fill all fields'); return }
-    if (mode === 'signup' && !name.trim()) { setError('Enter your name'); return }
+    const cleanUsername = username.trim()
+    const cleanPassword = password.trim()
+    const cleanName = name.trim()
+
+    if (!cleanUsername || !cleanPassword) { setError('Fill all fields'); return }
+    if (mode === 'signup' && !cleanName) { setError('Enter your name'); return }
+    
     setLoading(true); setError('')
     try {
       const endpoint = mode === 'signup' ? '/api/auth/signup' : '/api/auth/login'
       const body = mode === 'signup'
-        ? { username, password, name, language: lang, region }
-        : { username, password }
+        ? { username: cleanUsername, password: cleanPassword, name: cleanName, language: lang, region }
+        : { username: cleanUsername, password: cleanPassword }
+      
       const res = await fetch(endpoint, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      
       const data = await res.json()
       if (data.status === 'ok') {
         if (data.user.language) setLanguage(data.user.language)
         login(data.user)
       } else {
-        setError(data.message || 'Something went wrong')
+        // Handle both our custom error format and FastAPI validation/internal errors
+        const msg = data.message || (data.detail ? (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail)) : 'Something went wrong')
+        setError(msg)
       }
-    } catch {
-      setError('Connection failed')
+    } catch (err) {
+      console.error('Auth error:', err)
+      setError('Connection failed: ' + err.message)
     } finally { setLoading(false) }
   }
 
@@ -71,7 +91,7 @@ export default function Onboarding() {
               <p className="text-sm text-gray-500 mb-3">{t('obLangDesc')}</p>
               <div className="grid grid-cols-2 gap-2 max-h-[50vh] overflow-y-auto">
                 {languages.map(l => (
-                  <button key={l.code} onClick={() => setLanguage(l.code)}
+                  <button key={l.code} onClick={() => { setLanguage(l.code); if (LANG_TO_REGION[l.code]) setRegion(LANG_TO_REGION[l.code]) }}
                     className={`flex items-center gap-2 p-2.5 rounded-2xl border-2 transition-all text-left ${
                       lang === l.code ? 'border-farm-500 bg-farm-50 shadow-sm' : 'border-gray-100 hover:border-gray-200'
                     }`}>
@@ -100,7 +120,7 @@ export default function Onboarding() {
               <p className="text-sm text-gray-500 mb-3">{t('obRegionDesc')}</p>
               <div className="space-y-2 max-h-[50vh] overflow-y-auto">
                 {regions.map(r => (
-                  <button key={r.code} onClick={() => setRegion(r.code)}
+                  <button key={r.code} onClick={() => { setRegion(r.code); setLanguage(r.languages[0]) }}
                     className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 transition-all text-left ${
                       region === r.code ? 'border-farm-500 bg-farm-50 shadow-sm' : 'border-gray-100 hover:border-gray-200'
                     }`}>

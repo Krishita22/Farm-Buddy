@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.database import get_db
 import hashlib
+from typing import Optional, Any
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -25,20 +26,21 @@ class LoginRequest(BaseModel):
 
 
 class UpdateProfileRequest(BaseModel):
-    language: str = None
-    region: str = None
-    name: str = None
-    farmer_id: int = None
+    language: Optional[str] = None
+    region: Optional[str] = None
+    name: Optional[str] = None
+    farmer_id: Optional[int] = None
 
 
 @router.post("/signup")
 async def signup(req: SignupRequest):
-    db = await get_db()
+    db = None
     try:
+        db = await get_db()
         # Check if username exists
-        existing = await db.execute_fetchall(
-            "SELECT id FROM users WHERE username = ?", (req.username,)
-        )
+        cursor = await db.execute("SELECT id FROM users WHERE username = ?", (req.username,))
+        existing = await cursor.fetchall()
+        
         if existing:
             return {"status": "error", "message": "Username already taken"}
 
@@ -59,23 +61,28 @@ async def signup(req: SignupRequest):
                 "region": req.region,
             },
         }
+    except Exception as e:
+        print(f"Signup exception: {type(e).__name__}: {e}")
+        return {"status": "error", "message": f"Server error: {str(e)}"}
     finally:
-        await db.close()
+        if db:
+            await db.close()
 
 
 @router.post("/login")
 async def login(req: LoginRequest):
     db = await get_db()
     try:
-        rows = await db.execute_fetchall(
+        cursor = await db.execute(
             "SELECT * FROM users WHERE username = ? AND password_hash = ?",
             (req.username, hash_pw(req.password)),
         )
+        rows = await cursor.fetchall()
         if not rows:
             return {"status": "error", "message": "Invalid username or password"}
 
         user = dict(rows[0])
-        del user["password_hash"]
+        user.pop("password_hash", None)
         return {"status": "ok", "user": user}
     finally:
         await db.close()
@@ -86,7 +93,7 @@ async def update_profile(user_id: int, req: UpdateProfileRequest):
     db = await get_db()
     try:
         updates = []
-        params = []
+        params: list[Any] = []
         if req.language:
             updates.append("language = ?")
             params.append(req.language)
@@ -105,10 +112,11 @@ async def update_profile(user_id: int, req: UpdateProfileRequest):
             await db.execute(f"UPDATE users SET {', '.join(updates)} WHERE id = ?", params)
             await db.commit()
 
-        rows = await db.execute_fetchall("SELECT * FROM users WHERE id = ?", (user_id,))
+        cursor = await db.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+        rows = await cursor.fetchall()
         if rows:
             user = dict(rows[0])
-            del user["password_hash"]
+            user.pop("password_hash", None)
             return {"status": "ok", "user": user}
         return {"status": "error", "message": "User not found"}
     finally:
@@ -119,11 +127,12 @@ async def update_profile(user_id: int, req: UpdateProfileRequest):
 async def get_user(user_id: int):
     db = await get_db()
     try:
-        rows = await db.execute_fetchall("SELECT * FROM users WHERE id = ?", (user_id,))
+        cursor = await db.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+        rows = await cursor.fetchall()
         if not rows:
             return {"status": "error", "message": "User not found"}
         user = dict(rows[0])
-        del user["password_hash"]
+        user.pop("password_hash", None)
         return {"status": "ok", "user": user}
     finally:
         await db.close()

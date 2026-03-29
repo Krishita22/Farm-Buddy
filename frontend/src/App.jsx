@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom'
 import { useLanguage } from './lib/LanguageContext'
 import { useUser } from './lib/UserContext'
 import Onboarding from './pages/Onboarding'
@@ -9,10 +9,26 @@ import Marketplace from './pages/Marketplace'
 import Services from './pages/Services'
 import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, ChevronDown, Download, LogOut } from 'lucide-react'
 
+const LANG_TO_REGION = {
+  gu: 'india_gujarat',
+  hi: 'india_up',
+  sw: 'kenya_machakos',
+  bn: 'bangladesh_dhaka',
+  yo: 'nigeria_oyo',
+  fr: 'senegal_thies',
+}
+
 function LanguagePicker() {
   const { lang, setLanguage, languages } = useLanguage()
+  const { updateUser } = useUser()
   const [open, setOpen] = useState(false)
   const current = languages.find(l => l.code === lang)
+
+  const handleSelect = (code) => {
+    setLanguage(code)
+    if (LANG_TO_REGION[code]) updateUser({ region: LANG_TO_REGION[code] })
+    setOpen(false)
+  }
 
   return (
     <div className="relative">
@@ -31,7 +47,7 @@ function LanguagePicker() {
             {languages.map(l => (
               <button
                 key={l.code}
-                onClick={() => { setLanguage(l.code); setOpen(false) }}
+                onClick={() => handleSelect(l.code)}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-farm-50 transition-colors ${l.code === lang ? 'bg-farm-50 font-semibold text-farm-800' : 'text-gray-700'}`}
               >
                 <span className="text-lg">{l.flag}</span>
@@ -160,7 +176,7 @@ export default function App() {
         <Nav />
         <main className="flex-1">
           <Routes>
-            <Route path="/" element={<FarmerChat />} />
+            <Route path="/" element={<Navigate to="/marketplace" replace />} />
             <Route path="/chat" element={<FarmerChat />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/marketplace" element={<Marketplace />} />

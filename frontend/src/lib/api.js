@@ -1,3 +1,7 @@
+/**
+ * API client — thin wrappers around fetch for all backend endpoints
+ * (chat, market, weather, services, dashboard, etc.).
+ */
 const API_BASE = '/api'
 
 async function request(path, options = {}) {

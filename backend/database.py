@@ -1,3 +1,4 @@
+"""SQLite database helpers: connection factory and schema initialisation."""
 import aiosqlite
 import os
 

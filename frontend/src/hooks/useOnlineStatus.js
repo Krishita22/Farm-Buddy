@@ -1,3 +1,6 @@
+/**
+ * Online-status hook — pings a remote endpoint periodically to detect real connectivity.
+ */
 import { useState, useEffect } from 'react'
 
 export function useOnlineStatus() {

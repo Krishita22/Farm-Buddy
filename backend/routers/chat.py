@@ -25,7 +25,7 @@ from backend.services.piper_tts import synthesize as piper_synthesize
 from backend.services.elevenlabs_tts import synthesize as elevenlabs_synthesize
 from backend.services.chatterbox_tts import synthesize as chatterbox_synthesize, get_voice_sample_path
 from backend.services.voice_profile import analyze_audio, get_voice_profile, save_voice_profile
-from backend.database import get_db
+from backend.constants import use_db
 import base64
 import logging
 
@@ -134,16 +134,12 @@ async def _process_message(
     # Get farmer's coordinates for location-accurate weather
     lat, lng = -1.52, 37.26  # defaults
     try:
-        from backend.database import get_db
-        db = await get_db()
-        try:
+        async with use_db() as db:
             rows = await db.execute_fetchall("SELECT latitude, longitude FROM farmers WHERE id = ?", (farmer_id,))
             if rows:
                 f = dict(rows[0])
                 if f.get("latitude") and f.get("longitude"):
                     lat, lng = f["latitude"], f["longitude"]
-        finally:
-            await db.close()
     except Exception:
         pass
     weather_context = await get_weather_context_for_ai(lat, lng)
@@ -168,8 +164,7 @@ async def _process_message(
     memory_stored = None
 
     if disease:
-        db = await get_db()
-        try:
+        async with use_db() as db:
             farmer = await db.execute_fetchall(
                 "SELECT latitude, longitude FROM farmers WHERE id = ?", (farmer_id,)
             )
@@ -181,8 +176,6 @@ async def _process_message(
                  disease.get("severity", "moderate"), f.get("latitude"), f.get("longitude")),
             )
             await db.commit()
-        finally:
-            await db.close()
 
         # Store in Harper memory too
         await store_memory(

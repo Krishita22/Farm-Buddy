@@ -1,5 +1,6 @@
 """Voice endpoints — Whisper STT + ElevenLabs/ChatterboxTTS/Piper TTS + Voice Cloning."""
 from fastapi import APIRouter, UploadFile, File, Query
+from backend.constants import use_db  # noqa: F401  — available for future DB access
 from fastapi.responses import Response
 from backend.services.whisper_stt import transcribe, detect_language
 from backend.services.piper_tts import synthesize, list_available_voices

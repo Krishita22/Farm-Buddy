@@ -1,7 +1,9 @@
+"""Dashboard API endpoints for stats, outbreaks, farms, alerts, and disease timeline."""
+
 from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.services.outbreak_detector import detect_outbreaks, get_dashboard_stats
-from backend.database import get_db
+from backend.constants import use_db, ok_response
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 
@@ -12,13 +14,14 @@ class OutbreakReport(BaseModel):
     severity: str = "moderate"
     latitude: float = None
     longitude: float = None
+    language: str = "en"
 
 
+# Report a new disease outbreak and create an alert
 @router.post("/report-outbreak")
 async def report_outbreak(report: OutbreakReport):
     """Report a disease outbreak from the dashboard."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         await db.execute(
             """INSERT INTO disease_reports (farmer_id, crop_name, disease_name, severity, latitude, longitude, confirmed)
                VALUES (?, ?, ?, ?, ?, ?, ?)""",
@@ -30,28 +33,28 @@ async def report_outbreak(report: OutbreakReport):
             "INSERT INTO alerts (farmer_id, alert_type, content, language) VALUES (?, ?, ?, ?)",
             (None, "outbreak",
              f"{report.disease_name} reported on {report.crop_name} ({report.severity})",
-             "en"),
+             report.language),
         )
         await db.commit()
-        return {"status": "ok", "message": "Outbreak reported"}
-    finally:
-        await db.close()
+        return ok_response("Outbreak reported")
 
 
+# Aggregated dashboard statistics
 @router.get("/stats")
 async def stats():
     return await get_dashboard_stats()
 
 
+# Detect and return current disease outbreaks
 @router.get("/outbreaks")
 async def outbreaks():
     return await detect_outbreaks()
 
 
+# List all registered farms with active crops and recent issues
 @router.get("/farms")
 async def all_farms():
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             """SELECT f.id, f.name, f.village, f.district, f.latitude, f.longitude,
                       f.farm_size_acres, f.soil_type, f.language,
@@ -60,14 +63,12 @@ async def all_farms():
                FROM farmers f ORDER BY f.name"""
         )
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Disease reports grouped by date for the last 30 days
 @router.get("/disease-timeline")
 async def disease_timeline():
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             """SELECT date(reported_at) as date, disease_name, COUNT(*) as count
                FROM disease_reports
@@ -76,14 +77,12 @@ async def disease_timeline():
                ORDER BY date"""
         )
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Most recent 20 alerts with farmer names
 @router.get("/alerts")
 async def recent_alerts():
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             """SELECT a.*, f.name as farmer_name
                FROM alerts a
@@ -91,5 +90,3 @@ async def recent_alerts():
                ORDER BY a.sent_at DESC LIMIT 20"""
         )
         return [dict(r) for r in rows]
-    finally:
-        await db.close()

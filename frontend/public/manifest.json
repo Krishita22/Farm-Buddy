@@ -1,6 +1,6 @@
 {
-  "name": "FarmAgent — Your Personal Farming AI",
-  "short_name": "FarmAgent",
+  "name": "Farm Buddy — Your Personal Farming AI",
+  "short_name": "Farm Buddy",
   "description": "Offline AI farming advisor that speaks your language. Powered by Nous Research & Harper AI.",
   "start_url": "/",
   "display": "standalone",
@@ -10,14 +10,8 @@
   "categories": ["agriculture", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
+      "src": "/Logo.png",
+      "sizes": "500x500",
       "type": "image/png",
       "purpose": "any maskable"
     }

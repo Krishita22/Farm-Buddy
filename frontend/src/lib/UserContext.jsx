@@ -1,3 +1,7 @@
+/**
+ * User context — manages farmer profile, region/country selection, and login state.
+ * Region and country metadata (coordinates, currencies, i18n labels) live here.
+ */
 import { createContext, useContext, useState, useCallback } from 'react'
 
 const UserContext = createContext()

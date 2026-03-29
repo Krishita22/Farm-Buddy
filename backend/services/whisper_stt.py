@@ -3,7 +3,6 @@ FarmAgent Whisper STT — Runs FULLY OFFLINE.
 Uses OpenAI Whisper locally for speech-to-text with automatic language detection.
 No internet. No API calls. Processes audio on device.
 """
-import io
 import tempfile
 import os
 import logging
@@ -59,7 +58,10 @@ async def transcribe(audio_bytes: bytes, language_hint: str = None) -> dict:
         lang_confidence = probs[detected_lang]
 
         # Transcribe with detected or hinted language
+        # Whisper doesn't support Gujarati well — use Hindi (similar sounds)
+        WHISPER_LANG_MAP = {"gu": "hi", "yo": "en", "sw": "en"}
         use_lang = language_hint if language_hint else detected_lang
+        use_lang = WHISPER_LANG_MAP.get(use_lang, use_lang)
         result = model.transcribe(
             temp_path,
             language=use_lang,

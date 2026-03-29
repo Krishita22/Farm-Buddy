@@ -1,7 +1,7 @@
 """Authentication — Email signup, verification codes, password reset, profile editing."""
 from fastapi import APIRouter
 from pydantic import BaseModel
-from backend.database import get_db
+from backend.constants import REGION_COORDS, get_coords, use_db, error_response, ok_response
 from backend.services.email_service import send_verification_email, send_reset_email
 import hashlib
 import random
@@ -9,16 +9,6 @@ import string
 from datetime import datetime
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
-
-REGION_COORDS = {
-    "india_gujarat": (22.31, 72.13, "Gujarat"),
-    "india_up": (26.85, 80.91, "Uttar Pradesh"),
-    "india_maharashtra": (19.08, 75.71, "Maharashtra"),
-    "kenya_machakos": (-1.52, 37.26, "Machakos"),
-    "bangladesh_dhaka": (23.81, 90.41, "Dhaka Division"),
-    "nigeria_oyo": (7.85, 3.93, "Oyo State"),
-    "senegal_thies": (14.79, -16.93, "Thiès"),
-}
 
 # In-memory verification codes (in production, send via SMS/email)
 _verification_codes = {}
@@ -44,24 +34,24 @@ class SignupRequest(BaseModel):
     region: str = "india_gujarat"
 
 
+# Initiate signup: validate inputs, generate verification code, send email
 @router.post("/signup")
 async def signup(req: SignupRequest):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Check if email exists
         existing = await db.execute_fetchall(
             "SELECT id FROM users WHERE username = ?", (req.email,)
         )
         if existing:
-            return {"status": "error", "message": "This email is already registered. Please log in."}
+            return error_response("This email is already registered. Please log in.")
 
         # Validate
         if len(req.password) < 4:
-            return {"status": "error", "message": "Password must be at least 4 characters"}
+            return error_response("Password must be at least 4 characters")
         if not req.name.strip():
-            return {"status": "error", "message": "Please enter your name"}
+            return error_response("Please enter your name")
         if not req.email.strip():
-            return {"status": "error", "message": "Please enter your email"}
+            return error_response("Please enter your email")
 
         # Generate verification code
         code = generate_code()
@@ -81,8 +71,6 @@ async def signup(req: SignupRequest):
             "email_sent": email_sent,
             "code": code if not email_sent else None,  # Only show code if email not sent
         }
-    finally:
-        await db.close()
 
 
 class VerifyRequest(BaseModel):
@@ -90,21 +78,20 @@ class VerifyRequest(BaseModel):
     code: str
 
 
+# Verify signup code and create user + farmer records
 @router.post("/verify")
 async def verify(req: VerifyRequest):
     stored = _verification_codes.get(req.email)
     if not stored:
-        return {"status": "error", "message": "No pending verification for this email"}
+        return error_response("No pending verification for this email")
     if stored["code"] != req.code:
-        return {"status": "error", "message": "Invalid verification code"}
+        return error_response("Invalid verification code")
 
     # Code matches — create account
     data = stored["data"]
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Create farmer profile
-        coords = REGION_COORDS.get(data["region"], (22.31, 72.13, "Gujarat"))
-        lat, lng, district = coords
+        lat, lng, district = get_coords(data["region"])
 
         farmer_cursor = await db.execute(
             """INSERT INTO farmers (name, phone, language, village, district, latitude, longitude,
@@ -138,8 +125,6 @@ async def verify(req: VerifyRequest):
                 "phone": data.get("phone", ""),
             },
         }
-    finally:
-        await db.close()
 
 
 # ===== LOGIN =====
@@ -149,16 +134,16 @@ class LoginRequest(BaseModel):
     password: str
 
 
+# Authenticate user with email + password
 @router.post("/login")
 async def login(req: LoginRequest):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             "SELECT * FROM users WHERE username = ? AND password_hash = ?",
             (req.email, hash_pw(req.password)),
         )
         if not rows:
-            return {"status": "error", "message": "Invalid email or password"}
+            return error_response("Invalid email or password")
 
         user = dict(rows[0])
         return {
@@ -172,8 +157,6 @@ async def login(req: LoginRequest):
                 "farmer_id": user["farmer_id"],
             },
         }
-    finally:
-        await db.close()
 
 
 # ===== PASSWORD RESET =====
@@ -182,13 +165,13 @@ class ResetRequest(BaseModel):
     email: str
 
 
+# Send a password-reset code to the user's email
 @router.post("/forgot-password")
 async def forgot_password(req: ResetRequest):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall("SELECT id FROM users WHERE username = ?", (req.email,))
         if not rows:
-            return {"status": "error", "message": "No account found with this email"}
+            return error_response("No account found with this email")
 
         code = generate_code()
         _reset_codes[req.email] = {"code": code, "created": datetime.now().isoformat()}
@@ -201,8 +184,6 @@ async def forgot_password(req: ResetRequest):
             "email_sent": email_sent,
             "code": code if not email_sent else None,
         }
-    finally:
-        await db.close()
 
 
 class ResetPasswordRequest(BaseModel):
@@ -211,25 +192,45 @@ class ResetPasswordRequest(BaseModel):
     new_password: str
 
 
+class DirectResetRequest(BaseModel):
+    email: str
+    new_password: str
+
+
+# Reset password directly without a code (admin/dev convenience)
+@router.post("/direct-reset")
+async def direct_reset(req: DirectResetRequest):
+    if len(req.new_password) < 4:
+        return error_response("Password must be at least 4 characters")
+    async with use_db() as db:
+        rows = await db.execute_fetchall("SELECT id FROM users WHERE username = ?", (req.email,))
+        if not rows:
+            return error_response("No account found with this email")
+        await db.execute(
+            "UPDATE users SET password_hash = ? WHERE username = ?",
+            (hash_pw(req.new_password), req.email),
+        )
+        await db.commit()
+        return ok_response("Password reset successfully. You can now log in.")
+
+
+# Reset password using a previously issued reset code
 @router.post("/reset-password")
 async def reset_password(req: ResetPasswordRequest):
     stored = _reset_codes.get(req.email)
     if not stored or stored["code"] != req.code:
-        return {"status": "error", "message": "Invalid reset code"}
+        return error_response("Invalid reset code")
     if len(req.new_password) < 4:
-        return {"status": "error", "message": "Password must be at least 4 characters"}
+        return error_response("Password must be at least 4 characters")
 
-    db = await get_db()
-    try:
+    async with use_db() as db:
         await db.execute(
             "UPDATE users SET password_hash = ? WHERE username = ?",
             (hash_pw(req.new_password), req.email),
         )
         await db.commit()
         del _reset_codes[req.email]
-        return {"status": "ok", "message": "Password reset successfully. You can now log in."}
-    finally:
-        await db.close()
+        return ok_response("Password reset successfully. You can now log in.")
 
 
 # ===== PROFILE =====
@@ -244,13 +245,13 @@ class ProfileUpdate(BaseModel):
     irrigation_type: str = None
 
 
+# Fetch user profile and associated farm details
 @router.get("/profile/{user_id}")
 async def get_profile(user_id: int):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall("SELECT * FROM users WHERE id = ?", (user_id,))
         if not rows:
-            return {"status": "error", "message": "User not found"}
+            return error_response("User not found")
         user = dict(rows[0])
 
         # Get farmer details too
@@ -279,14 +280,12 @@ async def get_profile(user_id: int):
                 "district": farmer.get("district"),
             },
         }
-    finally:
-        await db.close()
 
 
+# Update user profile and farmer record fields
 @router.put("/profile/{user_id}")
 async def update_profile(user_id: int, req: ProfileUpdate):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Update user table
         user_updates = []
         user_params = []
@@ -341,8 +340,6 @@ async def update_profile(user_id: int, req: ProfileUpdate):
 
         await db.commit()
         return await get_profile(user_id)
-    finally:
-        await db.close()
 
 
 class ChangePasswordRequest(BaseModel):
@@ -350,24 +347,22 @@ class ChangePasswordRequest(BaseModel):
     new_password: str
 
 
+# Change password after verifying the current one
 @router.post("/change-password/{user_id}")
 async def change_password(user_id: int, req: ChangePasswordRequest):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             "SELECT id FROM users WHERE id = ? AND password_hash = ?",
             (user_id, hash_pw(req.old_password)),
         )
         if not rows:
-            return {"status": "error", "message": "Current password is incorrect"}
+            return error_response("Current password is incorrect")
         if len(req.new_password) < 4:
-            return {"status": "error", "message": "New password must be at least 4 characters"}
+            return error_response("New password must be at least 4 characters")
 
         await db.execute(
             "UPDATE users SET password_hash = ? WHERE id = ?",
             (hash_pw(req.new_password), user_id),
         )
         await db.commit()
-        return {"status": "ok", "message": "Password changed successfully"}
-    finally:
-        await db.close()
+        return ok_response("Password changed successfully")

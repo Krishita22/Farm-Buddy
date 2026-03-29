@@ -1,11 +1,17 @@
+/**
+ * Profile page — user info, language/region, farm details, and password management.
+ * Uses shared UI components (Button, Card, Alert) for consistent styling.
+ */
+
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../lib/LanguageContext'
 import { useUser } from '../lib/UserContext'
-import { User, Mail, Phone, MapPin, Ruler, Mountain, Droplets, Lock, Save, ArrowLeft, Check } from 'lucide-react'
+import { Button, Card, Alert } from '../components/ui'
+import { User, Mail, Phone, Ruler, Lock, Save, Check } from 'lucide-react'
 
 export default function Profile() {
   const { lang, setLanguage, t, languages } = useLanguage()
-  const { user, updateUser, logout, regions, region } = useUser()
+  const { user, updateUser, logout, regions } = useUser()
   const [name, setName] = useState(user?.name || '')
   const [phone, setPhone] = useState('')
   const [selectedRegion, setSelectedRegion] = useState(user?.region || 'india_gujarat')
@@ -80,7 +86,10 @@ export default function Profile() {
         <User size={20} /> {t('profileTitle')}
       </h1>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4 shadow-sm">
+      {/* Save confirmation */}
+      <Alert message={msg === t('saved') ? msg : msg ? msg : null} type={msg === t('saved') ? 'success' : 'error'} />
+
+      <Card variant="solid" className="p-4 mb-4">
         <h3 className="text-sm font-semibold text-gray-500 mb-3">{t('personalInfo')}</h3>
         <div className="space-y-3">
           <div>
@@ -108,9 +117,9 @@ export default function Profile() {
             </div>
           </div>
         </div>
-      </div>
+      </Card>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4 shadow-sm">
+      <Card variant="solid" className="p-4 mb-4">
         <h3 className="text-sm font-semibold text-gray-500 mb-3">{t('langRegion')}</h3>
         <div className="space-y-3">
           <div>
@@ -132,9 +141,9 @@ export default function Profile() {
             </select>
           </div>
         </div>
-      </div>
+      </Card>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4 shadow-sm">
+      <Card variant="solid" className="p-4 mb-4">
         <h3 className="text-sm font-semibold text-gray-500 mb-3">{t('farmDetails')}</h3>
         <div className="space-y-3">
           <div>
@@ -172,14 +181,13 @@ export default function Profile() {
             </select>
           </div>
         </div>
-      </div>
+      </Card>
 
-      <button onClick={handleSave} disabled={saving}
-        className="w-full py-3 bg-farm-600 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-farm-700 disabled:opacity-50 mb-4 shadow-sm text-sm">
+      <Button variant="primary" size="lg" onClick={handleSave} disabled={saving} className="mb-4">
         {msg === t('saved') ? <><Check size={16} /> {t('saved')}</> : saving ? '...' : <><Save size={16} /> {t('saveChanges')}</>}
-      </button>
+      </Button>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-4 shadow-sm">
+      <Card variant="solid" className="p-4 mb-4">
         <button onClick={() => setShowPwSection(!showPwSection)}
           className="flex items-center gap-2 text-sm font-semibold text-gray-500 w-full">
           <Lock size={14} /> {t('changePassword')}
@@ -190,19 +198,17 @@ export default function Profile() {
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 focus:ring-2 focus:ring-farm-500 focus:outline-none" />
             <input type="password" placeholder={t('newPasswordLabel')} value={newPw} onChange={e => setNewPw(e.target.value)}
               className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 focus:ring-2 focus:ring-farm-500 focus:outline-none" />
-            {pwMsg && <p className={`text-xs ${pwMsg.includes('success') ? 'text-green-600' : 'text-red-500'}`}>{pwMsg}</p>}
-            <button onClick={handleChangePw}
-              className="w-full py-2.5 bg-gray-800 text-white rounded-xl font-semibold text-sm hover:bg-gray-900">
+            <Alert message={pwMsg} type={pwMsg?.includes('success') ? 'success' : 'error'} />
+            <Button variant="secondary" size="lg" onClick={handleChangePw} className="bg-gray-800 text-white hover:bg-gray-900 border-0">
               {t('updatePassword')}
-            </button>
+            </Button>
           </div>
         )}
-      </div>
+      </Card>
 
-      <button onClick={logout}
-        className="w-full py-3 border-2 border-red-200 text-red-600 rounded-xl font-semibold text-sm hover:bg-red-50">
+      <Button variant="secondary" size="lg" onClick={logout} className="border-2 border-red-200 text-red-600 hover:bg-red-50">
         {t('logout')}
-      </button>
+      </Button>
     </div>
   )
 }

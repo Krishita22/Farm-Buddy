@@ -1,8 +1,12 @@
+// Marketplace page — browse and filter farmer buy/sell listings by category and region.
+// Uses shared Card component for listing cards.
+
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../lib/LanguageContext'
 import { useUser } from '../lib/UserContext'
+import { Card } from '../components/ui'
 
-// Maps DB region → the local language code for that region
+// Maps DB region -> the local language code for that region
 const REGION_LANG = {
   'Gujarat': 'gu',
   'Uttar Pradesh': 'hi',
@@ -134,7 +138,7 @@ export default function Marketplace() {
             const displayTitle = useLocal && l.title_local ? l.title_local : l.title
             const displayDesc = useLocal && l.description_local ? l.description_local : l.description
             return (
-              <div key={l.id} className="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-2">
+              <Card key={l.id} variant="solid" className="p-4 hover:shadow-md transition-shadow flex flex-col gap-2">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shrink-0 ${colorClass}`}>
@@ -174,7 +178,7 @@ export default function Marketplace() {
                     <Phone size={11} /> {l.contact_phone}
                   </a>
                 )}
-              </div>
+              </Card>
             )
           })}
         </div>

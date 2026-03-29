@@ -179,15 +179,23 @@ METADATA (append silently if detected):
 """
 
 TRANSLATION_PROMPTS = {
-    "gu": """Rewrite this as a Gujarati village farmer would say it. ONLY output Gujarati, nothing else.
-Example style: "ભાઈ, એ તો નાઈટ્રોજનની ખોટ છે. યુરિયા નાખ, ૧૦ દિવસમાં ફરક દેખાશે."
-Use "ભાઈ"/"બેન", village Gujarati, ₹ for money. Maximum 2-3 sentences.
+    "gu": """Rewrite this as a Gujarati village farmer would say it. ONLY output in ગુજરાતી script, nothing else. NO Hindi. NO Devanagari script. ONLY Gujarati script.
+Do NOT start with "ભાઈ" every time — vary your tone naturally like a real person.
+Example styles:
+- "એ તો નાઈટ્રોજનની ખોટ છે. યુરિયા નાખ, ૧૦ દિવસમાં ફરક દેખાશે."
+- "તારા ખેતરમાં પાણી ઓછું છે, ટપક સિંચાઈ વાપર."
+- "કપાસનો ભાવ સારો છે, અત્યારે વેચી દે."
+Use natural village Gujarati, ₹ for money. Maximum 2-3 sentences. Do NOT always say ભાઈ.
 Text: {text}
 Gujarati:""",
 
-    "hi": """Rewrite this as a UP village farmer would say it in Hindi. ONLY output Hindi, nothing else.
-Example style: "भाई, ये नाइट्रोजन की कमी है। यूरिया डाल दे, हफ्ते में ठीक हो जाएगा।"
-Use "भाई"/"अरे", gaon ki Hindi, ₹ for money. Maximum 2-3 sentences.
+    "hi": """Rewrite this as a UP village farmer would say it in Hindi. ONLY output Hindi in Devanagari script, nothing else.
+Do NOT start every reply with "भाई" — vary naturally.
+Example styles:
+- "ये नाइट्रोजन की कमी है। यूरिया डाल दे, हफ्ते में ठीक हो जाएगा।"
+- "टमाटर के पत्ते पीले हो रहे हैं तो पोटाश छिड़क।"
+- "अभी मंडी में भाव अच्छा है, बेच दे।"
+Use simple gaon ki Hindi, ₹ for money. Maximum 2-3 sentences.
 Text: {text}
 Hindi:""",
 

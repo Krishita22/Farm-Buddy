@@ -1,3 +1,7 @@
+/**
+ * Farmer chat page — voice-first conversational interface with the AI farming assistant.
+ * Supports mic recording, text input, auto-send after transcription, and audio playback.
+ */
 import { useState, useEffect, useRef } from 'react'
 import { useChat } from '../hooks/useChat'
 import { useVoiceRecorder } from '../hooks/useVoiceRecorder'
@@ -57,30 +61,46 @@ export default function FarmerChat() {
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="w-full max-w-2xl flex flex-col items-center justify-center gap-6 slide-up px-4">
-              {/* Mic button */}
-              <button type="button" onClick={toggleRecording} disabled={isTranscribing}
-                className={`group relative w-32 h-32 sm:w-36 sm:h-36 rounded-[2.2rem] flex items-center justify-center transition-all duration-700 ease-out ${
-                  isRecording
-                    ? 'bg-gradient-to-br from-farm-500 to-farm-700 text-white listening-mic shadow-[0_16px_50px_rgba(22,101,52,0.35)]'
-                    : isTranscribing
-                      ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-[0_16px_40px_rgba(217,119,6,0.3)]'
-                      : 'bg-gradient-to-br from-farm-700 to-farm-900 text-white hover:scale-105 shadow-[0_16px_50px_rgba(22,101,52,0.25)]'
-                }`}>
-                {isRecording && (
-                  <>
-                    <span className="absolute inset-[-8px] rounded-[2.6rem] border border-farm-500/30 listening-ring" />
-                    <span className="absolute inset-[-18px] rounded-[3rem] border border-farm-400/15 listening-ring listening-ring-delay" />
-                  </>
+              {/* Mic button with hint animations */}
+              <div className="flex flex-col items-center gap-3">
+                <button type="button" onClick={toggleRecording} disabled={isTranscribing}
+                  className={`group relative w-32 h-32 sm:w-36 sm:h-36 rounded-[2.2rem] flex items-center justify-center transition-all duration-700 ease-out ${
+                    isRecording
+                      ? 'bg-gradient-to-br from-farm-500 to-farm-700 text-white listening-mic shadow-[0_16px_50px_rgba(22,101,52,0.35)]'
+                      : isTranscribing
+                        ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-[0_16px_40px_rgba(217,119,6,0.3)]'
+                        : 'bg-gradient-to-br from-farm-700 to-farm-900 text-white hover:scale-105 shadow-[0_16px_50px_rgba(22,101,52,0.25)] mic-hint-pulse'
+                  }`}>
+                  {/* Ripple rings — always visible when idle to draw attention */}
+                  {!isRecording && !isTranscribing && (
+                    <>
+                      <span className="absolute inset-[-6px] rounded-[2.5rem] border-2 border-farm-500/20 mic-hint-ring" />
+                      <span className="absolute inset-[-14px] rounded-[2.8rem] border border-farm-400/10 mic-hint-ring mic-hint-ring-delay" />
+                    </>
+                  )}
+                  {isRecording && (
+                    <>
+                      <span className="absolute inset-[-8px] rounded-[2.6rem] border border-farm-500/30 listening-ring" />
+                      <span className="absolute inset-[-18px] rounded-[3rem] border border-farm-400/15 listening-ring listening-ring-delay" />
+                    </>
+                  )}
+                  {isTranscribing ? <Loader2 size={56} className="relative z-10 animate-spin" />
+                    : <Mic size={56} strokeWidth={1.8} className="relative z-10 drop-shadow-md" />}
+                </button>
+                {/* Tap hint text */}
+                {!isRecording && !isTranscribing && (
+                  <span className="text-sm text-gray-400 mic-hint-text">{t('chatTapToSpeak')}</span>
                 )}
-                {isTranscribing ? <Loader2 size={56} className="relative z-10 animate-spin" />
-                  : <Mic size={56} strokeWidth={1.8} className="relative z-10 drop-shadow-md" />}
-              </button>
+                {isRecording && (
+                  <span className="text-sm text-farm-600 font-medium animate-pulse">{t('chatRecording')}</span>
+                )}
+              </div>
 
               {/* Title */}
               {(
                 <div className="text-center">
                   <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">{t('chatWelcome')}</h2>
-                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto">Ask about crops, diseases, soil, weather, or prices.<br />Tap the mic to speak in your language.</p>
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto">{t('chatWelcomeDesc')}</p>
                 </div>
               )}
 
@@ -140,6 +160,14 @@ export default function FarmerChat() {
       {messages.length > 0 && (
         <div className="px-4 sm:px-6 py-3 mb-4">
           <div className="flex items-center gap-2 max-w-xl mx-auto">
+            <button onClick={toggleRecording} disabled={isTranscribing}
+              className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0 shadow-sm btn-press ${
+                isRecording ? 'bg-gradient-to-br from-farm-500 to-farm-700 text-white listening-mic shadow-[0_0_30px_rgba(22,163,74,0.4)]'
+                : isTranscribing ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-white shadow-[0_0_20px_rgba(217,119,6,0.3)]'
+                : 'bg-gradient-to-br from-farm-700 to-farm-900 text-white hover:scale-105 hover:shadow-[0_0_25px_rgba(20,83,45,0.4)]'
+              }`}>
+              {isTranscribing ? <Loader2 size={18} className="animate-spin" /> : <Mic size={18} />}
+            </button>
             <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown}
               placeholder={isRecording ? t('chatRecording') : isTranscribing ? t('chatTranscribing') : t('chatPlaceholder')}
               className="flex-1 px-5 py-3 border border-gray-200/60 rounded-2xl focus:ring-2 focus:ring-farm-500 focus:border-transparent focus:outline-none text-sm bg-white/80 backdrop-blur-sm shadow-sm"

@@ -1,11 +1,12 @@
 """
-Marketplace — Buy/sell crops, tools, supplies. B2B and B2C.
-Farmers can list what they want to sell, browse what others are selling,
-and find buyers for their harvest.
+Marketplace router — Buy/sell crops, tools, supplies (B2B and B2C).
+
+Endpoints let farmers list items for sale, browse other listings,
+check regional crop prices, and discover nearby sellers.
 """
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
-from backend.database import get_db
+from backend.constants import use_db
 
 router = APIRouter(prefix="/api/marketplace", tags=["marketplace"])
 
@@ -24,6 +25,7 @@ class ListingCreate(BaseModel):
     contact_phone: str = None
 
 
+# Browse active marketplace listings with optional filters
 @router.get("/listings")
 async def get_listings(
     listing_type: str = None,
@@ -33,8 +35,7 @@ async def get_listings(
     limit: int = 50,
 ):
     """Browse marketplace listings. Filter by type, category, region, or crop."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         query = """SELECT m.*, f.name as farmer_name, f.village, f.district
                    FROM marketplace m
                    LEFT JOIN farmers f ON m.farmer_id = f.id
@@ -57,15 +58,13 @@ async def get_listings(
 
         rows = await db.execute_fetchall(query, params)
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Create a new buy or sell listing in the marketplace
 @router.post("/listings")
 async def create_listing(listing: ListingCreate):
     """Create a new marketplace listing (sell or buy)."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         cursor = await db.execute(
             """INSERT INTO marketplace (farmer_id, listing_type, category, title, description,
                price, currency, unit, quantity, region, contact_phone)
@@ -76,15 +75,13 @@ async def create_listing(listing: ListingCreate):
         )
         await db.commit()
         return {"id": cursor.lastrowid, "status": "listed"}
-    finally:
-        await db.close()
 
 
+# Return aggregated price stats for a crop (last 7 days)
 @router.get("/price-check/{crop}")
 async def price_check(crop: str, region: str = None):
     """Get current market prices for a crop across regions."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         query = """SELECT crop_name, region, AVG(price_per_kg) as avg_price,
                    MIN(price_per_kg) as min_price, MAX(price_per_kg) as max_price,
                    currency
@@ -96,10 +93,9 @@ async def price_check(crop: str, region: str = None):
         query += " AND recorded_at > datetime('now', '-7 days') GROUP BY region"
         rows = await db.execute_fetchall(query, params)
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Find sellers within a bounding-box radius of the given coordinates
 @router.get("/nearby-sellers")
 async def nearby_sellers(
     crop: str = Query(...),
@@ -108,8 +104,7 @@ async def nearby_sellers(
     radius_km: float = Query(50),
 ):
     """Find nearby farmers selling a specific crop."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Approximate degree-to-km conversion
         deg = radius_km / 111
         rows = await db.execute_fetchall(
@@ -124,5 +119,3 @@ async def nearby_sellers(
             (f"%{crop}%", lat, deg, lng, deg),
         )
         return [dict(r) for r in rows]
-    finally:
-        await db.close()

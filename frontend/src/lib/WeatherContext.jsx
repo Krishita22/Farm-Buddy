@@ -1,3 +1,7 @@
+/**
+ * Weather context — fetches and caches current conditions and 7-day forecast,
+ * refreshing on region change and every 10 minutes.
+ */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { useUser } from './UserContext'
 import { api } from './api'

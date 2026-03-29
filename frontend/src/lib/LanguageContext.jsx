@@ -1,3 +1,7 @@
+/**
+ * Language context — stores the active locale, persists it to localStorage,
+ * and exposes a translation helper (t) to the component tree.
+ */
 import { createContext, useContext, useState, useCallback } from 'react'
 import { t as translate, getLanguages } from './i18n'
 

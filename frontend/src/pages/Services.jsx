@@ -1,8 +1,12 @@
+// Services page — lists nearby agricultural services (OSM + registered) with map view.
+// Uses shared Card component for all card containers.
+
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../lib/LanguageContext'
 import { useUser } from '../lib/UserContext'
 import { api } from '../lib/api'
 import MapView from '../components/MapView'
+import { Card } from '../components/ui'
 import { Wrench, Tractor, Droplets, Users, Truck, Bug, FlaskConical, Wheat, Package, Phone, MapPin, Star, ShoppingBag, Stethoscope, Hammer, Navigation } from 'lucide-react'
 
 export default function Services() {
@@ -92,7 +96,7 @@ export default function Services() {
         {loading ? (
           <div className="space-y-3">
             {[1,2,3].map(i => (
-              <div key={i} className="market-card-skeleton bg-white/88 backdrop-blur-sm rounded-2xl border border-white/70 p-4 shadow-sm">
+              <Card key={i} variant="skeleton" className="p-4">
                 <div className="flex items-start gap-3">
                   <div className="market-shimmer h-11 w-11 rounded-xl shrink-0" />
                   <div className="flex-1 space-y-3">
@@ -101,7 +105,7 @@ export default function Services() {
                     <div className="market-shimmer h-3 w-24 rounded-full" />
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         ) : (() => {
@@ -109,10 +113,10 @@ export default function Services() {
           const filteredNearby = typeFilter ? nearbyPlaces.filter(p => p.type === typeFilter) : nearbyPlaces
           const allItems = [...filteredNearby, ...services]
           return allItems.length === 0 ? (
-          <div className="text-center py-6 text-gray-500 text-sm bg-white/80 rounded-2xl border border-white/70 shadow-sm">
+          <Card className="text-center py-6 text-gray-500 text-sm">
             <p className="font-medium mb-1">{t('noServicesFound')}</p>
             <p className="text-xs text-gray-400">{t('tryDifferent')}</p>
-          </div>
+          </Card>
         ) : (
           <div className="space-y-3">
             {/* Nearby places from OpenStreetMap */}
@@ -120,8 +124,7 @@ export default function Services() {
               const cfg = TYPE_CONFIG[p.type] || { icon: MapPin, color: 'bg-gray-50 text-gray-500 border-gray-200', label: p.type?.replace(/_/g, ' ') }
               const Icon = cfg.icon
               return (
-                <div key={`n-${i}`}
-                  className="market-card-enter bg-white/92 backdrop-blur-sm rounded-2xl border border-white/70 p-4 shadow-sm hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                <Card key={`n-${i}`} animate className="p-4"
                   style={{ animationDelay: `${Math.min(i * 55, 330)}ms` }}>
                   <div className="flex items-start gap-3">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${cfg.color}`}>
@@ -141,7 +144,7 @@ export default function Services() {
                         target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600"><MapPin size={14} /></a>
                     </div>
                   </div>
-                </div>
+                </Card>
               )
             })}
 
@@ -150,8 +153,7 @@ export default function Services() {
               const cfg = TYPE_CONFIG[s.service_type] || { icon: Wrench, color: 'bg-gray-50 text-gray-600 border-gray-200', label: s.service_type }
               const Icon = cfg.icon
               return (
-                <div key={s.id}
-                  className="market-card-enter bg-white/92 backdrop-blur-sm rounded-2xl border border-white/70 p-4 shadow-sm hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                <Card key={s.id} animate className="p-4"
                   style={{ animationDelay: `${Math.min((nearbyPlaces.length + index) * 55, 500)}ms` }}>
                   <div className="flex items-start gap-3">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center border shrink-0 ${cfg.color}`}>
@@ -183,7 +185,7 @@ export default function Services() {
                       )}
                     </div>
                   </div>
-                </div>
+                </Card>
               )
             })}
           </div>
@@ -191,7 +193,7 @@ export default function Services() {
 
         {/* Map — filtered by selected category */}
         {region && (
-          <div className="dashboard-section-enter bg-white/92 backdrop-blur-sm rounded-2xl border border-white/70 shadow-sm overflow-hidden mt-4" style={{ animationDelay: '300ms' }}>
+          <Card className="overflow-hidden mt-4 dashboard-section-enter" style={{ animationDelay: '300ms' }}>
             <div className="px-4 py-3 border-b border-gray-100/50 flex items-center justify-between">
               <h3 className="font-semibold text-gray-900 text-sm">{region?.i18n?.[lang] || region?.name}{typeFilter ? ` - ${TYPE_CONFIG[typeFilter]?.label || typeFilter}` : ''}</h3>
               <div className="flex items-center gap-2 text-xs text-gray-400">
@@ -201,7 +203,7 @@ export default function Services() {
             <MapView center={{ lat: region.lat, lng: region.lng }}
               places={typeFilter ? nearbyPlaces.filter(p => p.type === typeFilter) : nearbyPlaces}
               waterSources={waterSources} height="350px" />
-          </div>
+          </Card>
         )}
       </div>
     </div>

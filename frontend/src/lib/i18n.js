@@ -54,6 +54,7 @@ const translations = {
     chatWelcome: "Welcome to Farm Buddy",
     chatWelcomeDesc: "Ask me anything about your crops, diseases, soil, weather, or market prices. Tap the microphone to speak in your language.",
     chatPlaceholder: "Type your question or tap the mic...",
+    chatTapToSpeak: "Tap to speak",
     chatRecording: "Recording... Tap to stop",
     chatTranscribing: "Transcribing with Whisper...",
     chatThinking: "Thinking locally...",
@@ -163,6 +164,7 @@ const translations = {
     reportOutbreak: "Report Outbreak", submitReport: "Submit Report", cropLabel: "Crop",
     diseasePest: "Disease / Pest", severity: "Severity", mild: "Mild", moderate: "Moderate", severe: "Severe",
     reported: "Reported!",
+    labelLanguage: "Language", labelRegion: "Region", labelStatus: "Status",
 
     // Install
     installApp: "Install App",
@@ -188,6 +190,7 @@ const translations = {
     chatWelcome: "Karibu Farm Buddy",
     chatWelcomeDesc: "Niulize chochote kuhusu mazao yako, magonjwa, udongo, hali ya hewa, au bei za soko. Bonyeza kipaza sauti kuzungumza kwa lugha yako.",
     chatPlaceholder: "Andika swali lako au bonyeza kipaza sauti...",
+    chatTapToSpeak: "Gusa kuzungumza",
     chatRecording: "Inarekodi... Bonyeza kusimamisha",
     chatTranscribing: "Inatafsiri na Whisper...",
     chatThinking: "Inafikiria...",
@@ -219,6 +222,7 @@ const translations = {
     servicesTitle: "Huduma za Shamba", servicesDesc: "Tafuta trekta, umwagiliaji, wafanyakazi karibu nawe", callNow: "Piga Simu",
     svcTractor: "Trekta", svcHarvesting: "Uvunaji", svcIrrigation: "Umwagiliaji", svcRepair: "Ukarabati", svcLabor: "Wafanyakazi", svcTransport: "Usafiri", svcSpraying: "Kunyunyizia", svcSoilTest: "Kupima Udongo", svcSeeds: "Mbegu na Vifaa", svcFertilizer: "Mbolea",
     nearbyCanals: "Mifereji Karibu", nearbyIrrigation: "Vyanzo vya Umwagiliaji",
+    labelLanguage: "Lugha", labelRegion: "Eneo", labelStatus: "Hali",
     installApp: "Sakinisha App", installDesc: "Ongeza kwenye skrini ya nyumbani",
   },
 
@@ -239,6 +243,7 @@ const translations = {
     chatWelcome: "Farm Buddy में आपका स्वागत है",
     chatWelcomeDesc: "अपनी फसलों, बीमारियों, मिट्टी, मौसम या बाजार की कीमतों के बारे में कुछ भी पूछें। अपनी भाषा में बोलने के लिए माइक्रोफोन दबाएं।",
     chatPlaceholder: "अपना सवाल टाइप करें या माइक दबाएं...",
+    chatTapToSpeak: "बोलने के लिए टैप करें",
     chatRecording: "रिकॉर्डिंग... रोकने के लिए टैप करें", chatTranscribing: "Whisper से लिखा जा रहा है...", chatThinking: "सोच रहा हूं...", chatPlayAudio: "सुनें",
     chatSuggestions: [
       "मेरे टमाटर के पत्ते पीले हो रहे हैं",
@@ -273,6 +278,7 @@ const translations = {
     reportOutbreak: "प्रकोप रिपोर्ट", submitReport: "रिपोर्ट भेजें", cropLabel: "फसल",
     diseasePest: "बीमारी / कीट", severity: "गंभीरता", mild: "हल्का", moderate: "मध्यम", severe: "गंभीर",
     reported: "रिपोर्ट हो गई!",
+    labelLanguage: "भाषा", labelRegion: "क्षेत्र", labelStatus: "स्थिति",
     installApp: "ऐप इंस्टॉल करें", installDesc: "होम स्क्रीन पर जोड़ें",
   },
 
@@ -293,6 +299,7 @@ const translations = {
     chatWelcome: "Farm Buddy માં આપનું સ્વાગત છે",
     chatWelcomeDesc: "તમારા પાક, રોગ, જમીન, હવામાન કે બજાર ભાવ વિશે કંઈ પણ પૂછો. તમારી ભાષામાં બોલવા માટે માઈક દબાવો.",
     chatPlaceholder: "તમારો સવાલ ટાઈપ કરો અથવા માઈક દબાવો...",
+    chatTapToSpeak: "બોલવા માટે ટેપ કરો",
     chatRecording: "રેકોર્ડિંગ ચાલુ છે... રોકવા માટે ટેપ કરો", chatTranscribing: "Whisper થી લખાઈ રહ્યું છે...", chatThinking: "વિચારી રહ્યું છે...", chatPlayAudio: "સાંભળો",
     chatSuggestions: [
       "મારા ટામેટાના પાન પીળા પડી ગયા છે",
@@ -327,6 +334,7 @@ const translations = {
     reportOutbreak: "રોગચાળો રિપોર્ટ", submitReport: "રિપોર્ટ મોકલો", cropLabel: "પાક",
     diseasePest: "રોગ / જીવાત", severity: "ગંભીરતા", mild: "હળવું", moderate: "મધ્યમ", severe: "ગંભીર",
     reported: "રિપોર્ટ થઈ ગઈ!",
+    labelLanguage: "ભાષા", labelRegion: "વિસ્તાર", labelStatus: "સ્થિતિ",
     installApp: "એપ ઇન્સ્ટોલ કરો", installDesc: "હોમ સ્ક્રીન પર ઉમેરો",
   },
 
@@ -347,6 +355,7 @@ const translations = {
     chatWelcome: "Farm Buddy-তে স্বাগতম",
     chatWelcomeDesc: "আপনার ফসল, রোগ, মাটি, আবহাওয়া বা বাজার দর সম্পর্কে যেকোনো প্রশ্ন করুন।",
     chatPlaceholder: "আপনার প্রশ্ন লিখুন বা মাইক চাপুন...",
+    chatTapToSpeak: "কথা বলতে ট্যাপ করুন",
     chatRecording: "রেকর্ডিং... থামাতে ট্যাপ করুন", chatTranscribing: "Whisper দিয়ে লেখা হচ্ছে...", chatThinking: "ভাবছি...", chatPlayAudio: "শুনুন",
     chatSuggestions: [
       "আমার টমেটোর পাতা হলুদ হয়ে যাচ্ছে",
@@ -375,6 +384,7 @@ const translations = {
     servicesTitle: "খামার সেবা", servicesDesc: "ট্র্যাক্টর, সেচ, শ্রমিক কাছাকাছি খুঁজুন", callNow: "কল করুন",
     svcTractor: "ট্র্যাক্টর", svcHarvesting: "ফসল কাটা", svcIrrigation: "সেচ", svcRepair: "মেরামত", svcLabor: "শ্রমিক", svcTransport: "পরিবহন", svcSpraying: "স্প্রে", svcSoilTest: "মাটি পরীক্ষা", svcSeeds: "বীজ ও সরঞ্জাম", svcFertilizer: "সার",
     nearbyCanals: "নিকটবর্তী খাল", nearbyIrrigation: "সেচ উৎস",
+    labelLanguage: "ভাষা", labelRegion: "অঞ্চল", labelStatus: "অবস্থা",
     installApp: "অ্যাপ ইনস্টল করুন", installDesc: "হোম স্ক্রিনে যোগ করুন",
   },
 
@@ -395,6 +405,7 @@ const translations = {
     chatWelcome: "Bienvenue sur Farm Buddy",
     chatWelcomeDesc: "Posez-moi vos questions sur vos cultures, maladies, sol, m\u00e9t\u00e9o ou prix du march\u00e9. Appuyez sur le micro pour parler dans votre langue.",
     chatPlaceholder: "Tapez votre question ou appuyez sur le micro...",
+    chatTapToSpeak: "Appuyez pour parler",
     chatRecording: "Enregistrement... Appuyez pour arr\u00eater", chatTranscribing: "Transcription avec Whisper...", chatThinking: "R\u00e9flexion en cours...", chatPlayAudio: "\u00c9couter",
     chatSuggestions: [
       "Mes feuilles de tomate jaunissent",
@@ -423,6 +434,7 @@ const translations = {
     servicesTitle: "Services agricoles", servicesDesc: "Trouvez tracteurs, irrigation, main-d'\u0153uvre", callNow: "Appeler",
     svcTractor: "Tracteur", svcHarvesting: "R\u00e9colte", svcIrrigation: "Irrigation", svcRepair: "R\u00e9paration", svcLabor: "Main-d'\u0153uvre", svcTransport: "Transport", svcSpraying: "Pulv\u00e9risation", svcSoilTest: "Analyse du sol", svcSeeds: "Semences", svcFertilizer: "Engrais",
     nearbyCanals: "Canaux proches", nearbyIrrigation: "Sources d'irrigation",
+    labelLanguage: "Langue", labelRegion: "R\u00e9gion", labelStatus: "Statut",
     installApp: "Installer l'app", installDesc: "Ajouter \u00e0 l'\u00e9cran d'accueil",
   },
 
@@ -443,6 +455,7 @@ const translations = {
     chatWelcome: "Bienvenido a Farm Buddy",
     chatWelcomeDesc: "Preg\u00fantame sobre tus cultivos, enfermedades, suelo, clima o precios. Toca el micr\u00f3fono para hablar en tu idioma.",
     chatPlaceholder: "Escribe tu pregunta o toca el micr\u00f3fono...",
+    chatTapToSpeak: "Toca para hablar",
     chatRecording: "Grabando... Toca para parar", chatTranscribing: "Transcribiendo con Whisper...", chatThinking: "Pensando...", chatPlayAudio: "Escuchar",
     chatSuggestions: [
       "Las hojas de mi tomate est\u00e1n amarillas",
@@ -462,6 +475,7 @@ const translations = {
     searchFarms: "Buscar fincas...", all: "Todos", issues: "Problemas", noData: "Sin datos",
     weatherTitle: "Clima local", weatherLive: "En vivo — Tomorrow.io", weatherCached: "En cach\u00e9", weatherHistorical: "Hist\u00f3rico", today: "Hoy",
     acres: "hect\u00e1reas", soil: "suelo", crops: "Cultivos", growing: "creciendo", harvested: "cosechado", failed: "fallido",
+    labelLanguage: "Idioma", labelRegion: "Regi\u00f3n", labelStatus: "Estado",
     installApp: "Instalar app", installDesc: "Agregar a pantalla de inicio",
   },
 
@@ -482,6 +496,7 @@ const translations = {
     chatWelcome: "Bem-vindo ao Farm Buddy",
     chatWelcomeDesc: "Pergunte sobre suas culturas, doen\u00e7as, solo, clima ou pre\u00e7os. Toque no microfone para falar na sua l\u00edngua.",
     chatPlaceholder: "Digite sua pergunta ou toque no microfone...",
+    chatTapToSpeak: "Toque para falar",
     chatRecording: "Gravando... Toque para parar", chatTranscribing: "Transcrevendo com Whisper...", chatThinking: "Pensando...", chatPlayAudio: "Ouvir",
     chatSuggestions: [
       "As folhas do meu tomate est\u00e3o amarelas",
@@ -501,6 +516,7 @@ const translations = {
     searchFarms: "Buscar fazendas...", all: "Todos", issues: "Problemas", noData: "Sem dados",
     weatherTitle: "Clima local", weatherLive: "Ao vivo — Tomorrow.io", weatherCached: "Em cache", weatherHistorical: "Hist\u00f3rico", today: "Hoje",
     acres: "hectares", soil: "solo", crops: "Culturas", growing: "crescendo", harvested: "colhido", failed: "falhou",
+    labelLanguage: "Idioma", labelRegion: "Regi\u00e3o", labelStatus: "Estado",
     installApp: "Instalar app", installDesc: "Adicionar \u00e0 tela inicial",
   },
 
@@ -521,6 +537,7 @@ const translations = {
     chatWelcome: "E ku ab\u1ecd s\u00ed Farm Buddy",
     chatWelcomeDesc: "B\u00e8\u00e8r\u00e8 l\u1ecd\u0301w\u1ecd\u0301 n\u00edpa ir\u00fag\u00edn r\u1eb9, \u00e0r\u00f9n, il\u1eb9\u0300, oj\u00fa \u1ecds\u00e1n, t\u00e0b\u00ed ow\u00f3 \u1ecdj\u00e0. T\u1eb9 m\u00e1\u00eck\u00ec l\u00e1ti s\u1ecd n\u00ed \u00e8d\u00e8 r\u1eb9.",
     chatPlaceholder: "T\u1eb9 \u00ecb\u00e8\u00e8r\u00e8 r\u1eb9 t\u00e0b\u00ed t\u1eb9 m\u00e1\u00eck\u00ec...",
+    chatTapToSpeak: "Tẹ láti sọ̀rọ̀",
     chatRecording: "A n gb\u00e0s\u00edl\u1eb9\u0300... T\u1eb9 l\u00e1ti d\u00far\u00f3", chatTranscribing: "Whisper n k\u1ecd s\u00edl\u1eb9\u0300...", chatThinking: "M\u00f3 n r\u00f2...", chatPlayAudio: "Gb\u1ecd\u0301",
     chatSuggestions: [
       "Ew\u00e9 tom\u00e1\u00e0t\u00ec mi n di p\u00fap\u00e0",
@@ -540,6 +557,7 @@ const translations = {
     searchFarms: "W\u00e1 oko...", all: "Gb\u00f2gb\u00f2", issues: "\u00ccsonra", noData: "K\u00f2 s\u00ed data",
     weatherTitle: "Oj\u00fa \u1ecc\u0300s\u00e1n Ag\u00e8gb\u00e8", weatherLive: "Laaye — Tomorrow.io", weatherCached: "Apa\u00ecm\u00f3", weatherHistorical: "\u00cct\u00e0n", today: "\u00d2n\u00ed",
     acres: "\u00e9\u00e8ka", soil: "il\u1eb9\u0300", crops: "Ir\u00fag\u00edn", growing: "n d\u00e0gb\u00e0", harvested: "a k\u00f2r\u00e8", failed: "k\u00f2 y\u00e1",
+    labelLanguage: "\u00c8d\u00e8", labelRegion: "Agb\u00e8gb\u00e8", labelStatus: "Ip\u00f2",
     installApp: "Fi App s\u00ed\u00ed", installDesc: "Fi s\u00ed ib\u00e8r\u00e8 ib\u00f9j\u00f3k\u00f3",
   },
 
@@ -560,6 +578,7 @@ const translations = {
     chatWelcome: "\u0645\u0631\u062d\u0628\u0627\u064b \u0628\u0643 \u0641\u064a Farm Buddy",
     chatWelcomeDesc: "\u0627\u0633\u0623\u0644\u0646\u064a \u0639\u0646 \u0645\u062d\u0627\u0635\u064a\u0644\u0643\u060c \u0627\u0644\u0623\u0645\u0631\u0627\u0636\u060c \u0627\u0644\u062a\u0631\u0628\u0629\u060c \u0627\u0644\u0637\u0642\u0633\u060c \u0623\u0648 \u0623\u0633\u0639\u0627\u0631 \u0627\u0644\u0633\u0648\u0642. \u0627\u0636\u063a\u0637 \u0639\u0644\u0649 \u0627\u0644\u0645\u064a\u0643\u0631\u0648\u0641\u0648\u0646 \u0644\u0644\u062a\u062d\u062f\u062b \u0628\u0644\u063a\u062a\u0643.",
     chatPlaceholder: "\u0627\u0643\u062a\u0628 \u0633\u0624\u0627\u0644\u0643 \u0623\u0648 \u0627\u0636\u063a\u0637 \u0639\u0644\u0649 \u0627\u0644\u0645\u064a\u0643...",
+    chatTapToSpeak: "اضغط للتحدث",
     chatRecording: "\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644... \u0627\u0636\u063a\u0637 \u0644\u0644\u0625\u064a\u0642\u0627\u0641", chatTranscribing: "\u062a\u062d\u0648\u064a\u0644 \u0628\u0648\u0627\u0633\u0637\u0629 Whisper...", chatThinking: "\u0623\u0641\u0643\u0631...", chatPlayAudio: "\u0627\u0633\u062a\u0645\u0639",
     chatSuggestions: [
       "\u0623\u0648\u0631\u0627\u0642 \u0627\u0644\u0637\u0645\u0627\u0637\u0645 \u062a\u0635\u0641\u0631",
@@ -579,12 +598,27 @@ const translations = {
     searchFarms: "\u0628\u062d\u062b \u0639\u0646 \u0645\u0632\u0627\u0631\u0639...", all: "\u0627\u0644\u0643\u0644", issues: "\u0645\u0634\u0627\u0643\u0644", noData: "\u0644\u0627 \u062a\u0648\u062c\u062f \u0628\u064a\u0627\u0646\u0627\u062a",
     weatherTitle: "\u0627\u0644\u0637\u0642\u0633 \u0627\u0644\u0645\u062d\u0644\u064a", weatherLive: "\u0645\u0628\u0627\u0634\u0631 — Tomorrow.io", weatherCached: "\u0645\u062e\u0632\u0646 \u0645\u0624\u0642\u062a\u0627\u064b", weatherHistorical: "\u062a\u0627\u0631\u064a\u062e\u064a", today: "\u0627\u0644\u064a\u0648\u0645",
     acres: "\u0641\u062f\u0627\u0646", soil: "\u062a\u0631\u0628\u0629", crops: "\u0645\u062d\u0627\u0635\u064a\u0644", growing: "\u064a\u0646\u0645\u0648", harvested: "\u062a\u0645 \u0627\u0644\u062d\u0635\u0627\u062f", failed: "\u0641\u0634\u0644",
+    labelLanguage: "\u0627\u0644\u0644\u063a\u0629", labelRegion: "\u0627\u0644\u0645\u0646\u0637\u0642\u0629", labelStatus: "\u0627\u0644\u062d\u0627\u0644\u0629",
     installApp: "\u062a\u062b\u0628\u064a\u062a \u0627\u0644\u062a\u0637\u0628\u064a\u0642", installDesc: "\u0623\u0636\u0641 \u0644\u0644\u0634\u0627\u0634\u0629 \u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629",
   },
 }
 
 export function t(key, lang = 'en') {
   return translations[lang]?.[key] ?? translations.en?.[key] ?? key
+}
+
+// Crop name translations
+const CROP_NAMES = {
+  hi: { Wheat: "गेहूं", Rice: "चावल", "Rice (Basmati)": "बासमती चावल", "Rice (Aman)": "आमन चावल", Onion: "प्याज", Tomato: "टमाटर", Cotton: "कपास", Groundnut: "मूंगफली", Cumin: "जीरा", Potato: "आलू", Bajra: "बाजरा", Castor: "अरंडी", Mustard: "सरसों", Sugarcane: "गन्ना", Maize: "मक्का", Soybean: "सोयाबीन", Grapes: "अंगूर", Sorghum: "ज्वार", Beans: "सेम", Cabbage: "पत्तागोभी", Mango: "आम", Cassava: "कसावा", Yam: "रतालू", Cocoa: "कोको", Pepper: "मिर्च", Cowpea: "लोबिया", Plantain: "केला", Jute: "जूट", Lentil: "मसूर", Millet: "बाजरा", Coffee: "कॉफी" },
+  gu: { Wheat: "ઘઉં", Rice: "ચોખા", Onion: "ડુંગળી", Tomato: "ટામેટા", Cotton: "કપાસ", Groundnut: "મગફળી", Cumin: "જીરું", Potato: "બટાકા", Bajra: "બાજરી", Castor: "એરંડા", Mustard: "રાઈ", Sugarcane: "શેરડી", Maize: "મકાઈ", Soybean: "સોયાબીન", Grapes: "દ્રાક્ષ", Sorghum: "જુવાર", Beans: "વાલ", Cabbage: "કોબીજ", Mango: "કેરી" },
+  bn: { Wheat: "গম", Rice: "ধান", "Rice (Aman)": "আমন ধান", Onion: "পেঁয়াজ", Tomato: "টমেটো", Potato: "আলু", Mustard: "সরিষা", Jute: "পাট", Lentil: "মসুর", Maize: "ভুট্টা" },
+  sw: { Wheat: "Ngano", Rice: "Mchele", Onion: "Vitunguu", Tomato: "Nyanya", Potato: "Viazi", Maize: "Mahindi", Beans: "Maharage", Cabbage: "Kabichi", Mango: "Embe", Sorghum: "Mtama" },
+  fr: { Wheat: "Blé", Rice: "Riz", Onion: "Oignon", Tomato: "Tomate", Groundnut: "Arachide", Millet: "Mil", Sorghum: "Sorgho" },
+}
+
+export function translateCrop(name, lang) {
+  if (lang === 'en' || !CROP_NAMES[lang]) return name
+  return CROP_NAMES[lang][name] || name
 }
 
 export function getLanguages() {

@@ -1,3 +1,6 @@
+/**
+ * Chat hook — manages conversation state and sends messages to the backend AI endpoint.
+ */
 import { useState, useCallback } from 'react'
 import { api } from '../lib/api'
 

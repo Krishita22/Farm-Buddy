@@ -1,10 +1,10 @@
-from backend.database import get_db
+"""Market price queries and price-fairness checks."""
+from backend.constants import use_db
 
 
 async def get_prices(crop: str = None, region: str = None):
     """Get market prices, optionally filtered by crop and region."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         query = "SELECT * FROM market_prices WHERE 1=1"
         params = []
         if crop:
@@ -17,14 +17,11 @@ async def get_prices(crop: str = None, region: str = None):
 
         rows = await db.execute_fetchall(query, params)
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
 async def check_price_fairness(crop: str, offered_price: float, region: str = None) -> dict:
     """Check if an offered price is fair compared to market rates."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         query = """SELECT AVG(price_per_kg) as avg_price, MIN(price_per_kg) as min_price,
                    MAX(price_per_kg) as max_price, currency
                    FROM market_prices WHERE crop_name = ?"""
@@ -66,5 +63,3 @@ async def check_price_fairness(crop: str, offered_price: float, region: str = No
                 "currency": currency,
                 "message": f"This price is fair. Market average is {currency} {avg:.1f}/kg.",
             }
-    finally:
-        await db.close()

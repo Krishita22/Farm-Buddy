@@ -12,8 +12,6 @@ Pipeline: ElevenLabs (online, best) → ChatterboxTTS (offline, voice clone) →
 """
 import tempfile
 import os
-import io
-import wave
 import logging
 
 logger = logging.getLogger(__name__)

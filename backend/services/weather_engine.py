@@ -43,18 +43,12 @@ def _load_weather_data():
 
 def _find_nearest_region(lat: float, lng: float) -> dict:
     """Find the nearest region's weather data based on coordinates."""
-    import math
     data = _load_weather_data()
     regions = data.get("regions", {})
 
-    # Known region centers
-    region_centers = {
-        "kenya_machakos": (-1.52, 37.26),
-        "india_gujarat": (22.31, 72.13),
-        "india_up": (26.85, 80.91),
-        "bangladesh_dhaka": (23.81, 90.41),
-        "nigeria_oyo": (7.85, 3.93),
-    }
+    # Known region centers — derived from the single source of truth
+    from backend.constants import REGION_COORDS
+    region_centers = {k: (lat, lng) for k, (lat, lng, _) in REGION_COORDS.items()}
 
     best = "kenya_machakos"
     best_dist = float("inf")

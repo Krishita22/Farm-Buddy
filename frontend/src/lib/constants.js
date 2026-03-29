@@ -1,3 +1,6 @@
+/**
+ * Shared colour constants for disease severity levels and specific disease types.
+ */
 export const SEVERITY_COLORS = {
   mild: '#facc15',
   moderate: '#f97316',

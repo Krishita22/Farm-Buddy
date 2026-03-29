@@ -1,10 +1,10 @@
-from backend.database import get_db
+"""Farmer context building and conversation memory helpers."""
+from backend.constants import use_db
 
 
 async def build_farmer_context(farmer_id: int) -> str:
     """Build a rich context string about a farmer for the AI."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Get farmer profile
         farmer = await db.execute_fetchall(
             "SELECT * FROM farmers WHERE id = ?", (farmer_id,)
@@ -104,40 +104,31 @@ async def build_farmer_context(farmer_id: int) -> str:
                 context_parts.append("Market Prices:\n" + "\n".join(price_lines))
 
         return "\n\n".join(context_parts)
-    finally:
-        await db.close()
 
 
 async def get_conversation_history(conversation_id: int) -> list:
     """Get message history for a conversation."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         messages = await db.execute_fetchall(
             "SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY created_at ASC",
             (conversation_id,),
         )
         return [dict(m) for m in messages]
-    finally:
-        await db.close()
 
 
 async def store_message(conversation_id: int, role: str, content: str, language: str = "en"):
     """Store a message in a conversation."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         await db.execute(
             "INSERT INTO messages (conversation_id, role, content, language) VALUES (?, ?, ?, ?)",
             (conversation_id, role, content, language),
         )
         await db.commit()
-    finally:
-        await db.close()
 
 
 async def get_or_create_conversation(farmer_id: int) -> int:
     """Get the most recent open conversation or create a new one."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         # Get the most recent conversation from today
         row = await db.execute_fetchall(
             """SELECT id FROM conversations
@@ -154,5 +145,3 @@ async def get_or_create_conversation(farmer_id: int) -> int:
         )
         await db.commit()
         return cursor.lastrowid
-    finally:
-        await db.close()

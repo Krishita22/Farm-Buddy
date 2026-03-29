@@ -1,4 +1,8 @@
-import { useState, useEffect } from 'react'
+/**
+ * Root application component — splash screen, onboarding gate, navigation shell,
+ * and top-level route definitions.
+ */
+import { useState, useEffect, useCallback } from 'react'
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { useLanguage } from './lib/LanguageContext'
 import { useUser } from './lib/UserContext'
@@ -33,7 +37,7 @@ function LanguagePicker() {
     <div className="relative">
       <button onClick={() => setOpen(!open)}
         className="flex flex-col items-start px-3 py-1 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors text-sm">
-        <span className="text-[9px] uppercase tracking-wider text-white/40">Language</span>
+        <span className="text-[9px] uppercase tracking-wider text-white/40">{t('labelLanguage')}</span>
         <span className="flex items-center gap-1">
           <span className="hidden sm:inline">{current?.nativeName}</span>
           <ChevronDown size={12} className="opacity-60" />
@@ -44,7 +48,7 @@ function LanguagePicker() {
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-12 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 w-60 max-h-80 overflow-y-auto">
             <div className="px-4 py-2 border-b border-gray-100">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Language</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t('labelLanguage')}</p>
             </div>
             {languages.map(l => (
               <button key={l.code} onClick={() => handleSelect(l.code)}
@@ -73,7 +77,7 @@ function RegionPicker() {
     <div className="relative">
       <button onClick={() => setOpen(!open)}
         className="flex flex-col items-start px-3 py-1 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors text-sm">
-        <span className="text-[9px] uppercase tracking-wider text-white/40">Region</span>
+        <span className="text-[9px] uppercase tracking-wider text-white/40">{t('labelRegion')}</span>
         <span className="flex items-center gap-1">
           <span className="hidden sm:inline">{region?.i18n?.[lang] || region?.name || 'Region'}</span>
           <ChevronDown size={12} className="opacity-60" />
@@ -84,7 +88,7 @@ function RegionPicker() {
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-12 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 w-56 max-h-80 overflow-y-auto">
             <div className="px-4 py-2 border-b border-gray-100">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Region</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t('labelRegion')}</p>
             </div>
             {regions.map(r => (
               <button key={r.code} onClick={() => { updateUser({ region: r.code }); setOpen(false) }}
@@ -138,7 +142,7 @@ function Nav() {
       <div className="w-full px-4 sm:px-6 lg:px-10 h-20 flex items-center justify-between gap-4 relative">
         {/* Left — Logo */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <img src="/Logo.JPG" alt="Farm Buddy" className="w-14 h-14 rounded-full object-cover" />
+          <img src="/Logo.png" alt="Farm Buddy" className="w-14 h-14 rounded-full object-contain" />
           <span className="hidden md:inline font-extrabold text-xl tracking-tight">{t('appName')}</span>
         </Link>
 
@@ -161,7 +165,7 @@ function Nav() {
         {/* Right — Status, Language, Region, Profile */}
         <div className="flex items-center gap-2">
           <div className={`flex flex-col items-center px-3 py-1.5 rounded-2xl ${isOnline ? 'bg-green-400/15' : 'bg-red-400/15'}`}>
-            <span className="text-[9px] uppercase tracking-wider text-white/40">Status</span>
+            <span className="text-[9px] uppercase tracking-wider text-white/40">{t('labelStatus')}</span>
             <span className={`text-sm font-medium ${isOnline ? 'text-green-300' : 'text-red-300'}`}>
               {isOnline ? t('online') : t('offline')}
             </span>
@@ -208,8 +212,79 @@ function ProduceBurstLayer() {
   )
 }
 
+function SplashScreen({ onFinish }) {
+  const [phase, setPhase] = useState('enter') // enter → hold → exit
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase('hold'), 100)
+    const t2 = setTimeout(() => setPhase('exit'), 2800)
+    const t3 = setTimeout(onFinish, 3500)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+  }, [onFinish])
+
+  return (
+    <div className={`splash-screen ${phase === 'exit' ? 'splash-exit' : ''}`}>
+      {/* Animated background particles */}
+      <div className="splash-particles">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="splash-particle" style={{
+            '--x': `${Math.random() * 100}%`,
+            '--y': `${Math.random() * 100}%`,
+            '--size': `${4 + Math.random() * 8}px`,
+            '--delay': `${Math.random() * 2}s`,
+            '--duration': `${2 + Math.random() * 3}s`,
+          }} />
+        ))}
+      </div>
+
+      {/* Logo */}
+      <div className={`splash-logo ${phase !== 'enter' ? 'splash-logo-visible' : ''}`}>
+        <img src="/Logo.png" alt="Farm Buddy" />
+      </div>
+
+      {/* Welcome text */}
+      <div className={`splash-text ${phase !== 'enter' ? 'splash-text-visible' : ''}`}>
+        {'WELCOME TO'.split('').map((char, i) => (
+          <span key={i} className="splash-letter" style={{ '--i': i }}>
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </div>
+      <div className={`splash-title ${phase !== 'enter' ? 'splash-title-visible' : ''}`}>
+        {'FARM BUDDY'.split('').map((char, i) => (
+          <span key={i} className="splash-letter-title" style={{ '--i': i }}>
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </div>
+
+      {/* Tagline */}
+      <p className={`splash-tagline ${phase !== 'enter' ? 'splash-tagline-visible' : ''}`}>
+        Your AI Farming Companion
+      </p>
+
+      {/* Bottom line accent */}
+      <div className={`splash-line ${phase !== 'enter' ? 'splash-line-visible' : ''}`} />
+    </div>
+  )
+}
+
 export default function App() {
   const { isLoggedIn } = useUser()
+  const [showSplash, setShowSplash] = useState(true)
+
+  const handleSplashFinish = useCallback(() => {
+    setShowSplash(false)
+  }, [])
+
+  // Reset URL to chat on fresh login so users don't land on a stale route
+  useEffect(() => {
+    if (isLoggedIn && window.location.pathname !== '/') {
+      window.history.replaceState(null, '', '/')
+    }
+  }, [isLoggedIn])
+
+  if (showSplash) return <SplashScreen onFinish={handleSplashFinish} />
   if (!isLoggedIn) return <Onboarding />
   return (
     <BrowserRouter>

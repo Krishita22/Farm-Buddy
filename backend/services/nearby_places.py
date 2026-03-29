@@ -8,7 +8,6 @@ veterinary services, fuel stations, water sources.
 import logging
 import httpx
 import math
-from datetime import datetime
 from backend.database import get_db
 
 logger = logging.getLogger(__name__)

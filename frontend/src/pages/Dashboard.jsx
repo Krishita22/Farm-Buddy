@@ -1,5 +1,10 @@
+/**
+ * Dashboard page — farm overview with stats, weather, market prices, outbreak map, and alerts.
+ * Uses shared <Card> component for consistent glass-card styling.
+ */
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../lib/LanguageContext'
+import { translateCrop } from '../lib/i18n'
 import { useUser } from '../lib/UserContext'
 import { api } from '../lib/api'
 import StatsCards from '../components/dashboard/StatsCards'
@@ -8,6 +13,7 @@ import DiseaseChart from '../components/dashboard/DiseaseChart'
 import AlertFeed from '../components/dashboard/AlertFeed'
 import FarmList from '../components/dashboard/FarmList'
 import WeatherWidget from '../components/dashboard/WeatherWidget'
+import { Card } from '../components/ui'
 import { AlertTriangle, X } from 'lucide-react'
 
 export default function Dashboard() {
@@ -97,19 +103,19 @@ export default function Dashboard() {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {[1,2,3,4].map(i => (
-            <div key={i} className="market-card-skeleton bg-white/88 backdrop-blur-sm rounded-2xl border border-white/70 p-4 shadow-sm">
+            <Card key={i} variant="skeleton" className="p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="market-shimmer h-4 w-24 rounded-full" />
                 <div className="market-shimmer h-4 w-4 rounded-full" />
               </div>
               <div className="market-shimmer h-10 w-20 rounded-2xl" />
-            </div>
+            </Card>
           ))}
         </div>
-        <div className="market-card-skeleton bg-white/88 backdrop-blur-sm rounded-2xl border border-white/70 p-4 h-40 shadow-sm" />
+        <Card variant="skeleton" className="p-4 h-40" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 market-card-skeleton bg-white/88 backdrop-blur-sm rounded-2xl border border-white/70 h-80 shadow-sm" />
-          <div className="market-card-skeleton bg-white/88 backdrop-blur-sm rounded-2xl border border-white/70 h-80 shadow-sm" />
+          <Card variant="skeleton" className="lg:col-span-2 h-80" />
+          <Card variant="skeleton" className="h-80" />
         </div>
       </div>
     </div>
@@ -186,7 +192,7 @@ export default function Dashboard() {
 
       {/* Market prices — all regions */}
       {regionalPrices?.prices?.length > 0 && (
-        <div className="dashboard-section-enter bg-white/92 backdrop-blur-sm rounded-2xl border border-white/70 shadow-sm overflow-hidden" style={{ animationDelay: '180ms' }}>
+        <Card className="dashboard-section-enter overflow-hidden" style={{ animationDelay: '180ms' }}>
           <div className="px-4 py-3 border-b border-gray-100/50 flex items-center justify-between">
             <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{t('cropPrices')} - {region?.i18n?.[lang] || region?.name}</h3>
             <span className="text-xs bg-green-50 text-green-600 px-2 py-0.5 rounded-full border border-green-200">{regionalPrices.currency}</span>
@@ -203,7 +209,7 @@ export default function Dashboard() {
               <tbody>
                 {regionalPrices.prices.map((p, i) => (
                   <tr key={i} className="border-t border-gray-50 hover:bg-farm-50/30 transition-colors">
-                    <td className="px-3 py-2.5 font-medium text-gray-900">{p.crop}</td>
+                    <td className="px-3 py-2.5 font-medium text-gray-900">{translateCrop(p.crop, lang)}</td>
                     <td className="px-3 py-2.5 text-gray-500">{p.market}</td>
                     <td className="px-3 py-2.5 text-right font-semibold text-farm-700">{regionalPrices.currency} {p.price}</td>
                   </tr>
@@ -211,7 +217,7 @@ export default function Dashboard() {
               </tbody>
             </table>
           </div>
-        </div>
+        </Card>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">

@@ -9,8 +9,8 @@ export default function StatsCards({ stats, outbreakCount }) {
 
   const cards = [
     { label: t('totalFarms'), value: stats.total_farms, icon: Users, color: 'text-farm-600', bg: 'from-farm-50 to-green-50', border: 'border-farm-200' },
-    { label: 'Disease Reports', value: totalReports, icon: Activity, color: 'text-red-600', bg: 'from-red-50 to-orange-50', border: 'border-red-200' },
-    { label: 'Crops Tracked', value: stats.crops_count || 0, icon: MessageSquare, color: 'text-blue-600', bg: 'from-blue-50 to-sky-50', border: 'border-blue-200' },
+    { label: t('diseaseReports'), value: totalReports, icon: Activity, color: 'text-red-600', bg: 'from-red-50 to-orange-50', border: 'border-red-200' },
+    { label: t('crops'), value: stats.crops_count || 0, icon: MessageSquare, color: 'text-blue-600', bg: 'from-blue-50 to-sky-50', border: 'border-blue-200' },
     { label: t('alertsSent'), value: stats.alerts_sent_this_week, icon: AlertTriangle, color: 'text-amber-600', bg: 'from-amber-50 to-yellow-50', border: 'border-amber-200' },
   ]
 

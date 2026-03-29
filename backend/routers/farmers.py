@@ -1,6 +1,8 @@
+"""Farmer CRUD endpoints -- list, detail, memory context, and registration."""
+
 from fastapi import APIRouter
 from pydantic import BaseModel
-from backend.database import get_db
+from backend.constants import use_db
 from backend.services.memory import build_farmer_context
 
 router = APIRouter(prefix="/api/farmers", tags=["farmers"])
@@ -20,10 +22,10 @@ class FarmerCreate(BaseModel):
     irrigation_type: str | None = None
 
 
+# List all farmers with active-crop and recent-issue counts
 @router.get("")
 async def list_farmers(limit: int = 50, offset: int = 0):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             """SELECT f.*,
                       (SELECT COUNT(*) FROM crops WHERE farmer_id = f.id AND status = 'growing') as active_crops,
@@ -32,14 +34,12 @@ async def list_farmers(limit: int = 50, offset: int = 0):
             (limit, offset),
         )
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Get full farmer profile with crops and recent conversations
 @router.get("/{farmer_id}")
 async def get_farmer(farmer_id: int):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         farmer = await db.execute_fetchall("SELECT * FROM farmers WHERE id = ?", (farmer_id,))
         if not farmer:
             return {"error": "Farmer not found"}
@@ -60,20 +60,19 @@ async def get_farmer(farmer_id: int):
         f["recent_conversations"] = [dict(c) for c in convos]
 
         return f
-    finally:
-        await db.close()
 
 
+# Return AI-ready memory context for a farmer
 @router.get("/{farmer_id}/memory")
 async def get_farmer_memory(farmer_id: int):
     context = await build_farmer_context(farmer_id)
     return {"farmer_id": farmer_id, "context": context}
 
 
+# Register a new farmer
 @router.post("")
 async def create_farmer(farmer: FarmerCreate):
-    db = await get_db()
-    try:
+    async with use_db() as db:
         cursor = await db.execute(
             """INSERT INTO farmers (name, phone, language, village, district, latitude, longitude,
                farm_size_acres, soil_type, soil_ph, irrigation_type)
@@ -84,5 +83,3 @@ async def create_farmer(farmer: FarmerCreate):
         )
         await db.commit()
         return {"id": cursor.lastrowid, "message": "Farmer created"}
-    finally:
-        await db.close()

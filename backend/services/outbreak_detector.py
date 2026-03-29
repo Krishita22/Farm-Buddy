@@ -1,5 +1,6 @@
+"""Disease outbreak detection and dashboard statistics."""
 import math
-from backend.database import get_db
+from backend.constants import use_db
 
 
 def haversine_km(lat1, lon1, lat2, lon2):
@@ -18,8 +19,7 @@ def haversine_km(lat1, lon1, lat2, lon2):
 
 async def detect_outbreaks(radius_km: float = 15.0, min_reports: int = 3, days: int = 14):
     """Detect disease outbreak clusters across all farms."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         reports = await db.execute_fetchall(
             """SELECT dr.*, f.name as farmer_name, f.village
                FROM disease_reports dr
@@ -82,14 +82,11 @@ async def detect_outbreaks(radius_km: float = 15.0, min_reports: int = 3, days: 
                     })
 
         return sorted(outbreaks, key=lambda x: x["report_count"], reverse=True)
-    finally:
-        await db.close()
 
 
 async def get_dashboard_stats():
     """Get aggregate statistics for the dashboard."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         total_farms = await db.execute_fetchall("SELECT COUNT(*) as c FROM farmers")
         total_farms = dict(total_farms[0])["c"]
 
@@ -141,5 +138,3 @@ async def get_dashboard_stats():
             "disease_timeline": timeline,
             "top_diseases": top_diseases,
         }
-    finally:
-        await db.close()

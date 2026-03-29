@@ -1,11 +1,12 @@
 """
-Services — Real nearby agricultural stores, services, and water sources.
-Online: fetches from OpenStreetMap Overpass API (free, no key).
-Offline: serves cached results from SQLite.
+Services router — Real nearby agricultural stores, services, and water sources.
+
+Online mode fetches from the OpenStreetMap Overpass API (free, no key).
+Offline mode serves cached results from SQLite.
 """
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
-from backend.database import get_db
+from backend.constants import use_db
 from backend.services.nearby_places import fetch_nearby_places, fetch_nearby_water_sources, get_cached_places
 
 router = APIRouter(prefix="/api/services", tags=["services"])
@@ -31,6 +32,7 @@ class ServiceCreate(BaseModel):
     longitude: float = None
 
 
+# List services with optional type / region / district filters
 @router.get("")
 async def list_services(
     service_type: str = None,
@@ -39,8 +41,7 @@ async def list_services(
     limit: int = 50,
 ):
     """List available services. Filter by type, region, or district."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         query = "SELECT * FROM services WHERE available = 1"
         params = []
         if service_type:
@@ -56,10 +57,9 @@ async def list_services(
         params.append(limit)
         rows = await db.execute_fetchall(query, params)
         return [dict(r) for r in rows]
-    finally:
-        await db.close()
 
 
+# Fetch real nearby agricultural services via OpenStreetMap (with cache fallback)
 @router.get("/nearby")
 async def nearby_services(
     lat: float = Query(...),
@@ -105,6 +105,7 @@ async def nearby_services(
     return {"source": "none", "live": False, "count": 0, "places": []}
 
 
+# Fetch real nearby water sources (wells, canals, reservoirs) from OpenStreetMap
 @router.get("/water-sources")
 async def water_sources(
     lat: float = Query(...),
@@ -120,11 +121,11 @@ async def water_sources(
     }
 
 
+# Register a new service provider in the local database
 @router.post("")
 async def add_service(service: ServiceCreate):
     """Register a new service provider."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         cursor = await db.execute(
             """INSERT INTO services (provider_name, service_type, description,
                region, district, price_range, currency, contact_phone, latitude, longitude)
@@ -135,10 +136,9 @@ async def add_service(service: ServiceCreate):
         )
         await db.commit()
         return {"id": cursor.lastrowid, "status": "registered"}
-    finally:
-        await db.close()
 
 
+# Return the list of recognised service categories
 @router.get("/types")
 async def service_types():
     """List all available service types."""

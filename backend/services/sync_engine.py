@@ -21,7 +21,7 @@ import os
 
 import httpx
 
-from backend.database import get_db
+from backend.constants import REGION_COORDS, use_db
 
 logger = logging.getLogger(__name__)
 
@@ -74,16 +74,13 @@ async def sync_all():
         results["tasks"]["disease_alerts"] = {"status": "failed", "error": str(e)}
 
     # Log sync
-    db = await get_db()
-    try:
+    async with use_db() as db:
         await db.execute(
             "INSERT INTO sync_log (sync_type, data_type, records_synced, source, status) VALUES (?, ?, ?, ?, ?)",
             ("auto", "all", sum(t.get("records", 0) for t in results["tasks"].values() if t.get("status") == "success"),
              "internet", "success"),
         )
         await db.commit()
-    finally:
-        await db.close()
 
     results["message"] = "Synced successfully — data updated"
     return results
@@ -93,16 +90,8 @@ async def sync_weather() -> int:
     """Fetch and cache weather for all known farmer regions."""
     from backend.services.weather_engine import get_forecast
 
-    regions = [
-        (-1.52, 37.26, "Kenya"),
-        (22.31, 72.13, "Gujarat"),
-        (26.85, 80.91, "UP"),
-        (23.81, 90.41, "Bangladesh"),
-        (7.85, 3.93, "Nigeria"),
-    ]
-
     count = 0
-    for lat, lng, name in regions:
+    for lat, lng, name in REGION_COORDS.values():
         try:
             forecast = await get_forecast(lat, lng, days=7)
             if forecast and forecast[0].get("source") == "open-meteo":
@@ -119,9 +108,8 @@ async def sync_market_prices() -> int:
     """Fetch latest commodity prices from open data sources."""
     # For hackathon: generate realistic price updates
     # In production: connect to actual commodity exchanges
-    db = await get_db()
     count = 0
-    try:
+    async with use_db() as db:
         import random
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -147,8 +135,6 @@ async def sync_market_prices() -> int:
 
         await db.commit()
         logger.info(f"Market prices synced: {count} records updated")
-    finally:
-        await db.close()
 
     return count
 
@@ -157,9 +143,8 @@ async def sync_disease_alerts() -> int:
     """Check for new disease alerts in farming regions."""
     # For hackathon: detect patterns from existing data
     # In production: connect to FAO EMPRES, PlantVillage API, etc.
-    db = await get_db()
     count = 0
-    try:
+    async with use_db() as db:
         # Check for emerging outbreaks and create alerts
         from backend.services.outbreak_detector import detect_outbreaks
         outbreaks = await detect_outbreaks()
@@ -184,16 +169,13 @@ async def sync_disease_alerts() -> int:
 
         await db.commit()
         logger.info(f"Disease alerts synced: {count} new alerts")
-    finally:
-        await db.close()
 
     return count
 
 
 async def get_sync_status() -> dict:
     """Get the last sync status."""
-    db = await get_db()
-    try:
+    async with use_db() as db:
         rows = await db.execute_fetchall(
             "SELECT * FROM sync_log ORDER BY synced_at DESC LIMIT 5"
         )
@@ -202,5 +184,3 @@ async def get_sync_status() -> dict:
             "online": online,
             "last_syncs": [dict(r) for r in rows],
         }
-    finally:
-        await db.close()

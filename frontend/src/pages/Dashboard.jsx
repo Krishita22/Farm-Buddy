@@ -114,13 +114,13 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {livePrices.slice(0, 10).map((p, i) => (
+                {livePrices.filter(p => (p.commodity || p.crop_name)).slice(0, 10).map((p, i) => (
                   <tr key={i} className="border-t border-gray-50 hover:bg-farm-50/30">
-                    <td className="px-3 py-2 font-medium text-gray-900">{p.commodity}</td>
-                    <td className="px-3 py-2 text-gray-500">{p.market}, {p.state}</td>
-                    <td className="px-3 py-2 text-right text-gray-500">{p.min_price}</td>
-                    <td className="px-3 py-2 text-right text-gray-500">{p.max_price}</td>
-                    <td className="px-3 py-2 text-right font-semibold text-farm-700">{p.modal_price}</td>
+                    <td className="px-3 py-2 font-medium text-gray-900">{p.commodity || p.crop_name}</td>
+                    <td className="px-3 py-2 text-gray-500">{p.market ? `${p.market}, ${p.state}` : p.region}</td>
+                    <td className="px-3 py-2 text-right text-gray-500">{p.min_price || '—'}</td>
+                    <td className="px-3 py-2 text-right text-gray-500">{p.max_price || '—'}</td>
+                    <td className="px-3 py-2 text-right font-semibold text-farm-700">{p.modal_price || `₹${p.price_per_kg}/kg`}</td>
                   </tr>
                 ))}
               </tbody>

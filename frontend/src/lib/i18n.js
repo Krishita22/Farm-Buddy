@@ -30,7 +30,7 @@ const translations = {
       "How do I prevent fall armyworm?",
       "What did we talk about last time?",
     ],
-    chatOfflineBadge: "Fully Offline",
+    chatOfflineBadge: "Available Full Offline",
     chatMemoryBadge: "Remembers You",
     chatLanguageBadge: "Your Language",
     chatAccentBadge: "Your Accent",

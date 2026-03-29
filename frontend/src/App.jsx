@@ -126,6 +126,10 @@ function ProduceBurstLayer() {
     let nextId = 0
 
     const spawnProduce = (event) => {
+      if (event.target instanceof Element && event.target.closest('[data-no-produce="true"]')) {
+        return
+      }
+
       const x = event.clientX ?? window.innerWidth / 2
       const y = event.clientY ?? window.innerHeight / 2
       const emoji = PRODUCE_EMOJIS[Math.floor(Math.random() * PRODUCE_EMOJIS.length)]

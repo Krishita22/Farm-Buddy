@@ -64,6 +64,9 @@ Farm-Buddy is an advanced, AI-powered agricultural assistant designed to help sm
    npm run dev
    ```
 
+##Video demo link:
+
+
 ## 📜 License
 
 This project is licensed under the MIT License.

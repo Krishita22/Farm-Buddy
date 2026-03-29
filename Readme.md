@@ -14,18 +14,66 @@ We are doing this project for Harper Personal - AI agent track , Asus Societal i
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Framework**: React 19 & Vite
-- **Styling**: Tailwind CSS (v4)
-- **Routing**: React Router DOM (v7)
-- **Maps**: React Leaflet
-- **Data Visualization**: Recharts
-- **Icons**: Lucide React
+| Technology | Version | Purpose |
+|---|---|---|
+| **React** | 19.0 | UI framework |
+| **Vite** | 6.0 | Build tool & dev server |
+| **Tailwind CSS** | 4.0 | Utility-first styling |
+| **React Router DOM** | 7.1 | Client-side routing |
+| **Leaflet + React Leaflet** | 1.9 / 5.0 | Interactive offline maps |
+| **Recharts** | 2.15 | Dashboard charts & data visualization |
+| **Lucide React** | 0.469 | Icon library |
+| **Service Worker** | Vanilla JS | PWA offline caching (network-first for APIs, cache-first for assets) |
 
 ### Backend
-- **Framework**: Python & FastAPI
-- **Database**: SQLite (managed asynchronously via `aiosqlite`) & HarperDB
-- **Validation**: Pydantic v2
-- **Audio Processing**: `openai-whisper` and `piper-tts`
+| Technology | Version | Purpose |
+|---|---|---|
+| **FastAPI** | 0.115 | Async Python web framework |
+| **Uvicorn** | 0.34 | ASGI server |
+| **SQLite + aiosqlite** | 0.20 | Local database (zero config, offline) |
+| **Pydantic** | 2.10 | Request/response validation |
+| **httpx** | 0.28 | Async HTTP client for external APIs |
+| **python-dotenv** | 1.0 | Environment config |
+
+### AI / ML (all local, no cloud)
+| Technology | Purpose |
+|---|---|
+| **Ollama** | Local LLM inference engine |
+| **Llama 3** (8B) | Primary AI model — multilingual farming advisor |
+| **OpenAI SDK** (1.58) | Client for Ollama's OpenAI-compatible API |
+| **OpenAI Whisper** (small) | Speech-to-text — transcribes farmer voice in 10 languages |
+| **Piper TTS** | Text-to-speech — offline, accent-aware voice synthesis |
+| **ElevenLabs** (optional) | Premium TTS when online (multilingual v2) |
+| **ChatterboxTTS** (optional) | Voice cloning from 5-second farmer samples |
+
+### Memory & Data
+| Technology | Purpose |
+|---|---|
+| **HarperDB** | Farmer memory layer — remembers past conversations, preferences, farm context |
+| **SQLite** | Fallback storage + farmer/crop/market data |
+| **Embedded JSON datasets** | Farming knowledge, crop calendar, regional prices, historical weather (30-year normals) |
+
+### Weather APIs (cascading fallback)
+| Priority | Service | Requirement |
+|---|---|---|
+| 1 | **Tomorrow.io** | API key (best accuracy) |
+| 2 | **AccuWeather** | API key |
+| 3 | **OpenWeather** | API key |
+| 4 | **Open-Meteo** | Free, no key needed |
+| 5 | **Offline historical** | Embedded 30-year climate averages |
+
+### Offline-First Architecture
+```
+Online:  Open-Meteo → live weather, data.gov.in → live market prices, sync to cache
+Offline: Ollama (local AI) + Whisper (local STT) + Piper (local TTS) + SQLite + cached data
+```
+
+> Everything critical runs **locally with zero internet**: the AI brain, voice input, voice output, weather predictions, market prices, and the full UI via service worker.
+
+### Git
+```bash
+git clone https://github.com/Krishita22/Farm-Buddy.git
+```
 
 ## 🚀 Getting Started
 

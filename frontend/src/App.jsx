@@ -8,7 +8,8 @@ import Dashboard from './pages/Dashboard'
 import Marketplace from './pages/Marketplace'
 import Services from './pages/Services'
 import Profile from './pages/Profile'
-import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, User, ChevronDown, Download, LogOut } from 'lucide-react'
+import { useOnlineStatus } from './hooks/useOnlineStatus'
+import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, User, ChevronDown, Download, LogOut, Wifi, WifiOff } from 'lucide-react'
 
 function LanguagePicker() {
   const { lang, setLanguage, languages } = useLanguage()
@@ -106,6 +107,7 @@ function InstallButton() {
 function Nav() {
   const location = useLocation()
   const { t } = useLanguage()
+  const isOnline = useOnlineStatus()
   const path = location.pathname
 
   const tabs = [
@@ -113,7 +115,7 @@ function Nav() {
     { to: '/dashboard', icon: LayoutDashboard, label: t('navDashboard'), match: ['/dashboard'] },
     { to: '/marketplace', icon: ShoppingCart, label: t('navMarket') || 'Market', match: ['/marketplace'] },
     { to: '/services', icon: Wrench, label: t('navServices') || 'Services', match: ['/services'] },
-    { to: '/profile', icon: User, label: 'Profile', match: ['/profile'] },
+    { to: '/profile', icon: User, label: t('navProfile') || 'Profile', match: ['/profile'] },
   ]
 
   return (
@@ -140,6 +142,10 @@ function Nav() {
         </div>
 
         <div className="flex items-center gap-2">
+          <div className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full ${isOnline ? 'bg-green-500/20 text-green-300' : 'bg-white/10 text-white/50'}`}>
+            {isOnline ? <Wifi size={10} /> : <WifiOff size={10} />}
+            <span className="hidden sm:inline">{isOnline ? t('online') : t('offline')}</span>
+          </div>
           <InstallButton />
           <LanguagePicker />
           <RegionPicker />
@@ -174,7 +180,7 @@ function UserMenu() {
             </div>
             <button onClick={() => { logout(); setOpen(false) }}
               className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
-              <LogOut size={14} /> Log out
+              <LogOut size={14} /> {t('navLogout')}
             </button>
           </div>
         </>

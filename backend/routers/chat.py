@@ -130,7 +130,23 @@ async def _process_message(
     farmer_context = await build_farmer_context(farmer_id)
     history = await get_conversation_history(conversation_id)
     harper_context = await build_harper_context(farmer_id)
-    weather_context = await get_weather_context_for_ai()
+
+    # Get farmer's coordinates for location-accurate weather
+    lat, lng = -1.52, 37.26  # defaults
+    try:
+        from backend.database import get_db
+        db = await get_db()
+        try:
+            rows = await db.execute_fetchall("SELECT latitude, longitude FROM farmers WHERE id = ?", (farmer_id,))
+            if rows:
+                f = dict(rows[0])
+                if f.get("latitude") and f.get("longitude"):
+                    lat, lng = f["latitude"], f["longitude"]
+        finally:
+            await db.close()
+    except Exception:
+        pass
+    weather_context = await get_weather_context_for_ai(lat, lng)
 
     # Step 4: Get AI response from local Ollama
     raw_response = await get_ai_response(

@@ -18,8 +18,25 @@ import struct
 import math
 import logging
 import json
+import os
 
 logger = logging.getLogger(__name__)
+
+# Load Mozilla Common Voice accent profiles
+_ACCENT_PROFILES = {}
+_accent_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "accent_profiles.json")
+try:
+    with open(_accent_path) as f:
+        _raw = json.load(f)
+        _ACCENT_PROFILES = {k: v for k, v in _raw.items() if not k.startswith("_")}
+except Exception:
+    pass
+
+
+def get_accent_profile(accent_code: str) -> dict:
+    """Get accent profile from Mozilla Common Voice accent data.
+    accent_code matches region.accent from UserContext (e.g. 'gujarati_rural')."""
+    return _ACCENT_PROFILES.get(accent_code, {})
 
 
 def analyze_audio(audio_bytes: bytes) -> dict:
@@ -152,36 +169,60 @@ def _default_profile():
     }
 
 
-async def get_voice_profile(farmer_id: int) -> dict:
-    """Get stored voice profile for a farmer, or return defaults."""
+async def get_voice_profile(farmer_id: int, accent_code: str = None) -> dict:
+    """Get stored voice profile for a farmer, merged with regional accent data.
+    accent_code comes from the region's accent field (e.g. 'gujarati_rural')."""
+    profile = None
+
     try:
         from backend.services.harper_memory import get_memories
         memories = await get_memories(farmer_id, memory_type="voice_profile", limit=1)
         if memories:
             content = memories[0].get("content", "{}")
             if isinstance(content, str):
-                return json.loads(content)
-            return content
+                profile = json.loads(content)
+            else:
+                profile = content
     except Exception:
         pass
 
     # SQLite fallback
-    try:
-        from backend.database import get_db
-        db = await get_db()
+    if not profile:
         try:
-            rows = await db.execute_fetchall(
-                "SELECT content FROM alerts WHERE farmer_id = ? AND alert_type = 'memory_voice_profile' ORDER BY sent_at DESC LIMIT 1",
-                (farmer_id,),
-            )
-            if rows:
-                return json.loads(dict(rows[0])["content"])
-        finally:
-            await db.close()
-    except Exception:
-        pass
+            from backend.database import get_db
+            db = await get_db()
+            try:
+                rows = await db.execute_fetchall(
+                    "SELECT content FROM alerts WHERE farmer_id = ? AND alert_type = 'memory_voice_profile' ORDER BY sent_at DESC LIMIT 1",
+                    (farmer_id,),
+                )
+                if rows:
+                    profile = json.loads(dict(rows[0])["content"])
+            finally:
+                await db.close()
+        except Exception:
+            pass
 
-    return _default_profile()
+    if not profile:
+        profile = _default_profile()
+
+    # Merge regional accent data from Mozilla Common Voice profiles
+    if accent_code:
+        accent = get_accent_profile(accent_code)
+        if accent:
+            profile["accent"] = accent_code
+            profile["dialect"] = accent.get("dialect", "")
+            profile["whisper_hints"] = accent.get("whisper_hints", {})
+            profile["farming_vocabulary"] = accent.get("farming_vocabulary", [])
+            # Use accent TTS adjustments as base if no personal analysis
+            if not profile.get("analyzed"):
+                adj = accent.get("tts_adjustments", {})
+                if adj.get("speed_factor"):
+                    profile["speed_factor"] = adj["speed_factor"]
+                if adj.get("pitch_factor"):
+                    profile["pitch_factor"] = adj["pitch_factor"]
+
+    return profile
 
 
 async def save_voice_profile(farmer_id: int, profile: dict):

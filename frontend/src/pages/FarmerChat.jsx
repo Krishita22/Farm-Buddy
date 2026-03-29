@@ -7,11 +7,13 @@ import { useUser } from '../lib/UserContext'
 import MessageBubble from '../components/chat/MessageBubble'
 import MemoryPanel from '../components/chat/MemoryPanel'
 import VoiceEnroll from '../components/chat/VoiceEnroll'
-import { Mic, MicOff, Send, Brain, Loader2, WifiOff, Globe, Sparkles, AudioWaveform, CloudSun } from 'lucide-react'
+import { useOnlineStatus } from '../hooks/useOnlineStatus'
+import { Mic, MicOff, Send, Brain, Loader2, Wifi, WifiOff, Globe, Sparkles, AudioWaveform, CloudSun } from 'lucide-react'
 
 export default function FarmerChat() {
   const { lang, t, languages } = useLanguage()
   const { user, region } = useUser()
+  const isOnline = useOnlineStatus()
   const farmerId = user?.farmer_id || 1
   const [inputText, setInputText] = useState('')
   const [showEnroll, setShowEnroll] = useState(false)
@@ -110,9 +112,9 @@ export default function FarmerChat() {
             className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full transition-all ${showMemory ? 'bg-purple-100 text-purple-700' : 'text-gray-400 hover:bg-gray-100'}`}>
             <Brain size={12} />
           </button>
-          <div className="flex items-center gap-1 text-xs px-2 py-1 bg-green-50 text-green-700 rounded-full">
-            <WifiOff size={10} />
-            {t('offline')}
+          <div className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full ${isOnline ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+            {isOnline ? <Wifi size={10} /> : <WifiOff size={10} />}
+            {isOnline ? t('online') : t('offline')}
           </div>
         </div>
       </div>
@@ -131,7 +133,7 @@ export default function FarmerChat() {
             <p className="text-sm text-gray-500 max-w-sm mx-auto mb-4">{t('chatWelcomeDesc')}</p>
             <div className="flex flex-wrap justify-center gap-3 mb-4">
               {[
-                { icon: <WifiOff size={12} />, label: t('chatOfflineBadge') },
+                { icon: isOnline ? <Wifi size={12} /> : <WifiOff size={12} />, label: isOnline ? t('liveData') : t('chatOfflineBadge') },
                 { icon: <Brain size={12} />, label: t('chatMemoryBadge') },
                 { icon: <Globe size={12} />, label: t('chatLanguageBadge') },
                 { icon: <Sparkles size={12} />, label: t('chatAccentBadge') },
@@ -154,7 +156,7 @@ export default function FarmerChat() {
                   <div className="text-right text-xs text-gray-400 space-y-0.5">
                     <p>💧 {weather.humidity_pct}%</p>
                     <p>💨 {weather.wind_kph} km/h</p>
-                    <p className="text-green-600 text-xs font-medium">{weather.source === 'open-meteo' ? 'Live' : 'Offline'}</p>
+                    <p className={`text-xs font-medium ${isOnline ? 'text-green-600' : 'text-gray-400'}`}>{weather.source === 'tomorrow.io' || weather.source === 'accuweather' || weather.source === 'open-meteo' ? t('liveData') : t('offline')}</p>
                   </div>
                 </div>
               </div>

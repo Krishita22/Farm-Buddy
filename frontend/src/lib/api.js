@@ -59,10 +59,25 @@ export const api = {
     return request(`/market/price-check?${params}`)
   },
 
-  // Weather (offline)
-  getWeatherForecast: (days = 7) => request(`/weather/forecast?days=${days}`),
-  getCurrentWeather: () => request('/weather/current'),
-  getPlantingAdvisory: (crop) => request(`/weather/planting-advisory?crop=${crop}`),
+  // Weather (Tomorrow.io when online → Open-Meteo → offline historical)
+  getWeatherForecast: (days = 7, lat, lng) => {
+    const params = new URLSearchParams({ days })
+    if (lat != null) params.set('lat', lat)
+    if (lng != null) params.set('lng', lng)
+    return request(`/weather/forecast?${params}`)
+  },
+  getCurrentWeather: (lat, lng) => {
+    const params = new URLSearchParams()
+    if (lat != null) params.set('lat', lat)
+    if (lng != null) params.set('lng', lng)
+    return request(`/weather/current?${params}`)
+  },
+  getPlantingAdvisory: (crop, lat, lng) => {
+    const params = new URLSearchParams({ crop })
+    if (lat != null) params.set('lat', lat)
+    if (lng != null) params.set('lng', lng)
+    return request(`/weather/planting-advisory?${params}`)
+  },
 
   // Real-time data (live from government APIs)
   getLivePrices: (state) => request(`/realtime/prices${state ? `?state=${state}` : ''}`),

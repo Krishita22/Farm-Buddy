@@ -1,0 +1,164 @@
+{
+  "_source": "Mozilla Common Voice accent taxonomy + regional farming dialect data",
+  "_description": "Maps language+region to accent characteristics for STT/TTS tuning",
+
+  "gujarati_rural": {
+    "language": "gu",
+    "common_voice_locale": "gu-IN",
+    "dialect": "Saurashtra/Kathiawadi rural",
+    "characteristics": {
+      "speech_rate": "moderate",
+      "pitch_range": "medium-high",
+      "vowel_elongation": true,
+      "retroflex_emphasis": true,
+      "aspiration": "heavy"
+    },
+    "whisper_hints": {"language": "gu", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 0.95, "pitch_factor": 1.05},
+    "farming_vocabulary": ["વાવણી", "કાપણી", "બાજરી", "મગફળી", "કપાસ", "ડુંગળી", "જીરું", "રાઈ"]
+  },
+
+  "hindi_awadhi": {
+    "language": "hi",
+    "common_voice_locale": "hi-IN",
+    "dialect": "Awadhi-influenced Hindi (UP rural)",
+    "characteristics": {
+      "speech_rate": "moderate-slow",
+      "pitch_range": "medium",
+      "nasalization": true,
+      "vowel_shifts": true,
+      "aspiration": "moderate"
+    },
+    "whisper_hints": {"language": "hi", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 0.9, "pitch_factor": 1.0},
+    "farming_vocabulary": ["बुवाई", "कटाई", "गेहूं", "धान", "गन्ना", "आलू", "सरसों", "मक्का"]
+  },
+
+  "hindi_maharashtrian": {
+    "language": "hi",
+    "common_voice_locale": "hi-IN",
+    "dialect": "Marathi-influenced Hindi (Maharashtra)",
+    "characteristics": {
+      "speech_rate": "moderate-fast",
+      "pitch_range": "medium",
+      "retroflex_emphasis": true,
+      "schwa_deletion": true,
+      "aspiration": "light"
+    },
+    "whisper_hints": {"language": "hi", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 1.0, "pitch_factor": 0.98},
+    "farming_vocabulary": ["सोयाबीन", "कपास", "गन्ना", "प्याज", "ज्वार", "बाजरा", "हल्दी", "अंगूर"]
+  },
+
+  "swahili_kenyan": {
+    "language": "sw",
+    "common_voice_locale": "sw-KE",
+    "dialect": "Standard Kenyan Swahili (upcountry)",
+    "characteristics": {
+      "speech_rate": "moderate",
+      "pitch_range": "wide",
+      "tone_patterns": "stress-timed",
+      "english_code_switching": true,
+      "aspiration": "light"
+    },
+    "whisper_hints": {"language": "sw", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 1.0, "pitch_factor": 1.0},
+    "farming_vocabulary": ["mahindi", "maharage", "nyanya", "vitunguu", "viazi", "kabichi", "ndizi", "kahawa"]
+  },
+
+  "bengali_dhaka": {
+    "language": "bn",
+    "common_voice_locale": "bn-BD",
+    "dialect": "Standard Bangladeshi Bengali (Dhaka Division)",
+    "characteristics": {
+      "speech_rate": "moderate-fast",
+      "pitch_range": "medium-high",
+      "nasalization": true,
+      "vowel_harmony": true,
+      "aspiration": "moderate"
+    },
+    "whisper_hints": {"language": "bn", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 0.95, "pitch_factor": 1.02},
+    "farming_vocabulary": ["ধান", "পাট", "গম", "আলু", "সরিষা", "পেঁয়াজ", "বেগুন", "টমেটো"]
+  },
+
+  "yoruba_standard": {
+    "language": "yo",
+    "common_voice_locale": "yo-NG",
+    "dialect": "Standard Yoruba (Oyo)",
+    "characteristics": {
+      "speech_rate": "moderate",
+      "pitch_range": "wide",
+      "tone_patterns": "tonal (3 tones: high, mid, low)",
+      "nasalization": true,
+      "english_code_switching": true
+    },
+    "whisper_hints": {"language": "yo", "beam_size": 8},
+    "tts_adjustments": {"speed_factor": 0.95, "pitch_factor": 1.0},
+    "farming_vocabulary": ["àgbàdo", "ẹ̀wà", "tomati", "alubosa", "ọ̀gẹ̀dẹ̀", "koko", "iresi", "isu"]
+  },
+
+  "french_west_african": {
+    "language": "fr",
+    "common_voice_locale": "fr-FR",
+    "dialect": "West African French (Senegal)",
+    "characteristics": {
+      "speech_rate": "moderate",
+      "pitch_range": "medium",
+      "r_pronunciation": "uvular/trilled",
+      "nasal_vowels": true,
+      "wolof_influence": true
+    },
+    "whisper_hints": {"language": "fr", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 0.95, "pitch_factor": 1.0},
+    "farming_vocabulary": ["arachide", "mil", "sorgho", "niébé", "riz", "mangue", "tomate", "oignon"]
+  },
+
+  "spanish_andalusian": {
+    "language": "es",
+    "common_voice_locale": "es-ES",
+    "dialect": "Andalusian Spanish (Southern Spain)",
+    "characteristics": {
+      "speech_rate": "fast",
+      "pitch_range": "medium",
+      "seseo": true,
+      "aspiration_of_s": true,
+      "vowel_openness": true
+    },
+    "whisper_hints": {"language": "es", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 1.0, "pitch_factor": 1.0},
+    "farming_vocabulary": ["olivo", "trigo", "girasol", "algodón", "vid", "naranja", "tomate", "fresa"]
+  },
+
+  "portuguese_mineiro": {
+    "language": "pt",
+    "common_voice_locale": "pt-BR",
+    "dialect": "Mineiro Portuguese (Minas Gerais, Brazil)",
+    "characteristics": {
+      "speech_rate": "moderate-slow",
+      "pitch_range": "medium",
+      "vowel_reduction": true,
+      "palatalization": true,
+      "diminutive_usage": "heavy"
+    },
+    "whisper_hints": {"language": "pt", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 0.95, "pitch_factor": 1.0},
+    "farming_vocabulary": ["café", "milho", "soja", "cana", "feijão", "mandioca", "arroz", "tomate"]
+  },
+
+  "arabic_najdi": {
+    "language": "ar",
+    "common_voice_locale": "ar-SA",
+    "dialect": "Najdi Arabic (Central Saudi Arabia)",
+    "characteristics": {
+      "speech_rate": "moderate",
+      "pitch_range": "medium",
+      "pharyngealization": true,
+      "glottal_stop": true,
+      "gemination": true
+    },
+    "whisper_hints": {"language": "ar", "beam_size": 5},
+    "tts_adjustments": {"speed_factor": 1.0, "pitch_factor": 0.98},
+    "farming_vocabulary": ["قمح", "تمر", "نخل", "برسيم", "طماطم", "خيار", "بطيخ", "زيتون"]
+  }
+}

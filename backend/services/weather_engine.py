@@ -218,7 +218,158 @@ def _tomorrow_code_to_condition(code: int) -> str:
 
 
 # =============================================================================
-# SECONDARY: Open-Meteo API (free fallback, no key needed)
+# SECONDARY: AccuWeather API (free trial, needs key)
+# =============================================================================
+
+ACCUWEATHER_API_URL = "https://dataservice.accuweather.com"
+
+
+async def _accuweather_location_key(lat: float, lng: float) -> str | None:
+    """Get AccuWeather location key from lat/lng."""
+    from backend.config import ACCUWEATHER_API_KEY
+    if not ACCUWEATHER_API_KEY or ACCUWEATHER_API_KEY.startswith("YOUR_"):
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{ACCUWEATHER_API_URL}/locations/v1/cities/geoposition/search",
+                params={"apikey": ACCUWEATHER_API_KEY, "q": f"{lat},{lng}"},
+            )
+            if resp.status_code != 200:
+                return None
+            return resp.json().get("Key")
+    except Exception:
+        return None
+
+
+async def _fetch_accuweather_forecast(lat: float, lng: float, days: int) -> list | None:
+    """Fetch forecast from AccuWeather (free trial: 5-day max)."""
+    loc_key = await _accuweather_location_key(lat, lng)
+    if not loc_key:
+        return None
+
+    from backend.config import ACCUWEATHER_API_KEY
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{ACCUWEATHER_API_URL}/forecasts/v1/daily/5day/{loc_key}",
+                params={"apikey": ACCUWEATHER_API_KEY, "details": "true", "metric": "true"},
+            )
+            if resp.status_code != 200:
+                logger.warning(f"AccuWeather error {resp.status_code}")
+                return None
+
+            data = resp.json()
+            daily = data.get("DailyForecasts", [])
+            forecasts = []
+
+            for day in daily[:days]:
+                date = datetime.strptime(day["Date"][:10], "%Y-%m-%d")
+                temp = day.get("Temperature", {})
+                day_detail = day.get("Day", {})
+                rain = day.get("Day", {}).get("Rain", {}).get("Value", 0) or 0
+                rain += day.get("Night", {}).get("Rain", {}).get("Value", 0) or 0
+                humidity = day.get("Day", {}).get("RelativeHumidity", {}).get("Average", 65) or 65
+                wind = day.get("Day", {}).get("Wind", {}).get("Speed", {}).get("Value", 10) or 10
+                icon = day_detail.get("Icon", 1)
+
+                forecasts.append({
+                    "date": day["Date"][:10],
+                    "day_name": date.strftime("%A"),
+                    "temp_high_c": round(temp.get("Maximum", {}).get("Value", 25), 1),
+                    "temp_low_c": round(temp.get("Minimum", {}).get("Value", 15), 1),
+                    "humidity_pct": round(humidity, 1),
+                    "wind_kph": round(wind, 1),
+                    "rainfall_mm": round(rain, 1),
+                    "rainfall_probability": round((day_detail.get("PrecipitationProbability", 0) or 0) / 100, 2),
+                    "condition": _accuweather_icon_to_condition(icon),
+                    "uv_index": round(day_detail.get("UVIndex", {}).get("Value", 6) if isinstance(day_detail.get("UVIndex"), dict) else day_detail.get("UVIndex", 6)),
+                    "source": "accuweather",
+                })
+
+            if forecasts:
+                _save_cache({"forecasts": forecasts, "lat": lat, "lng": lng})
+                logger.info(f"Weather from AccuWeather for ({lat},{lng}): {len(forecasts)} days")
+
+            return forecasts if forecasts else None
+
+    except Exception as e:
+        logger.info(f"AccuWeather unavailable ({e})")
+        return None
+
+
+async def _fetch_accuweather_current(lat: float, lng: float) -> dict | None:
+    """Fetch current conditions from AccuWeather."""
+    loc_key = await _accuweather_location_key(lat, lng)
+    if not loc_key:
+        return None
+
+    from backend.config import ACCUWEATHER_API_KEY
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{ACCUWEATHER_API_URL}/currentconditions/v1/{loc_key}",
+                params={"apikey": ACCUWEATHER_API_KEY, "details": "true"},
+            )
+            if resp.status_code != 200:
+                return None
+
+            data = resp.json()
+            if not data:
+                return None
+            c = data[0]
+            temp = c.get("Temperature", {}).get("Metric", {}).get("Value", 25)
+            feels = c.get("RealFeelTemperature", {}).get("Metric", {}).get("Value", temp)
+            wind = c.get("Wind", {}).get("Speed", {}).get("Metric", {}).get("Value", 10)
+            humidity = c.get("RelativeHumidity", 65)
+            precip = c.get("PrecipitationSummary", {}).get("Past3Hours", {}).get("Metric", {}).get("Value", 0)
+            cloud = c.get("CloudCover", 50)
+            icon = c.get("WeatherIcon", 1)
+            uv = c.get("UVIndex", 6)
+
+            return {
+                "current_temp_c": round(temp, 1),
+                "feels_like_c": round(feels, 1),
+                "humidity_pct": round(humidity, 1),
+                "wind_kph": round(wind, 1),
+                "rainfall_mm": round(precip, 1),
+                "cloud_cover_pct": round(cloud),
+                "condition": _accuweather_icon_to_condition(icon),
+                "uv_index": round(uv),
+                "time": datetime.now().strftime("%H:%M"),
+                "source": "accuweather",
+            }
+
+    except Exception as e:
+        logger.debug(f"AccuWeather current failed: {e}")
+        return None
+
+
+def _accuweather_icon_to_condition(icon: int) -> str:
+    """Convert AccuWeather icon number to our condition string."""
+    if icon in (1, 2, 33, 34):
+        return "sunny"
+    elif icon in (3, 4, 5, 35, 36, 37):
+        return "partly_cloudy"
+    elif icon in (6, 7, 8, 38):
+        return "overcast"
+    elif icon in (11,):
+        return "fog"
+    elif icon in (12, 13, 14, 39, 40):
+        return "light_rain"
+    elif icon in (18, 26):
+        return "rain"
+    elif icon in (15, 16, 17, 41, 42):
+        return "heavy_rain"
+    elif icon in (19, 20, 21, 22, 23, 24, 25, 29, 43, 44):
+        return "snow"
+    elif icon in (15, 16, 17):
+        return "thunderstorm"
+    return "partly_cloudy"
+
+
+# =============================================================================
+# TERTIARY: Open-Meteo API (free fallback, no key needed)
 # =============================================================================
 
 async def _fetch_open_meteo_forecast(lat: float, lng: float, days: int) -> list | None:
@@ -455,35 +606,45 @@ def _get_offline_current(lat: float, lng: float) -> dict:
 
 async def get_forecast(lat: float = -1.52, lng: float = 37.26, days: int = 7) -> list:
     """
-    Get weather forecast. Tries Tomorrow.io → Open-Meteo → offline.
+    Get weather forecast. Tries Tomorrow.io → AccuWeather → Open-Meteo → offline.
     """
     # Tier 1: Tomorrow.io (best accuracy)
     result = await _fetch_tomorrow_forecast(lat, lng, days)
     if result:
         return result
 
-    # Tier 2: Open-Meteo (free fallback)
+    # Tier 2: AccuWeather (free trial)
+    result = await _fetch_accuweather_forecast(lat, lng, days)
+    if result:
+        return result
+
+    # Tier 3: Open-Meteo (free, no key)
     result = await _fetch_open_meteo_forecast(lat, lng, days)
     if result:
         return result
 
-    # Tier 3: Offline historical
+    # Tier 4: Offline historical
     return _get_offline_forecast(lat, lng, days)
 
 
 async def get_current_conditions(lat: float = -1.52, lng: float = 37.26) -> dict:
-    """Get current weather. Tries Tomorrow.io → Open-Meteo → offline."""
+    """Get current weather. Tries Tomorrow.io → AccuWeather → Open-Meteo → offline."""
     # Tier 1: Tomorrow.io
     result = await _fetch_tomorrow_current(lat, lng)
     if result:
         return result
 
-    # Tier 2: Open-Meteo
+    # Tier 2: AccuWeather
+    result = await _fetch_accuweather_current(lat, lng)
+    if result:
+        return result
+
+    # Tier 3: Open-Meteo
     result = await _fetch_open_meteo_current(lat, lng)
     if result:
         return result
 
-    # Tier 3: Offline
+    # Tier 4: Offline
     return _get_offline_current(lat, lng)
 
 

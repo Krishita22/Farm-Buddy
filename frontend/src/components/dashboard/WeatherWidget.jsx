@@ -1,33 +1,42 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../../lib/LanguageContext'
-import { CloudRain, Sun, Cloud, CloudDrizzle, CloudLightning, CloudFog, Snowflake, Droplets, Wind } from 'lucide-react'
+import { useUser } from '../../lib/UserContext'
+import { api } from '../../lib/api'
+import { CloudRain, Sun, Cloud, CloudDrizzle, CloudLightning, CloudFog, Snowflake, Droplets, Wind, Wifi, WifiOff } from 'lucide-react'
 
 const ICONS = { sunny: Sun, partly_cloudy: Cloud, overcast: Cloud, fog: CloudFog, light_rain: CloudDrizzle, rain: CloudRain, heavy_rain: CloudLightning, thunderstorm: CloudLightning, snow: Snowflake }
 const COLORS = { sunny: 'text-yellow-500', partly_cloudy: 'text-gray-400', overcast: 'text-gray-500', fog: 'text-gray-400', light_rain: 'text-blue-400', rain: 'text-blue-500', heavy_rain: 'text-blue-700', thunderstorm: 'text-purple-600', snow: 'text-blue-300' }
 
 export default function WeatherWidget() {
   const { t } = useLanguage()
+  const { region } = useUser()
   const [forecast, setForecast] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/weather/forecast?days=7').then(r => r.json()).then(setForecast).catch(() => {}).finally(() => setLoading(false))
-  }, [])
+    api.getWeatherForecast(7, region?.lat, region?.lng)
+      .then(setForecast)
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [region])
 
   if (loading) return <div className="bg-white rounded-2xl border border-gray-200 p-4 animate-pulse h-40" />
   const today = forecast[0]
+  const source = today?.source || 'offline'
+  const isLive = source === 'tomorrow.io' || source === 'accuweather' || source === 'open-meteo'
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
         <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{t('weatherTitle')}</h3>
         {today && (
-          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-            today.source === 'open-meteo' ? 'bg-green-50 text-green-600 border border-green-200'
-            : today.source === 'cache' ? 'bg-yellow-50 text-yellow-600 border border-yellow-200'
+          <span className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium ${
+            isLive ? 'bg-green-50 text-green-600 border border-green-200'
+            : source === 'cache' ? 'bg-yellow-50 text-yellow-600 border border-yellow-200'
             : 'bg-gray-50 text-gray-500 border border-gray-200'
           }`}>
-            {today.source === 'open-meteo' ? t('weatherLive') : today.source === 'cache' ? t('weatherCached') : t('weatherHistorical')}
+            {isLive ? <Wifi size={10} /> : <WifiOff size={10} />}
+            {isLive ? `${t('weatherLive')}` : source === 'cache' ? t('weatherCached') : t('weatherHistorical')}
           </span>
         )}
       </div>

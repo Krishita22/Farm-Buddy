@@ -17,22 +17,22 @@ logger = logging.getLogger(__name__)
 # ElevenLabs voice IDs — multilingual voices that adapt to input language
 # These voices automatically detect language and speak with native accent
 VOICE_MAP = {
-    # Multilingual voices — these adapt to ANY language automatically
-    "default": "21m00Tcm4TlvDq8ikWAM",      # Rachel — warm female
-    "male": "29vD33N1CtxCmqQRPOHJ",          # Drew — warm male
-    "female": "EXAVITQu4vr4xnSDxMaL",        # Bella — friendly female
+    # Using YOUR ElevenLabs account voices (multilingual v2 adapts to any language)
+    "default": "CwhRBWXzGAHq8TQ4Fs17",      # Roger — laid-back, casual
+    "male": "CwhRBWXzGAHq8TQ4Fs17",          # Roger
+    "female": "EXAVITQu4vr4xnSDxMaL",        # Sarah — mature, reassuring
 
-    # Language-preferred voices (still multilingual, but sound best in these)
-    "en": "21m00Tcm4TlvDq8ikWAM",            # Rachel
-    "hi": "29vD33N1CtxCmqQRPOHJ",            # Drew (good Hindi accent)
-    "gu": "29vD33N1CtxCmqQRPOHJ",            # Drew (Hindi/Gujarati accent)
-    "sw": "EXAVITQu4vr4xnSDxMaL",            # Bella
-    "bn": "29vD33N1CtxCmqQRPOHJ",            # Drew (South Asian accent)
-    "fr": "EXAVITQu4vr4xnSDxMaL",            # Bella
-    "es": "EXAVITQu4vr4xnSDxMaL",            # Bella
-    "pt": "EXAVITQu4vr4xnSDxMaL",            # Bella
-    "yo": "29vD33N1CtxCmqQRPOHJ",            # Drew
-    "ar": "29vD33N1CtxCmqQRPOHJ",            # Drew
+    # Language-preferred (all multilingual — auto-detect language from text)
+    "en": "CwhRBWXzGAHq8TQ4Fs17",            # Roger — casual American
+    "hi": "nPczCjzI2devNBz1zQrb",             # Brian — deep, comforting (good for Hindi)
+    "gu": "nPczCjzI2devNBz1zQrb",             # Brian — deep, comforting (Hindi/Gujarati)
+    "sw": "EXAVITQu4vr4xnSDxMaL",            # Sarah — warm female (Swahili)
+    "bn": "JBFqnCBsd6RMkjVDRZzb",            # George — warm storyteller (Bengali)
+    "fr": "pFZP5JQG7iQjIQuC4Bku",            # Lily — velvety (French)
+    "es": "EXAVITQu4vr4xnSDxMaL",            # Sarah (Spanish)
+    "pt": "iP95p4xoKVk53GoZ742B",            # Chris — down-to-earth (Portuguese)
+    "yo": "CwhRBWXzGAHq8TQ4Fs17",            # Roger (Yoruba)
+    "ar": "JBFqnCBsd6RMkjVDRZzb",            # George (Arabic)
 }
 
 ELEVENLABS_API_URL = "https://api.elevenlabs.io/v1/text-to-speech"

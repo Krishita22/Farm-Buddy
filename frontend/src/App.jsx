@@ -277,15 +277,12 @@ export default function App() {
     setShowSplash(false)
   }, [])
 
-  // Reset URL to chat on fresh login so users don't land on a stale route
-  useEffect(() => {
-    if (isLoggedIn && window.location.pathname !== '/') {
-      window.history.replaceState(null, '', '/')
-    }
-  }, [isLoggedIn])
-
   if (showSplash) return <SplashScreen onFinish={handleSplashFinish} />
-  if (!isLoggedIn) return <Onboarding />
+  if (!isLoggedIn) {
+    // Force URL to / so when user logs in, router always starts at chat
+    if (window.location.pathname !== '/') window.history.replaceState(null, '', '/')
+    return <Onboarding />
+  }
   return (
     <BrowserRouter>
       <div className="min-h-screen min-h-dvh flex flex-col bg-gray-50">

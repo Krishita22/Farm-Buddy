@@ -99,7 +99,126 @@ def _save_cache(data):
 
 
 # =============================================================================
-# PRIMARY: Open-Meteo API (real weather data, free, no key)
+# PRIMARY: Tomorrow.io API (best accuracy, needs key)
+# =============================================================================
+
+TOMORROW_API_URL = "https://api.tomorrow.io/v4/weather"
+
+
+async def _fetch_tomorrow_forecast(lat: float, lng: float, days: int) -> list | None:
+    """Fetch forecast from Tomorrow.io."""
+    from backend.config import TOMORROW_API_KEY
+    if not TOMORROW_API_KEY:
+        return None
+
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{TOMORROW_API_URL}/forecast",
+                params={"location": f"{lat},{lng}", "apikey": TOMORROW_API_KEY, "timesteps": "1d"},
+            )
+            if resp.status_code != 200:
+                logger.warning(f"Tomorrow.io error {resp.status_code}: {resp.text[:100]}")
+                return None
+
+            data = resp.json()
+            daily = data.get("timelines", {}).get("daily", [])
+
+            forecasts = []
+            for day in daily[:days]:
+                v = day["values"]
+                date = datetime.strptime(day["time"][:10], "%Y-%m-%d")
+
+                # Map weather code to condition
+                code = v.get("weatherCodeMax", 0)
+                condition = _tomorrow_code_to_condition(code)
+
+                forecasts.append({
+                    "date": day["time"][:10],
+                    "day_name": date.strftime("%A"),
+                    "temp_high_c": round(v.get("temperatureMax", 25), 1),
+                    "temp_low_c": round(v.get("temperatureMin", 15), 1),
+                    "humidity_pct": round(v.get("humidityAvg", 65), 1),
+                    "wind_kph": round(v.get("windSpeedMax", 10), 1),
+                    "rainfall_mm": round(v.get("precipitationProbabilityAvg", 0) * v.get("rainAccumulationMax", 0) / 100, 1) if v.get("precipitationProbabilityAvg", 0) > 0 else 0,
+                    "rainfall_probability": round(v.get("precipitationProbabilityAvg", 0) / 100, 2),
+                    "condition": condition,
+                    "uv_index": round(v.get("uvIndexMax", 6)),
+                    "source": "tomorrow.io",
+                })
+
+            if forecasts:
+                _save_cache({"forecasts": forecasts, "lat": lat, "lng": lng})
+                logger.info(f"Weather from Tomorrow.io for ({lat},{lng}): {len(forecasts)} days")
+
+            return forecasts if forecasts else None
+
+    except Exception as e:
+        logger.info(f"Tomorrow.io unavailable ({e})")
+        return None
+
+
+async def _fetch_tomorrow_current(lat: float, lng: float) -> dict | None:
+    """Fetch current weather from Tomorrow.io."""
+    from backend.config import TOMORROW_API_KEY
+    if not TOMORROW_API_KEY:
+        return None
+
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(
+                f"{TOMORROW_API_URL}/realtime",
+                params={"location": f"{lat},{lng}", "apikey": TOMORROW_API_KEY},
+            )
+            if resp.status_code != 200:
+                return None
+
+            v = resp.json().get("data", {}).get("values", {})
+            code = v.get("weatherCode", 0)
+
+            return {
+                "current_temp_c": round(v.get("temperature", 25), 1),
+                "feels_like_c": round(v.get("temperatureApparent", 25), 1),
+                "humidity_pct": round(v.get("humidity", 65), 1),
+                "wind_kph": round(v.get("windSpeed", 10), 1),
+                "rainfall_mm": round(v.get("precipitationIntensity", 0), 1),
+                "cloud_cover_pct": round(v.get("cloudCover", 50)),
+                "condition": _tomorrow_code_to_condition(code),
+                "uv_index": round(v.get("uvIndex", 6)),
+                "time": datetime.now().strftime("%H:%M"),
+                "source": "tomorrow.io",
+            }
+
+    except Exception as e:
+        logger.debug(f"Tomorrow.io current failed: {e}")
+        return None
+
+
+def _tomorrow_code_to_condition(code: int) -> str:
+    """Convert Tomorrow.io weather code to our condition string."""
+    if code in (1000,):
+        return "sunny"
+    elif code in (1100, 1101):
+        return "partly_cloudy"
+    elif code in (1102, 1001):
+        return "overcast"
+    elif code in (2000, 2100):
+        return "fog"
+    elif code in (4000, 4200):
+        return "light_rain"
+    elif code in (4001, 4201):
+        return "rain"
+    elif code in (4202,):
+        return "heavy_rain"
+    elif code in (5000, 5001, 5100, 5101):
+        return "snow"
+    elif code in (8000,):
+        return "thunderstorm"
+    return "partly_cloudy"
+
+
+# =============================================================================
+# SECONDARY: Open-Meteo API (free fallback, no key needed)
 # =============================================================================
 
 async def _fetch_open_meteo_forecast(lat: float, lng: float, days: int) -> list | None:
@@ -336,24 +455,35 @@ def _get_offline_current(lat: float, lng: float) -> dict:
 
 async def get_forecast(lat: float = -1.52, lng: float = 37.26, days: int = 7) -> list:
     """
-    Get weather forecast. Tries Open-Meteo first, falls back to offline.
-    Returns forecast with 'source' field indicating data origin.
+    Get weather forecast. Tries Tomorrow.io → Open-Meteo → offline.
     """
-    # Try real API first
+    # Tier 1: Tomorrow.io (best accuracy)
+    result = await _fetch_tomorrow_forecast(lat, lng, days)
+    if result:
+        return result
+
+    # Tier 2: Open-Meteo (free fallback)
     result = await _fetch_open_meteo_forecast(lat, lng, days)
     if result:
         return result
 
-    # Offline fallback
+    # Tier 3: Offline historical
     return _get_offline_forecast(lat, lng, days)
 
 
 async def get_current_conditions(lat: float = -1.52, lng: float = 37.26) -> dict:
-    """Get current weather. Tries Open-Meteo first, falls back to offline."""
+    """Get current weather. Tries Tomorrow.io → Open-Meteo → offline."""
+    # Tier 1: Tomorrow.io
+    result = await _fetch_tomorrow_current(lat, lng)
+    if result:
+        return result
+
+    # Tier 2: Open-Meteo
     result = await _fetch_open_meteo_current(lat, lng)
     if result:
         return result
 
+    # Tier 3: Offline
     return _get_offline_current(lat, lng)
 
 

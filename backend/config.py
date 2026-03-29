@@ -34,6 +34,9 @@ HARPER_SCHEMA = os.getenv("HARPER_SCHEMA", "farm_agent")
 # When offline/no key: falls back to Piper (still works locally)
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
 
+# ===== Weather — Tomorrow.io (primary) + Open-Meteo (fallback) + offline =====
+TOMORROW_API_KEY = os.getenv("TOMORROW_API_KEY", "")
+
 # ===== Weather — Open-Meteo (free, no key) + offline fallback =====
 # Open-Meteo: 100% free, no signup, no API key, 10k req/day
 # When offline: falls back to embedded historical climate normals

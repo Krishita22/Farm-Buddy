@@ -1,11 +1,10 @@
 /**
  * Voice recorder hook — records audio as blob and sends to local Whisper STT.
- * NO browser Web Speech API (requires internet on Chrome).
- * Uses MediaRecorder API → server-side Whisper → fully offline.
+ * Passes the user's selected language as a hint so Whisper transcribes correctly.
  */
 import { useState, useRef, useCallback } from 'react'
 
-export function useVoiceRecorder() {
+export function useVoiceRecorder(languageHint) {
   const [isRecording, setIsRecording] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [detectedLanguage, setDetectedLanguage] = useState(null)
@@ -27,7 +26,6 @@ export function useVoiceRecorder() {
       }
 
       mediaRecorder.onstop = async () => {
-        // Stop all tracks
         stream.getTracks().forEach(t => t.stop())
 
         const blob = new Blob(chunksRef.current, { type: mediaRecorder.mimeType })
@@ -36,13 +34,14 @@ export function useVoiceRecorder() {
           return
         }
 
-        // Send to local Whisper for transcription
         setIsTranscribing(true)
         try {
           const formData = new FormData()
           formData.append('audio', blob, 'recording.webm')
 
-          const res = await fetch('/api/voice/transcribe', {
+          // Pass language hint so Whisper knows what language to expect
+          const langParam = languageHint ? `?language_hint=${languageHint}` : ''
+          const res = await fetch(`/api/voice/transcribe${langParam}`, {
             method: 'POST',
             body: formData,
           })
@@ -54,7 +53,6 @@ export function useVoiceRecorder() {
           }
         } catch (err) {
           console.error('Transcription failed:', err)
-          // Fallback: try browser speech recognition if available
           setTranscript('[Whisper unavailable — type your message instead]')
         } finally {
           setIsTranscribing(false)
@@ -62,14 +60,14 @@ export function useVoiceRecorder() {
       }
 
       mediaRecorderRef.current = mediaRecorder
-      mediaRecorder.start(250) // Collect data every 250ms
+      mediaRecorder.start(250)
       setIsRecording(true)
       setTranscript('')
     } catch (err) {
       console.error('Microphone access failed:', err)
       alert('Please allow microphone access to use voice input.')
     }
-  }, [])
+  }, [languageHint])
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current && isRecording) {

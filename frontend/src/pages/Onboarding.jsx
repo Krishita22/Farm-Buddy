@@ -185,8 +185,8 @@ export default function Onboarding() {
                   <button key={c.code} onClick={() => handleCountrySelect(c.code)}
                     className={`w-full flex items-center gap-2.5 p-2.5 rounded-xl border-2 text-left transition-all ${country === c.code ? 'border-farm-500 bg-farm-50' : 'border-gray-100'}`}>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xs">{c.localName}</p>
-                      <p className="text-xs text-gray-400">{c.name} · {c.currency}</p>
+                      <p className="font-semibold text-gray-900 text-xs">{c.i18n?.[lang] || c.name}</p>
+                      <p className="text-xs text-gray-400">{c.currency}</p>
                     </div>
                   </button>
                 ))}
@@ -214,7 +214,7 @@ export default function Onboarding() {
                   <button key={r.code} onClick={() => setRegion(r.code)}
                     className={`w-full flex items-center gap-2.5 p-2.5 rounded-xl border-2 text-left transition-all ${region === r.code ? 'border-farm-500 bg-farm-50' : 'border-gray-100'}`}>
                     <div>
-                      <p className="font-semibold text-gray-900 text-xs">{r.name}</p>
+                      <p className="font-semibold text-gray-900 text-xs">{r.i18n?.[lang] || r.name}</p>
                       <p className="text-xs text-gray-400">{r.currency}</p>
                     </div>
                   </button>

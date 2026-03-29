@@ -46,7 +46,7 @@ export default function WeatherWidget() {
             <div>
               <p className="text-xs text-gray-400">{t('today')}</p>
               <p className="text-3xl font-bold text-gray-900">{today.temp_high_c}°C</p>
-              <p className="text-xs text-gray-500">{today.condition.replace(/_/g, ' ')}</p>
+              <p className="text-xs text-gray-500">{t('weather_' + today.condition) !== 'weather_' + today.condition ? t('weather_' + today.condition) : today.condition.replace(/_/g, ' ')}</p>
             </div>
             <div className="flex flex-col items-end gap-1 text-xs text-gray-400">
               <span className="flex items-center gap-1"><Droplets size={12} /> {today.humidity_pct}%</span>

@@ -113,6 +113,11 @@ const translations = {
     harvested: "harvested",
     failed: "failed",
 
+    // Weather conditions
+    weather_sunny: "Sunny", weather_partly_cloudy: "Partly Cloudy", weather_overcast: "Overcast",
+    weather_fog: "Fog", weather_light_rain: "Light Rain", weather_rain: "Rain",
+    weather_heavy_rain: "Heavy Rain", weather_thunderstorm: "Thunderstorm", weather_snow: "Snow",
+
     // Profile
     profileTitle: "Profile",
     personalInfo: "Personal Info",
@@ -201,6 +206,7 @@ const translations = {
     searchFarms: "Tafuta mashamba...", all: "Yote", issues: "Matatizo", noData: "Hakuna data",
     weatherTitle: "Hali ya Hewa", weatherLive: "Hai — Tomorrow.io", weatherCached: "Imehifadhiwa", weatherHistorical: "Kihistoria", today: "Leo",
     acres: "ekari", soil: "udongo", crops: "Mazao", growing: "inakua", harvested: "imevunwa", failed: "imeshindwa",
+    weather_sunny: "Jua", weather_partly_cloudy: "Mawingu kidogo", weather_overcast: "Mawingu", weather_fog: "Ukungu", weather_light_rain: "Mvua nyepesi", weather_rain: "Mvua", weather_heavy_rain: "Mvua kubwa", weather_thunderstorm: "Dhoruba", weather_snow: "Theluji",
     profileTitle: "Wasifu", personalInfo: "Taarifa Binafsi", langRegion: "Lugha na Eneo", farmDetails: "Maelezo ya Shamba", farmSize: "Ukubwa wa Shamba", soilType: "Aina ya Udongo", irrigationType: "Umwagiliaji", selectOption: "Chagua...", saved: "Imehifadhiwa!", saveChanges: "Hifadhi Mabadiliko", changePassword: "Badilisha Nenosiri", currentPassword: "Nenosiri la sasa", newPasswordLabel: "Nenosiri jipya", updatePassword: "Sasisha Nenosiri", logout: "Toka",
     soilLoam: "Tifutifu", soilClay: "Mfinyanzi", soilSandy: "Mchanga", soilBlackCotton: "Mfinyanzi Mweusi", soilLaterite: "Lateriti", soilSandyLoam: "Tifutifu-Mchanga", soilClayLoam: "Tifutifu-Mfinyanzi",
     irrRainfed: "Mvua", irrDrip: "Matone", irrSprinkler: "Mnyunyizio", irrCanal: "Mfereji", irrBorehole: "Kisima",
@@ -248,6 +254,7 @@ const translations = {
     searchFarms: "खेत खोजें...", all: "सभी", issues: "समस्याएं", noData: "कोई डेटा नहीं",
     weatherTitle: "स्थानीय मौसम", weatherLive: "लाइव — Tomorrow.io", weatherCached: "कैश्ड (ऑफलाइन)", weatherHistorical: "ऐतिहासिक (ऑफलाइन)", today: "आज",
     acres: "एकड़", soil: "मिट्टी", crops: "फसलें", growing: "बढ़ रहा है", harvested: "कटाई हुई", failed: "विफल",
+    weather_sunny: "धूप", weather_partly_cloudy: "हल्के बादल", weather_overcast: "बादल छाए", weather_fog: "कोहरा", weather_light_rain: "हल्की बारिश", weather_rain: "बारिश", weather_heavy_rain: "भारी बारिश", weather_thunderstorm: "तूफान", weather_snow: "बर्फ",
     profileTitle: "प्रोफ़ाइल", personalInfo: "व्यक्तिगत जानकारी", langRegion: "भाषा और क्षेत्र", farmDetails: "खेत का विवरण", farmSize: "खेत का आकार", soilType: "मिट्टी का प्रकार", irrigationType: "सिंचाई", selectOption: "चुनें...", saved: "सहेजा गया!", saveChanges: "बदलाव सहेजें", changePassword: "पासवर्ड बदलें", currentPassword: "वर्तमान पासवर्ड", newPasswordLabel: "नया पासवर्ड", updatePassword: "पासवर्ड अपडेट करें", logout: "लॉग आउट",
     soilLoam: "दोमट", soilClay: "चिकनी", soilSandy: "रेतीली", soilBlackCotton: "काली मिट्टी", soilLaterite: "लेटराइट", soilSandyLoam: "रेतीली दोमट", soilClayLoam: "चिकनी दोमट",
     irrRainfed: "वर्षा आधारित", irrDrip: "ड्रिप", irrSprinkler: "स्प्रिंकलर", irrCanal: "नहर", irrBorehole: "बोरवेल",
@@ -295,6 +302,7 @@ const translations = {
     searchFarms: "ખેતર શોધો...", all: "બધા", issues: "સમસ્યાઓ", noData: "કોઈ ડેટા નથી",
     weatherTitle: "સ્થાનિક હવામાન", weatherLive: "લાઇવ — Tomorrow.io", weatherCached: "કેશ (ઓફલાઇન)", weatherHistorical: "ઐતિહાસિક (ઓફલાઇન)", today: "આજ",
     acres: "વીઘા", soil: "જમીન", crops: "પાક", growing: "ઊગી રહ્યું છે", harvested: "કાપણી થઈ ગઈ", failed: "બગડી ગયું",
+    weather_sunny: "તડકો", weather_partly_cloudy: "અંશત: વાદળછાયું", weather_overcast: "વાદળછાયું", weather_fog: "ધુમ્મસ", weather_light_rain: "ઝરમર વરસાદ", weather_rain: "વરસાદ", weather_heavy_rain: "ભારે વરસાદ", weather_thunderstorm: "તોફાન", weather_snow: "બરફ",
     profileTitle: "પ્રોફાઈલ", personalInfo: "વ્યક્તિગત માહિતી", langRegion: "ભાષા અને વિસ્તાર", farmDetails: "ખેતરની વિગત", farmSize: "ખેતરનું કદ", soilType: "જમીનનો પ્રકાર", irrigationType: "સિંચાઈ", selectOption: "પસંદ કરો...", saved: "સેવ થયું!", saveChanges: "ફેરફાર સેવ કરો", changePassword: "પાસવર્ડ બદલો", currentPassword: "હાલનો પાસવર્ડ", newPasswordLabel: "નવો પાસવર્ડ", updatePassword: "પાસવર્ડ અપડેટ કરો", logout: "લૉગ આઉટ",
     soilLoam: "ગોરાડુ", soilClay: "ચીકણી", soilSandy: "રેતાળ", soilBlackCotton: "કાળી", soilLaterite: "લેટરાઈટ", soilSandyLoam: "રેતાળ ગોરાડુ", soilClayLoam: "ચીકણી ગોરાડુ",
     irrRainfed: "વરસાદ આધારિત", irrDrip: "ટપક", irrSprinkler: "છંટકાવ", irrCanal: "નહેર", irrBorehole: "બોરવેલ",
@@ -342,6 +350,7 @@ const translations = {
     searchFarms: "খামার খুঁজুন...", all: "সব", issues: "সমস্যা", noData: "কোনো ডেটা নেই",
     weatherTitle: "স্থানীয় আবহাওয়া", weatherLive: "লাইভ — Tomorrow.io", weatherCached: "ক্যাশ (অফলাইন)", weatherHistorical: "ঐতিহাসিক (অফলাইন)", today: "আজ",
     acres: "একর", soil: "মাটি", crops: "ফসল", growing: "বাড়ছে", harvested: "কাটা হয়েছে", failed: "ব্যর্থ",
+    weather_sunny: "রোদ", weather_partly_cloudy: "আংশিক মেঘলা", weather_overcast: "মেঘলা", weather_fog: "কুয়াশা", weather_light_rain: "হালকা বৃষ্টি", weather_rain: "বৃষ্টি", weather_heavy_rain: "ভারী বৃষ্টি", weather_thunderstorm: "ঝড়", weather_snow: "তুষার",
     profileTitle: "প্রোফাইল", personalInfo: "ব্যক্তিগত তথ্য", langRegion: "ভাষা ও অঞ্চল", farmDetails: "খামারের বিবরণ", farmSize: "খামারের আকার", soilType: "মাটির ধরন", irrigationType: "সেচ", selectOption: "নির্বাচন করুন...", saved: "সংরক্ষিত!", saveChanges: "পরিবর্তন সংরক্ষণ করুন", changePassword: "পাসওয়ার্ড পরিবর্তন", currentPassword: "বর্তমান পাসওয়ার্ড", newPasswordLabel: "নতুন পাসওয়ার্ড", updatePassword: "পাসওয়ার্ড আপডেট", logout: "লগ আউট",
     soilLoam: "দোআঁশ", soilClay: "এঁটেল", soilSandy: "বালু", soilBlackCotton: "কালো মাটি", soilLaterite: "ল্যাটেরাইট", soilSandyLoam: "বেলে দোআঁশ", soilClayLoam: "এঁটেল দোআঁশ",
     irrRainfed: "বৃষ্টি নির্ভর", irrDrip: "ড্রিপ", irrSprinkler: "স্প্রিংকলার", irrCanal: "খাল", irrBorehole: "নলকূপ",
@@ -389,6 +398,7 @@ const translations = {
     searchFarms: "Rechercher des fermes...", all: "Tous", issues: "Probl\u00e8mes", noData: "Pas de donn\u00e9es",
     weatherTitle: "M\u00e9t\u00e9o locale", weatherLive: "En direct — Tomorrow.io", weatherCached: "En cache", weatherHistorical: "Historique", today: "Aujourd'hui",
     acres: "hectares", soil: "sol", crops: "Cultures", growing: "en croissance", harvested: "r\u00e9colt\u00e9", failed: "\u00e9chou\u00e9",
+    weather_sunny: "Ensoleill\u00e9", weather_partly_cloudy: "Partiellement nuageux", weather_overcast: "Couvert", weather_fog: "Brouillard", weather_light_rain: "Pluie l\u00e9g\u00e8re", weather_rain: "Pluie", weather_heavy_rain: "Forte pluie", weather_thunderstorm: "Orage", weather_snow: "Neige",
     profileTitle: "Profil", personalInfo: "Informations personnelles", langRegion: "Langue et r\u00e9gion", farmDetails: "D\u00e9tails de la ferme", farmSize: "Taille de la ferme", soilType: "Type de sol", irrigationType: "Irrigation", selectOption: "Choisir...", saved: "Enregistr\u00e9 !", saveChanges: "Enregistrer", changePassword: "Changer le mot de passe", currentPassword: "Mot de passe actuel", newPasswordLabel: "Nouveau mot de passe", updatePassword: "Mettre \u00e0 jour", logout: "D\u00e9connexion",
     soilLoam: "Limon", soilClay: "Argile", soilSandy: "Sable", soilBlackCotton: "Coton noir", soilLaterite: "Lat\u00e9rite", soilSandyLoam: "Limon sableux", soilClayLoam: "Limon argileux",
     irrRainfed: "Pluviale", irrDrip: "Goutte \u00e0 goutte", irrSprinkler: "Aspersion", irrCanal: "Canal", irrBorehole: "Forage",

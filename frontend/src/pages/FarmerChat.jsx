@@ -24,7 +24,7 @@ export default function FarmerChat() {
 
   const langConfig = languages.find(l => l.code === lang) || languages[0]
   const { messages, isLoading, sendMessage, clearMessages } = useChat(farmerId, lang)
-  const { isRecording, isTranscribing, transcript, startRecording, stopRecording, setTranscript } = useVoiceRecorder()
+  const { isRecording, isTranscribing, transcript, startRecording, stopRecording, setTranscript } = useVoiceRecorder(lang)
   const { isPlaying, playAudio, speakText } = useAudioPlayer()
 
   // Load weather for user's region
@@ -91,7 +91,7 @@ export default function FarmerChat() {
           </div>
           <div>
             <p className="font-semibold text-gray-900 text-sm">{user?.name || 'Farmer'}</p>
-            <p className="text-xs text-gray-400">{region?.flag} {region?.name}</p>
+            <p className="text-xs text-gray-400">{region?.i18n?.[lang] || region?.name}</p>
           </div>
         </div>
 
@@ -149,9 +149,9 @@ export default function FarmerChat() {
               <div className="bg-gradient-to-r from-blue-50 to-sky-50 rounded-2xl p-3 mb-4 max-w-sm mx-auto border border-blue-100">
                 <div className="flex items-center justify-between">
                   <div className="text-left">
-                    <p className="text-xs text-gray-400">{region?.name}</p>
+                    <p className="text-xs text-gray-400">{region?.i18n?.[lang] || region?.name}</p>
                     <p className="text-2xl font-bold text-gray-900">{weather.current_temp_c}°C</p>
-                    <p className="text-xs text-gray-500">{weather.condition?.replace(/_/g, ' ')}</p>
+                    <p className="text-xs text-gray-500">{t('weather_' + weather.condition) !== 'weather_' + weather.condition ? t('weather_' + weather.condition) : weather.condition?.replace(/_/g, ' ')}</p>
                   </div>
                   <div className="text-right text-xs text-gray-400 space-y-0.5">
                     <p>💧 {weather.humidity_pct}%</p>

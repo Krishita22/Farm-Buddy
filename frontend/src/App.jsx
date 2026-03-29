@@ -51,6 +51,7 @@ function LanguagePicker() {
 
 function RegionPicker() {
   const { user, updateUser, regions, region } = useUser()
+  const { lang } = useLanguage()
   const [open, setOpen] = useState(false)
 
   if (!user) return null
@@ -58,7 +59,7 @@ function RegionPicker() {
     <div className="relative">
       <button onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm">
-        <span className="hidden sm:inline">{region?.name?.split(',')[0] || 'Region'}</span>
+        <span className="hidden sm:inline">{region?.i18n?.[lang] || region?.name || 'Region'}</span>
         <ChevronDown size={14} className="opacity-60" />
       </button>
       {open && (
@@ -70,7 +71,7 @@ function RegionPicker() {
                 onClick={() => { updateUser({ region: r.code }); setOpen(false) }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-farm-50 transition-colors ${r.code === user?.region ? 'bg-farm-50 font-semibold text-farm-800' : 'text-gray-700'}`}>
                 <div className="text-left">
-                  <p className="font-medium">{r.name}</p>
+                  <p className="font-medium">{r.i18n?.[lang] || r.name}</p>
                   <p className="text-xs text-gray-400">{r.currency}</p>
                 </div>
               </button>
@@ -158,6 +159,7 @@ function Nav() {
 
 function UserMenu() {
   const { user, logout, region } = useUser()
+  const { t } = useLanguage()
   const [open, setOpen] = useState(false)
 
   if (!user) return null

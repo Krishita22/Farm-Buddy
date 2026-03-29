@@ -21,7 +21,6 @@ function LanguagePicker() {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm"
       >
-        <span className="text-base">{current?.flag}</span>
         <span className="hidden sm:inline">{current?.nativeName}</span>
         <ChevronDown size={14} className="opacity-60" />
       </button>
@@ -35,7 +34,6 @@ function LanguagePicker() {
                 onClick={() => { setLanguage(l.code); setOpen(false) }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-farm-50 transition-colors ${l.code === lang ? 'bg-farm-50 font-semibold text-farm-800' : 'text-gray-700'}`}
               >
-                <span className="text-lg">{l.flag}</span>
                 <div className="text-left">
                   <p className="font-medium">{l.nativeName}</p>
                   <p className="text-xs text-gray-400">{l.name}</p>

@@ -1,0 +1,522 @@
+[
+  {
+    "instruction": "My maize has these symptoms: Small holes in leaves, sawdust-like frass, caterpillars inside whorl. What is wrong?",
+    "input": "",
+    "output": "This sounds like fall armyworm. Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active. To prevent it in the future: Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+  },
+  {
+    "instruction": "My sorghum has these symptoms: Small holes in leaves, sawdust-like frass, caterpillars inside whorl. What is wrong?",
+    "input": "",
+    "output": "This sounds like fall armyworm. Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active. To prevent it in the future: Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+  },
+  {
+    "instruction": "My rice has these symptoms: Small holes in leaves, sawdust-like frass, caterpillars inside whorl. What is wrong?",
+    "input": "",
+    "output": "This sounds like fall armyworm. Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active. To prevent it in the future: Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+  },
+  {
+    "instruction": "How do I treat fall armyworm?",
+    "input": "",
+    "output": "Apply Bt (Bacillus thuringiensis) spray or neem-based pesticide. For severe cases, use emamectin benzoate. Scout fields early morning when larvae are active."
+  },
+  {
+    "instruction": "How do I prevent fall armyworm?",
+    "input": "",
+    "output": "Early planting, intercropping with beans or cowpeas, use push-pull technology with Desmodium and Napier grass"
+  },
+  {
+    "instruction": "My tomato has these symptoms: Water-soaked lesions on leaves turning brown/black, white mold on undersides in humid weather, fruit rot. What is wrong?",
+    "input": "",
+    "output": "This sounds like late blight. Apply mancozeb or copper-based fungicide every 7 days. Remove and burn affected leaves. Ensure good air circulation. To prevent it in the future: Use resistant varieties, avoid overhead irrigation, stake plants, apply preventive copper spray"
+  },
+  {
+    "instruction": "My potato has these symptoms: Water-soaked lesions on leaves turning brown/black, white mold on undersides in humid weather, fruit rot. What is wrong?",
+    "input": "",
+    "output": "This sounds like late blight. Apply mancozeb or copper-based fungicide every 7 days. Remove and burn affected leaves. Ensure good air circulation. To prevent it in the future: Use resistant varieties, avoid overhead irrigation, stake plants, apply preventive copper spray"
+  },
+  {
+    "instruction": "How do I treat late blight?",
+    "input": "",
+    "output": "Apply mancozeb or copper-based fungicide every 7 days. Remove and burn affected leaves. Ensure good air circulation."
+  },
+  {
+    "instruction": "How do I prevent late blight?",
+    "input": "",
+    "output": "Use resistant varieties, avoid overhead irrigation, stake plants, apply preventive copper spray"
+  },
+  {
+    "instruction": "My tomato has these symptoms: Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut. What is wrong?",
+    "input": "",
+    "output": "This sounds like bacterial wilt. No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons. To prevent it in the future: Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+  },
+  {
+    "instruction": "My potato has these symptoms: Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut. What is wrong?",
+    "input": "",
+    "output": "This sounds like bacterial wilt. No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons. To prevent it in the future: Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+  },
+  {
+    "instruction": "My beans has these symptoms: Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut. What is wrong?",
+    "input": "",
+    "output": "This sounds like bacterial wilt. No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons. To prevent it in the future: Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+  },
+  {
+    "instruction": "My pepper has these symptoms: Rapid wilting of entire plant, brown discoloration of stem vascular tissue, sticky bacterial ooze when stem is cut. What is wrong?",
+    "input": "",
+    "output": "This sounds like bacterial wilt. No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons. To prevent it in the future: Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+  },
+  {
+    "instruction": "How do I treat bacterial wilt?",
+    "input": "",
+    "output": "No chemical cure. Remove and burn infected plants. Solarize soil. Do not replant same crop for 3+ seasons."
+  },
+  {
+    "instruction": "How do I prevent bacterial wilt?",
+    "input": "",
+    "output": "Use certified disease-free seeds, rotate crops, improve drainage, use resistant varieties"
+  },
+  {
+    "instruction": "My maize has these symptoms: Long elliptical gray-green to tan lesions on leaves, starting from lower leaves. What is wrong?",
+    "input": "",
+    "output": "This sounds like northern leaf blight. Apply mancozeb or azoxystrobin fungicide. Remove heavily infected lower leaves. To prevent it in the future: Plant resistant hybrids, rotate crops, plow under crop residue"
+  },
+  {
+    "instruction": "How do I treat northern leaf blight?",
+    "input": "",
+    "output": "Apply mancozeb or azoxystrobin fungicide. Remove heavily infected lower leaves."
+  },
+  {
+    "instruction": "How do I prevent northern leaf blight?",
+    "input": "",
+    "output": "Plant resistant hybrids, rotate crops, plow under crop residue"
+  },
+  {
+    "instruction": "My wheat has these symptoms: Small orange-brown pustules on leaves and stems, powdery spores when touched. What is wrong?",
+    "input": "",
+    "output": "This sounds like rust. Apply propiconazole or tebuconazole fungicide at first sign. Repeat after 14 days if needed. To prevent it in the future: Plant resistant varieties, avoid dense planting, remove volunteer plants"
+  },
+  {
+    "instruction": "My beans has these symptoms: Small orange-brown pustules on leaves and stems, powdery spores when touched. What is wrong?",
+    "input": "",
+    "output": "This sounds like rust. Apply propiconazole or tebuconazole fungicide at first sign. Repeat after 14 days if needed. To prevent it in the future: Plant resistant varieties, avoid dense planting, remove volunteer plants"
+  },
+  {
+    "instruction": "How do I treat rust?",
+    "input": "",
+    "output": "Apply propiconazole or tebuconazole fungicide at first sign. Repeat after 14 days if needed."
+  },
+  {
+    "instruction": "How do I prevent rust?",
+    "input": "",
+    "output": "Plant resistant varieties, avoid dense planting, remove volunteer plants"
+  },
+  {
+    "instruction": "My cabbage has these symptoms: White powdery coating on leaves, stunted growth, leaf curling. What is wrong?",
+    "input": "",
+    "output": "This sounds like powdery mildew. Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective. To prevent it in the future: Good spacing, avoid overhead watering, plant in full sun"
+  },
+  {
+    "instruction": "My spinach has these symptoms: White powdery coating on leaves, stunted growth, leaf curling. What is wrong?",
+    "input": "",
+    "output": "This sounds like powdery mildew. Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective. To prevent it in the future: Good spacing, avoid overhead watering, plant in full sun"
+  },
+  {
+    "instruction": "My onion has these symptoms: White powdery coating on leaves, stunted growth, leaf curling. What is wrong?",
+    "input": "",
+    "output": "This sounds like powdery mildew. Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective. To prevent it in the future: Good spacing, avoid overhead watering, plant in full sun"
+  },
+  {
+    "instruction": "My squash has these symptoms: White powdery coating on leaves, stunted growth, leaf curling. What is wrong?",
+    "input": "",
+    "output": "This sounds like powdery mildew. Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective. To prevent it in the future: Good spacing, avoid overhead watering, plant in full sun"
+  },
+  {
+    "instruction": "How do I treat powdery mildew?",
+    "input": "",
+    "output": "Apply sulfur-based fungicide or potassium bicarbonate spray. Neem oil also effective."
+  },
+  {
+    "instruction": "How do I prevent powdery mildew?",
+    "input": "",
+    "output": "Good spacing, avoid overhead watering, plant in full sun"
+  },
+  {
+    "instruction": "My cabbage has these symptoms: Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold. What is wrong?",
+    "input": "",
+    "output": "This sounds like aphid infestation. Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid. To prevent it in the future: Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+  },
+  {
+    "instruction": "My beans has these symptoms: Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold. What is wrong?",
+    "input": "",
+    "output": "This sounds like aphid infestation. Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid. To prevent it in the future: Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+  },
+  {
+    "instruction": "My tomato has these symptoms: Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold. What is wrong?",
+    "input": "",
+    "output": "This sounds like aphid infestation. Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid. To prevent it in the future: Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+  },
+  {
+    "instruction": "My pepper has these symptoms: Clusters of small green/black insects on undersides of leaves, sticky honeydew, curling leaves, sooty mold. What is wrong?",
+    "input": "",
+    "output": "This sounds like aphid infestation. Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid. To prevent it in the future: Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+  },
+  {
+    "instruction": "How do I treat aphid infestation?",
+    "input": "",
+    "output": "Spray with neem oil or insecticidal soap. Introduce ladybugs. For severe cases, use imidacloprid."
+  },
+  {
+    "instruction": "How do I prevent aphid infestation?",
+    "input": "",
+    "output": "Companion planting with marigolds, garlic, or chives. Remove weeds. Use reflective mulch."
+  },
+  {
+    "instruction": "I have clay soil. How should I manage it?",
+    "input": "",
+    "output": "Improve drainage with organic matter. Add gypsum to break up heavy clay. Avoid working when wet. Good for rice and wheat."
+  },
+  {
+    "instruction": "What crops grow well in clay soil?",
+    "input": "",
+    "output": "Improve drainage with organic matter. Add gypsum to break up heavy clay. Avoid working when wet. Good for rice and wheat."
+  },
+  {
+    "instruction": "I have loam soil. How should I manage it?",
+    "input": "",
+    "output": "Ideal soil. Maintain with regular compost. Good for most crops. Apply mulch to retain moisture."
+  },
+  {
+    "instruction": "What crops grow well in loam soil?",
+    "input": "",
+    "output": "Ideal soil. Maintain with regular compost. Good for most crops. Apply mulch to retain moisture."
+  },
+  {
+    "instruction": "I have sandy soil. How should I manage it?",
+    "input": "",
+    "output": "Add compost and manure to improve water retention. Irrigate frequently in small amounts. Good for root crops like carrots and onions."
+  },
+  {
+    "instruction": "What crops grow well in sandy soil?",
+    "input": "",
+    "output": "Add compost and manure to improve water retention. Irrigate frequently in small amounts. Good for root crops like carrots and onions."
+  },
+  {
+    "instruction": "I have laterite soil. How should I manage it?",
+    "input": "",
+    "output": "Often low in nutrients. Add lime to correct pH. Heavy compost needed. Good for cashew and mango trees."
+  },
+  {
+    "instruction": "What crops grow well in laterite soil?",
+    "input": "",
+    "output": "Often low in nutrients. Add lime to correct pH. Heavy compost needed. Good for cashew and mango trees."
+  },
+  {
+    "instruction": "I have black_cotton soil. How should I manage it?",
+    "input": "",
+    "output": "Very fertile but cracks when dry. Add mulch. Excellent for cotton, sorghum, and sunflower."
+  },
+  {
+    "instruction": "What crops grow well in black_cotton soil?",
+    "input": "",
+    "output": "Very fertile but cracks when dry. Add mulch. Excellent for cotton, sorghum, and sunflower."
+  },
+  {
+    "instruction": "When should I plant maize?",
+    "input": "",
+    "output": "The best months to plant maize are March, April, October. It takes about 120 days to harvest. Plant with 75x25 spacing. Fertilizer: DAP at planting (50kg/acre), CAN at knee-height (50kg/acre)."
+  },
+  {
+    "instruction": "What are good varieties of maize to plant?",
+    "input": "",
+    "output": "Good varieties for maize include: Pioneer 3253, DK 8031, H614D, KH600-15A. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack maize?",
+    "input": "",
+    "output": "Common pests for maize include: fall armyworm, stem borer, aphids. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant beans?",
+    "input": "",
+    "output": "The best months to plant beans are March, April, October, November. It takes about 75 days to harvest. Plant with 40x15 spacing. Fertilizer: DAP at planting (25kg/acre), no nitrogen needed (nitrogen fixer)."
+  },
+  {
+    "instruction": "What are good varieties of beans to plant?",
+    "input": "",
+    "output": "Good varieties for beans include: KAT B1, KAT B9, Rose Coco, Canadian Wonder. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack beans?",
+    "input": "",
+    "output": "Common pests for beans include: aphids, bean fly, pod borer. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant tomato?",
+    "input": "",
+    "output": "The best months to plant tomato are March, September, October. It takes about 90 days to harvest. Plant with 60x45 spacing. Fertilizer: DAP at transplanting, CAN every 2 weeks, calcium spray weekly."
+  },
+  {
+    "instruction": "What are good varieties of tomato to plant?",
+    "input": "",
+    "output": "Good varieties for tomato include: Rio Grande, Money Maker, Cal J, Kilele F1. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack tomato?",
+    "input": "",
+    "output": "Common pests for tomato include: tomato leafminer, whitefly, aphids. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant onion?",
+    "input": "",
+    "output": "The best months to plant onion are March, April, October. It takes about 120 days to harvest. Plant with 30x10 spacing. Fertilizer: DAP at planting, CAN at 6 weeks."
+  },
+  {
+    "instruction": "What are good varieties of onion to plant?",
+    "input": "",
+    "output": "Good varieties for onion include: Red Creole, Bombay Red, Texas Grano. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack onion?",
+    "input": "",
+    "output": "Common pests for onion include: thrips, onion fly. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant cabbage?",
+    "input": "",
+    "output": "The best months to plant cabbage are March, September, October. It takes about 80 days to harvest. Plant with 60x45 spacing. Fertilizer: DAP at transplanting, CAN at 3 and 6 weeks."
+  },
+  {
+    "instruction": "What are good varieties of cabbage to plant?",
+    "input": "",
+    "output": "Good varieties for cabbage include: Gloria F1, Copenhagen Market, Pruktor F1. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack cabbage?",
+    "input": "",
+    "output": "Common pests for cabbage include: diamond back moth, aphids, cabbage looper. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant potato?",
+    "input": "",
+    "output": "The best months to plant potato are March, April, October. It takes about 100 days to harvest. Plant with 75x30 spacing. Fertilizer: DAP at planting (100kg/acre), CAN at earthing up."
+  },
+  {
+    "instruction": "What are good varieties of potato to plant?",
+    "input": "",
+    "output": "Good varieties for potato include: Shangi, Dutch Robijn, Kenya Mpya, Tigoni. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack potato?",
+    "input": "",
+    "output": "Common pests for potato include: potato tuber moth, aphids. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant rice?",
+    "input": "",
+    "output": "The best months to plant rice are March, April. It takes about 150 days to harvest. Plant with 20x20 spacing. Fertilizer: DAP at transplanting, urea at tillering and booting."
+  },
+  {
+    "instruction": "What are good varieties of rice to plant?",
+    "input": "",
+    "output": "Good varieties for rice include: Basmati 370, BW 196, IR 2793. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack rice?",
+    "input": "",
+    "output": "Common pests for rice include: rice stem borer, birds. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant wheat?",
+    "input": "",
+    "output": "The best months to plant wheat are June, July. It takes about 110 days to harvest. Plant with broadcast_20cm_rows spacing. Fertilizer: DAP at planting (50kg/acre), CAN at tillering."
+  },
+  {
+    "instruction": "What are good varieties of wheat to plant?",
+    "input": "",
+    "output": "Good varieties for wheat include: Kenya Fahari, Njoro BW2, Eagle 10. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack wheat?",
+    "input": "",
+    "output": "Common pests for wheat include: aphids, hessian fly. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant sorghum?",
+    "input": "",
+    "output": "The best months to plant sorghum are March, October. It takes about 130 days to harvest. Plant with 60x20 spacing. Fertilizer: DAP at planting (25kg/acre), CAN at knee-height."
+  },
+  {
+    "instruction": "What are good varieties of sorghum to plant?",
+    "input": "",
+    "output": "Good varieties for sorghum include: Serena, Seredo, Gadam El Hamam. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack sorghum?",
+    "input": "",
+    "output": "Common pests for sorghum include: stem borer, birds, shoot fly. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant spinach?",
+    "input": "",
+    "output": "The best months to plant spinach are March, April, May, October, November. It takes about 45 days to harvest. Plant with 30x15 spacing. Fertilizer: CAN every 2 weeks, manure at planting."
+  },
+  {
+    "instruction": "What are good varieties of spinach to plant?",
+    "input": "",
+    "output": "Good varieties for spinach include: Fordhook Giant, Viking. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack spinach?",
+    "input": "",
+    "output": "Common pests for spinach include: aphids, leaf miners. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant cotton?",
+    "input": "",
+    "output": "The best months to plant cotton are June, July. It takes about 180 days to harvest. Plant with 90x60 spacing. Fertilizer: DAP at sowing, Urea at 30 and 60 days, potash at flowering."
+  },
+  {
+    "instruction": "What are good varieties of cotton to plant?",
+    "input": "",
+    "output": "Good varieties for cotton include: BT Bollgard II, RCH-2, Bunny BG II, Jadoo BG II. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack cotton?",
+    "input": "",
+    "output": "Common pests for cotton include: pink bollworm, whitefly, jassid, american bollworm. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant groundnut?",
+    "input": "",
+    "output": "The best months to plant groundnut are June, July. It takes about 120 days to harvest. Plant with 30x10 spacing. Fertilizer: Single super phosphate at sowing, gypsum at flowering."
+  },
+  {
+    "instruction": "What are good varieties of groundnut to plant?",
+    "input": "",
+    "output": "Good varieties for groundnut include: GG-20, TG-37A, GAUG-10, Kadiri-6. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack groundnut?",
+    "input": "",
+    "output": "Common pests for groundnut include: leaf miner, aphids, white grub. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant bajra?",
+    "input": "",
+    "output": "The best months to plant bajra are June, July. It takes about 90 days to harvest. Plant with 45x15 spacing. Fertilizer: DAP at sowing, Urea at 25 days."
+  },
+  {
+    "instruction": "What are good varieties of bajra to plant?",
+    "input": "",
+    "output": "Good varieties for bajra include: GHB-558, GHB-732, HHB-67, Pusa Composite. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack bajra?",
+    "input": "",
+    "output": "Common pests for bajra include: stem borer, shoot fly. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant cumin?",
+    "input": "",
+    "output": "The best months to plant cumin are November, December. It takes about 120 days to harvest. Plant with 30x broadcast spacing. Fertilizer: DAP at sowing, light nitrogen at 30 days."
+  },
+  {
+    "instruction": "What are good varieties of cumin to plant?",
+    "input": "",
+    "output": "Good varieties for cumin include: GC-4, Gujarat Cumin-2, RZ-19. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack cumin?",
+    "input": "",
+    "output": "Common pests for cumin include: aphids. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant mustard?",
+    "input": "",
+    "output": "The best months to plant mustard are October, November. It takes about 110 days to harvest. Plant with 30x10 spacing. Fertilizer: DAP and sulfur at sowing."
+  },
+  {
+    "instruction": "What are good varieties of mustard to plant?",
+    "input": "",
+    "output": "Good varieties for mustard include: GM-3, Varuna, Pusa Bold. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack mustard?",
+    "input": "",
+    "output": "Common pests for mustard include: aphids, painted bug. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant sugarcane?",
+    "input": "",
+    "output": "The best months to plant sugarcane are February, March, October. It takes about 360 days to harvest. Plant with 90x30 spacing. Fertilizer: Heavy NPK, applied in splits over 6 months."
+  },
+  {
+    "instruction": "What are good varieties of sugarcane to plant?",
+    "input": "",
+    "output": "Good varieties for sugarcane include: Co-86032, CoLk-94184, CoS-8436. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack sugarcane?",
+    "input": "",
+    "output": "Common pests for sugarcane include: top borer, early shoot borer, pyrilla. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant cassava?",
+    "input": "",
+    "output": "The best months to plant cassava are March, April. It takes about 270 days to harvest. Plant with 100x100 spacing. Fertilizer: NPK at planting, potash at 3 months."
+  },
+  {
+    "instruction": "What are good varieties of cassava to plant?",
+    "input": "",
+    "output": "Good varieties for cassava include: TME 419, TMS 30572, IITA varieties. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack cassava?",
+    "input": "",
+    "output": "Common pests for cassava include: mealybug, green mite, whitefly. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant jute?",
+    "input": "",
+    "output": "The best months to plant jute are April, May. It takes about 120 days to harvest. Plant with 30x7 spacing. Fertilizer: Urea and NPK at sowing, top dress at 45 days."
+  },
+  {
+    "instruction": "What are good varieties of jute to plant?",
+    "input": "",
+    "output": "Good varieties for jute include: JRO-524, JRC-321, Navin. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack jute?",
+    "input": "",
+    "output": "Common pests for jute include: mite, semilooper. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "When should I plant castor?",
+    "input": "",
+    "output": "The best months to plant castor are July, August. It takes about 150 days to harvest. Plant with 90x60 spacing. Fertilizer: DAP at sowing, Urea at 30 days."
+  },
+  {
+    "instruction": "What are good varieties of castor to plant?",
+    "input": "",
+    "output": "Good varieties for castor include: GCH-7, GCH-4, 48-1. Choose based on your local conditions and market demand."
+  },
+  {
+    "instruction": "What pests attack castor?",
+    "input": "",
+    "output": "Common pests for castor include: semilooper, capsule borer. Scout your fields twice weekly, checking under leaves and inside whorls. Early detection saves 80% of treatment cost."
+  },
+  {
+    "instruction": "A trader is offering me 40 KES per kilo for tomatoes. Is that fair?",
+    "input": "",
+    "output": "The current market rate for tomatoes is typically 60-100 KES per kilo depending on the season. 40 KES sounds low. Tell the trader you know the market rate and ask for at least 60 KES per kilo. If they refuse, check the next market day or try selling directly."
+  },
+  {
+    "instruction": "When is the best time to sell my maize?",
+    "input": "",
+    "output": "Maize prices are usually lowest right after harvest when everyone is selling. If you can store your maize properly (dry to 13% moisture, use hermetic bags), wait 2-3 months after harvest when prices typically rise 20-40%. Market prices peak just before the next planting season."
+  },
+  {
+    "instruction": "How do I store my harvest to get better prices?",
+    "input": "",
+    "output": "Dry your grain to 13% moisture content (bite a kernel \u2014 it should crack, not dent). Use hermetic storage bags (like PICS bags) that kill pests without chemicals. Store in a cool, dry place off the ground. Check monthly for any signs of damage. Properly stored maize can keep 6+ months."
+  }
+]

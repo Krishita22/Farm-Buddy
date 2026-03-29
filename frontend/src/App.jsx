@@ -11,10 +11,26 @@ import Profile from './pages/Profile'
 import { useOnlineStatus } from './hooks/useOnlineStatus'
 import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, User, ChevronDown, Download, LogOut, Wifi, WifiOff } from 'lucide-react'
 
+const LANG_TO_REGION = {
+  gu: 'india_gujarat',
+  hi: 'india_up',
+  sw: 'kenya_machakos',
+  bn: 'bangladesh_dhaka',
+  yo: 'nigeria_oyo',
+  fr: 'senegal_thies',
+}
+
 function LanguagePicker() {
   const { lang, setLanguage, languages } = useLanguage()
+  const { updateUser } = useUser()
   const [open, setOpen] = useState(false)
   const current = languages.find(l => l.code === lang)
+
+  const handleSelect = (code) => {
+    setLanguage(code)
+    if (LANG_TO_REGION[code]) updateUser({ region: LANG_TO_REGION[code] })
+    setOpen(false)
+  }
 
   return (
     <div className="relative">
@@ -32,7 +48,7 @@ function LanguagePicker() {
             {languages.map(l => (
               <button
                 key={l.code}
-                onClick={() => { setLanguage(l.code); setOpen(false) }}
+                onClick={() => handleSelect(l.code)}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-farm-50 transition-colors ${l.code === lang ? 'bg-farm-50 font-semibold text-farm-800' : 'text-gray-700'}`}
               >
                 <div className="text-left">

@@ -43,7 +43,7 @@ function createServiceMarker(serviceType, highlighted = false) {
   )
 
   return L.divIcon({
-    className: '',
+    className: 'service-map-marker-wrapper',
     html: `
       <div class="service-map-marker ${highlighted ? 'service-map-marker-active' : ''}" style="--marker-color: ${color}">
         <div class="service-map-marker__icon">${iconMarkup}</div>

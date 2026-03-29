@@ -242,6 +242,11 @@ body {
   background: transparent;
 }
 
+.service-map-marker-wrapper {
+  background: transparent !important;
+  border: 0 !important;
+}
+
 .service-map-marker {
   width: 36px;
   height: 36px;
@@ -255,6 +260,8 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--marker-color);
+  position: relative;
+  transform: translateZ(0);
 }
 
 .service-map-marker-active {
@@ -276,4 +283,11 @@ body {
 
 .service-map-marker__icon svg {
   display: block;
+}
+
+.leaflet-marker-icon.service-map-marker-wrapper,
+.leaflet-div-icon.service-map-marker-wrapper {
+  background: transparent !important;
+  border: 0 !important;
+  overflow: visible !important;
 }

@@ -7,7 +7,8 @@ import FarmerChat from './pages/FarmerChat'
 import Dashboard from './pages/Dashboard'
 import Marketplace from './pages/Marketplace'
 import Services from './pages/Services'
-import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, ChevronDown, Download, LogOut } from 'lucide-react'
+import Profile from './pages/Profile'
+import { MessageSquare, LayoutDashboard, ShoppingCart, Wrench, User, ChevronDown, Download, LogOut } from 'lucide-react'
 
 function LanguagePicker() {
   const { lang, setLanguage, languages } = useLanguage()
@@ -81,6 +82,7 @@ function Nav() {
     { to: '/dashboard', icon: LayoutDashboard, label: t('navDashboard'), match: ['/dashboard'] },
     { to: '/marketplace', icon: ShoppingCart, label: t('navMarket') || 'Market', match: ['/marketplace'] },
     { to: '/services', icon: Wrench, label: t('navServices') || 'Services', match: ['/services'] },
+    { to: '/profile', icon: User, label: 'Profile', match: ['/profile'] },
   ]
 
   return (
@@ -165,6 +167,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
       </div>

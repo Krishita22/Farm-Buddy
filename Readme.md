@@ -43,8 +43,8 @@ We are doing this project for Harper Personal - AI agent track , Asus Societal i
 | **OpenAI SDK** (1.58) | Client for Ollama's OpenAI-compatible API |
 | **OpenAI Whisper** (small) | Speech-to-text — transcribes farmer voice in 10 languages |
 | **Piper TTS** | Text-to-speech — offline, accent-aware voice synthesis |
-| **ElevenLabs** (optional) | Premium TTS when online (multilingual v2) |
-| **ChatterboxTTS** (optional) | Voice cloning from 5-second farmer samples |
+| **ElevenLabs**| Premium TTS when online (multilingual v2) |
+| **ChatterboxTTS**| Voice cloning from 5-second farmer samples |
 
 ### Memory & Data
 | Technology | Purpose |
